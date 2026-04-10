@@ -57,20 +57,15 @@ def save_state(state: dict) -> None:
 
 
 def get_discord_token() -> str:
-    """Get Discord bot token from Lyra CredentialStore."""
-    # Try importing from lyra
-    try:
-        sys.path.insert(0, str(Path.home() / "projects" / "lyra" / "src"))
-        from lyra.core.credentials import CredentialStore
-        from lyra.core.keyring import LyraKeyring
+    """Get Discord bot token from environment variable."""
+    import os
 
-        keyring = LyraKeyring.load_or_create()
-        store = CredentialStore(keyring=keyring)
-        return store.get("discord_bot_token")
-    except Exception as e:
-        print(f"ERROR: Could not load Discord token from CredentialStore: {e}")
-        print("Make sure lyra is installed and discord_bot_token is stored.")
+    token = os.environ.get("DISCORD_TOKEN")
+    if not token:
+        print("ERROR: DISCORD_TOKEN environment variable not set")
+        print("Set it in your shell or .env file")
         sys.exit(1)
+    return token
 
 
 def fetch_discord_messages(
