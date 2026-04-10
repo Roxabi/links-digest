@@ -1,0 +1,26 @@
+---
+title: {{ title | tojson }}
+source: {{ source | tojson }}
+date: {{ date }}
+tags: {{ tags | tojson }}
+platform: {{ platform }}
+author: {{ author | tojson }}
+---
+
+# {{ title }}
+
+**Source:** {{ source }}
+**Date:** {{ date }}
+{% if author %}**Author:** {{ author }}
+{% endif %}
+
+---
+
+{% if summary %}
+{{ summary }}
+{% endif %}
+
+{% if content %}
+
+{{ content }}
+{% endif %}

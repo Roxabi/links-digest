@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links Digest — RoxabiFactory #links</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+<div class="layout">
+
+<div class="header">
+  <div class="header-left">
+    <h1>Links <span>Digest</span></h1>
+    <div class="sub">Channel #links · RoxabiFactory · Loading...</div>
+  </div>
+  <div class="header-right">
+    <div class="dl-wrap" id="dlWrap">
+      <button class="dl-toggle" id="dlToggle" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download All
+      </button>
+      <div class="dl-menu" id="dlMenu">
+        <button class="dl-item" id="dlAllMd" type="button">
+          <div>⬇ All .md files (.zip)</div>
+          <div class="dl-item-hint">Markdown files with frontmatter</div>
+        </button>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeBtn" title="Toggle theme">&#127769;</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="ctrl"><span class="ctrl-label">View</span>
+    <div class="segs" id="viewSegs">
+      <button class="seg on" data-v="card">Cards</button>
+      <button class="seg" data-v="list">List</button>
+    </div>
+  </div>
+  <div class="ctrl"><span class="ctrl-label">Group</span>
+    <div class="segs" id="groupSegs">
+      <button class="seg on" data-v="section">Section</button>
+      <button class="seg" data-v="platform">Platform</button>
+      <button class="seg" data-v="date">Date</button>
+      <button class="seg" data-v="none">None</button>
+    </div>
+  </div>
+  <div class="ctrl"><span class="ctrl-label">Sort</span>
+    <div class="segs" id="sortSegs">
+      <button class="seg on" data-v="date">Date ↓</button>
+      <button class="seg" data-v="title">Title A–Z</button>
+      <button class="seg" data-v="platform">Platform</button>
+    </div>
+  </div>
+  <div class="ctrl"><span class="ctrl-label">Size</span>
+    <button class="size-btn" onclick="resizeCards(-40)">&#8722;</button>
+    <span class="size-label" id="sizeLabel">360</span>
+    <button class="size-btn" onclick="resizeCards(+40)">+</button>
+  </div>
+  <span class="stats" id="stats"></span>
+</div>
+
+<div class="toolbar" id="filterBar">
+  <div class="ctrl"><span class="ctrl-label">Search</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="search links...">
+  </div>
+</div>
+
+<div id="gallery"></div>
+
+<!-- Content Modal -->
+<div class="content-modal" id="contentModal" onclick="closeContentModalOutside(event)">
+  <div class="modal-inner" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <div>
+        <h3 id="modalTitle"></h3>
+        <div class="modal-date" id="modalDate"></div>
+      </div>
+      <button class="modal-close" onclick="closeContentModal()">&#10005;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <a id="modalSource" href="" target="_blank" rel="noopener">View Source →</a>
+      <a id="modalDl" href="" download>Download .md ↓</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script src="js/gallery.js"></script>
+</body>
+</html>

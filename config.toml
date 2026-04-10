@@ -1,0 +1,15 @@
+# links-digest config
+
+[discord]
+channel_id = "1482877201891463169"
+# Bot token stored in Lyra CredentialStore under "discord_bot_token"
+
+[output]
+# Relative to project root
+links_dir = "public/links"
+
+[scan]
+# Default: last 24 hours (overridden by --hours, --days, --all)
+default_hours = 24
+# Track last scan timestamp for incremental runs
+state_file = ".digest_state.json"
