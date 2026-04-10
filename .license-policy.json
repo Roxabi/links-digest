@@ -1,8 +1,13 @@
 {
   "allowlist": [
     "aiohttp",
+    "cryptography",
     "links-digest",
-    "typing_extensions"
+    "lyra",
+    "pyromark",
+    "sniffio",
+    "typing_extensions",
+    "uvloop"
   ],
   "approved_licenses": [
     "MIT",
