@@ -56,13 +56,49 @@ def save_state(state: dict) -> None:
 
 
 def get_discord_token() -> str:
-    """Get Discord bot token from environment variable."""
-    import os
+    """Get Discord bot token from Lyra's CredentialStore."""
+    import asyncio
 
-    token = os.environ.get("DISCORD_TOKEN")
+    lyra_dir = Path.home() / ".lyra"
+
+    # Check if Lyra's credential store exists
+    keyring_path = lyra_dir / "keyring.key"
+    db_path = lyra_dir / "config.db"
+
+    if not keyring_path.exists() or not db_path.exists():
+        print("ERROR: Lyra credential store not found")
+        print("Run 'lyra bot add' to store Discord token first")
+        sys.exit(1)
+
+    # Import Lyra's credential store
+    try:
+        from lyra.core.stores.credential_store import CredentialStore, LyraKeyring
+    except ImportError:
+        print("ERROR: lyra package not installed")
+        print("Install it or set DISCORD_TOKEN env var")
+        sys.exit(1)
+
+    async def _get_token() -> str | None:
+        keyring = LyraKeyring.load_or_create(keyring_path)
+        store = CredentialStore(db_path=db_path, keyring=keyring)
+        await store.connect()
+        try:
+            # Try 'lyra' bot first, then any discord bot
+            token = await store.get("discord", "lyra")
+            if not token:
+                # List all discord bots and use the first one
+                rows = await store.list_all()
+                discord_bots = [r for r in rows if r.platform == "discord"]
+                if discord_bots:
+                    token = await store.get("discord", discord_bots[0].bot_id)
+            return token
+        finally:
+            await store.close()
+
+    token = asyncio.run(_get_token())
     if not token:
-        print("ERROR: DISCORD_TOKEN environment variable not set")
-        print("Set it in your shell or .env file")
+        print("ERROR: No Discord bot token found in Lyra credential store")
+        print("Run: lyra bot add --platform discord --bot-id lyra")
         sys.exit(1)
     return token
 
