@@ -5,6 +5,7 @@ date: 2026-04-08
 tags: ['MCP', 'context optimization', 'AI coding', 'session continuity']
 platform: github
 author: null
+summary: "An MCP (Model Context Protocol) server that optimizes context windows for AI coding agents by sandboxing tool outputs and maintaining session continui..."
 ---
 
 # Context Mode — MCP Server for AI Context Optimization

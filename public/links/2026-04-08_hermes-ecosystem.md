@@ -5,6 +5,7 @@ date: 2026-04-08
 tags: ['AI agent', 'ecosystem', 'tools catalog', 'Hermes']
 platform: github
 author: null
+summary: "A documentation and mapping project cataloging the Hermes Agent ecosystem by Nous Research."
 ---
 
 # Hermes Ecosystem — Agent Tool Catalog

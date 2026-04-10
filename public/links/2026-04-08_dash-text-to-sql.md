@@ -5,6 +5,9 @@ date: 2026-04-08
 tags: []
 platform: x
 author: @ashpreetbedi
+summary: "**What it is**
+- Text-to-SQL agent team (Leader + Analyst + Engineer) that learns from its own errors
+- Free, open source → [`github.com/agno-agi/dash..."
 ---
 
 # Dash v2 — Self-learning Text-to-SQL Agent (X post)

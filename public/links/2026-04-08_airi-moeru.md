@@ -5,6 +5,7 @@ date: 2026-04-08
 tags: ['AI agent', 'voice', 'virtual character', 'multimodal', 'WebGPU']
 platform: github
 author: null
+summary: "AIRI is a self-hosted AI virtual character/waifu platform inspired by Neuro-sama, designed to create "cyber living beings" that can chat, play games, ..."
 ---
 
 # AIRI — Self-hosted AI Virtual Character Platform
@@ -14,41 +15,29 @@ author: null
 
 ---
 
---|
-| Framework | Vue.js, TypeScript |
-| Web | WebGPU, WebAudio, Web Workers, WebAssembly, WebSocket |
-| Native Acceleration | NVIDIA CUDA, Apple Metal (via HuggingFace candle) |
-| Build | pnpm monorepo, Turbo, Vite |
-| Desktop | Electron-based ("Stage Tamagotchi") |
-| Mobile | Capacitor ("Stage Pocket") |
-| ORM | Drizzle with DuckDB WASM driver |
+AIRI is a self-hosted AI virtual character/waifu platform inspired by Neuro-sama, designed to create "cyber living beings" that can chat, play games, and interact in real-time across web, desktop, and mobile platforms.
 
-## Architecture
+### Main Features
+- **Real-time voice chat** with browser-based audio input and speech recognition
+- **Game-playing agents**: Minecraft, Factorio, Kerbal Space Program (WIP: Helldivers 2)
+- **Platform integrations**: Discord and Telegram chat
+- **Avatar support**: VRM and Live2D models with animations (auto-blink, look-at, idle movements)
+- **Memory system**: In-browser databases (DuckDB WASM, pglite) plus WIP "Memory Alaya"
+- **Voice synthesis**: ElevenLabs integration
+- **Multi-platform**: Web (PWA), desktop (Electron), mobile (Capacitor)
 
-The project uses a modular "organ" metaphor:
+### Tech Stack
+- **Core**: Vue.js, TypeScript, WebGPU, WebAudio, Web Workers, WebAssembly, WebSocket
+- **Native acceleration**: NVIDIA CUDA, Apple Metal (via HuggingFace candle)
+- **LLM gateway**: xsai library supporting 25+ providers (OpenAI, Claude, Gemini, DeepSeek, xAI, Ollama, vLLM, etc.)
+- **Build tools**: pnpm monorepo, Turbo, Vite
+- **Packaging**: Electron, Capacitor, Nix flakes
 
-```
-UI → StageUI → Stage → Core
-
-Brain  → LLM integration, game-playing agents, memory
-Ears   → Audio input, speech recognition
-Mouth  → Voice synthesis (ElevenLabs supported)
-Body   → VRM/Live2D avatar rendering and animation
-```
-
-## Supported Platforms
-
-- **Web:** Browser version at airi.moeru.ai (PWA supported)
-- **Desktop:** Windows, macOS (native installers available)
-- **Mobile:** iOS/Android via Capacitor
-- **Package Managers:** Windows Scoop bucket, Nix flakes
-
-## LLM Providers (via xsai)
-
-Extensive support including: OpenAI/Azure OpenAI, Anthropic Claude, Google Gemini, xAI, DeepSeek, Qwen, Mistral, Groq, Ollama, vLLM, SGLang, OpenRouter, Together.ai, Fireworks.ai, and many Chinese providers (Zhipu, SiliconFlow, Stepfun, Baichuan, Minimax, Moonshot, ModelScope, Tencent Cloud).
-
-## Voice Pipeline
-
-"Unspeech" provides "Universal endpoint proxy server for audio/transcriptions and audio/speech, like LiteLLM but for any ASR and TTS."
-
-Pipeline: **VAD (Voice Activity Detection) + STT (Speech-to-Text) + LLM + TTS (Text-to-Speech)**
+### Relevance for AI Agent/Voice Stack
+AIRI is highly relevant as a reference implementation for:
+1. **Unified LLM abstraction** via xsai (similar to LiteLLM but with broader provider support)
+2. **Real-time voice pipeline**: VAD + STT + LLM + TTS chain
+3. **Browser-based inference** using WebGPU and Transformers.js
+4. **Game-playing agent architecture** (Mineflayer for Minecraft, RCON for Factorio)
+5. **MCP (Model Context Protocol) launcher** for tool integration
+6. **Unspeech** - universal endpoint proxy for ASR/TTS (like LiteLLM but for audio)

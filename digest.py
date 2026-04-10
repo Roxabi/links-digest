@@ -14,11 +14,10 @@ import json
 import re
 import subprocess
 import sys
+import tomllib
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
 
-import tomllib
 from jinja2 import Environment, FileSystemLoader
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -77,7 +76,7 @@ def fetch_discord_messages(
 
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(intents=intents)
+    bot = commands.Bot(command_prefix="!", intents=intents)
 
     messages = []
 
@@ -90,17 +89,24 @@ def fetch_discord_messages(
             await bot.close()
             return
 
+        # Only text channels have name and history
+        if not isinstance(channel, discord.TextChannel):
+            print(f"ERROR: Channel {channel_id} is not a text channel")
+            await bot.close()
+            return
+
         print(f"Fetching messages from #{channel.name}...")
 
         # Convert after to snowflake if provided
-        after_id = None
+        after_snowflake = None
         if after:
             # Discord epoch: 2015-01-01
             discord_epoch = datetime(2015, 1, 1, tzinfo=timezone.utc)
             snowflake_time = (after - discord_epoch).total_seconds() * 1000
             after_id = int(snowflake_time) << 22
+            after_snowflake = discord.Object(after_id)
 
-        async for msg in channel.history(limit=limit, after=after_id):
+        async for msg in channel.history(limit=limit, after=after_snowflake):
             if msg.content:  # Skip empty messages
                 messages.append(
                     {
@@ -167,7 +173,13 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 def find_web_intel() -> Path | None:
     """Find web-intel plugin root."""
     candidates = [
-        Path.home() / ".claude" / "plugins" / "cache" / "roxabi-marketplace" / "web-intel" / "0.1.0",
+        Path.home()
+        / ".claude"
+        / "plugins"
+        / "cache"
+        / "roxabi-marketplace"
+        / "web-intel"
+        / "0.1.0",
         Path.home() / "projects" / "web-intel",
     ]
     for p in candidates:
@@ -185,7 +197,10 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
             capture_output=True,
             text=True,
             timeout=60,
-            env={**dict(__import__("os").environ), "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"},
+            env={
+                **dict(__import__("os").environ),
+                "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
+            },
         )
 
         if result.returncode != 0:

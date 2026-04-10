@@ -5,6 +5,7 @@ date: 2026-04-10
 tags: []
 platform: x
 author: null
+summary: "X post from @ashwingop. Content not accessible via web scraping."
 ---
 
 # X Post — @ashwingop

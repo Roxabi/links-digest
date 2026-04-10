@@ -26,3 +26,9 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[dependency-groups]
+dev = [
+    "pip-licenses>=5.5.5",
+    "pre-commit>=4.5.1",
+]

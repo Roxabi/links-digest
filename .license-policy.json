@@ -1,0 +1,20 @@
+{
+  "allowlist": [
+    "aiohttp",
+    "links-digest",
+    "typing_extensions"
+  ],
+  "approved_licenses": [
+    "MIT",
+    "MIT License",
+    "Apache-2.0",
+    "Apache Software License",
+    "Apache License 2.0",
+    "BSD License",
+    "BSD-3-Clause",
+    "Python Software Foundation License",
+    "PSF-2.0",
+    "ISC",
+    "ISC License"
+  ]
+}
