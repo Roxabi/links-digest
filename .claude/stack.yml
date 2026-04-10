@@ -11,69 +11,62 @@
 schema_version: "1.0"
 
 # Runtime and package manager used for all commands
-runtime: bun                      # bun | node | deno
-package_manager: bun              # bun | npm | pnpm | yarn
+runtime: python
+package_manager: uv                  # uv | pip | poetry
 
 backend:
-  framework: nestjs               # nestjs | express | fastify | django | rails | none
-  orm: drizzle                    # drizzle | prisma | typeorm | mongoose | none
-  path: apps/api                  # path to backend app, relative to project root
+  framework: none
+  orm: none
+  path: ""                           # no backend
 
 frontend:
-  framework: tanstack-start       # nextjs | remix | sveltekit | tanstack-start | nuxt | none
-  path: apps/web                  # path to frontend app, relative to project root
-  ui_package: "@repo/ui"          # import path for the shared UI package
-  ui_src: packages/ui/src         # source directory of the shared UI package
+  framework: none
+  path: ""                           # no frontend
 
-shared:
-  types: packages/types           # shared TypeScript types package
-  ui: packages/ui                 # shared UI component library
-  config: packages/config         # shared configuration package
+shared: {}
 
 build:
-  orchestrator: turbo             # turbo | nx | none
-  orchestrator_config: turbo.jsonc  # filename of the orchestrator config
-  formatter: biome                # biome | eslint | rome | none
-  formatter_config: biome.json    # filename of the formatter config
-  formatter_fix_cmd: "bunx biome check --write"  # single formatter (leave empty to disable)
-  # formatters:                   # multi-formatter for mixed stacks (FE+BE, JS+Python, etc.)
-  #   - cmd: "bunx biome check --write"
-  #     ext: [".ts", ".tsx", ".js", ".jsx", ".json"]
-  #   - cmd: "ruff format"
-  #     ext: [".py"]
+  orchestrator: none
+  formatter: ruff                    # ruff | black | none
+  formatter_config: pyproject.toml   # ruff config in pyproject.toml
+  formatter_fix_cmd: "uv run ruff format"
+  formatters:
+    - cmd: "uv run ruff format"
+      ext: [".py"]
+    - cmd: "uv run ruff check --fix"
+      ext: [".py"]
 
 testing:
-  unit: vitest                    # vitest | jest | pytest | none
-  e2e: playwright                 # playwright | cypress | none
+  unit: none                         # pytest | none
+  e2e: none
 
 hooks:
-  tool: auto                      # auto | lefthook | pre-commit | husky | none
+  tool: auto                         # auto → pre-commit for python
                                   # auto: bun/node/deno → lefthook, python → pre-commit
 
 lsp:
-  enabled: true                   # set ENABLE_LSP_TOOL=1 in .env for richer code intelligence
-  # server: auto                  # auto | typescript-language-server | pyright | pylsp | rust-analyzer | gopls
-                                  # auto: detect from runtime field
+  enabled: true                      # set ENABLE_LSP_TOOL=1 in .env for richer code intelligence
+  server: pyright                    # pyright | pylsp | none
 
 deploy:
-  platform: vercel                # vercel | railway | fly | aws | none
-  secrets_cmd: "vercel env add"   # command to add a secret to the deployment platform
+  platform: none
+  secrets_cmd: ""
 
 docs:
-  framework: fumadocs             # fumadocs | docusaurus | nextra | none
-  path: docs                      # path to documentation directory
-  format: mdx                     # mdx | md
+  framework: none                    # fumadocs | docusaurus | nextra | none
+  path: docs
+  format: md                         # mdx | md
 
 # Commands used by agents to perform standard tasks.
 # These are passed to agents that invoke quality gates and CI steps.
 commands:
-  dev: bun run dev
-  build: bun run build
-  test: bun run test
-  lint: bun run lint
-  typecheck: bun run typecheck
-  format: "bunx biome check --write"
-  install: bun install
+  dev: "uv run python digest.py"
+  build: ""                          # no build step
+  test: ""                           # no tests yet
+  lint: "uv run ruff check"
+  typecheck: "uv run pyright"
+  format: "uv run ruff format"
+  install: "uv sync"
 
 # Workflow behaviour flags for the /dev orchestrator.
 # workflow:
@@ -92,9 +85,7 @@ artifacts:
 # Each agent reads the relevant doc before implementing to follow project conventions.
 # All paths are relative to the project root.
 standards:
-  backend: docs/standards/backend-patterns.mdx      # used by: backend-dev, fixer, tester
-  frontend: docs/standards/frontend-patterns.mdx    # used by: frontend-dev, fixer, tester
-  testing: docs/standards/testing.mdx              # used by: tester, fixer, backend-dev, frontend-dev
+  testing: docs/standards/testing.mdx              # used by: tester, fixer
   code_review: docs/standards/code-review.mdx      # used by: fixer
   architecture: docs/architecture/                  # used by: architect
   configuration: docs/configuration.mdx            # used by: devops

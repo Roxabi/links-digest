@@ -35,7 +35,12 @@ Thumbs.db
 # Digest state (local scan tracking)
 .digest_state.json
 
+# Generated content (synced from links/ during build)
+public/links/
+
 # Credentials (never commit)
 *.key
 keyring.key
 config.db
+
+.claude/dev-core.yml

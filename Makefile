@@ -30,9 +30,12 @@ digest-%:
 
 build:
 	@echo "Building gallery..."
-	@ls public/links/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
+	@ls links/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
+	@echo "Syncing to public/links/..."
+	@mkdir -p public/links && cp links/*.md public/links/ 2>/dev/null || true
 	@echo "Generating manifest.json..."
-	@cd public/links && ls -1 *.md 2>/dev/null | jq -Rs 'split("\n") | map(select(length > 0))' > manifest.json
+	@cd links && ls -1 *.md 2>/dev/null | jq -Rs 'split("\n") | map(select(length > 0))' > manifest.json
+	@cp links/manifest.json public/links/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
@@ -49,4 +52,4 @@ open:
 # ── Clean ─────────────────────────────────────────────────────────────────────
 
 clean:
-	rm -rf public/links/*.md .digest_state.json
+	rm -rf links/*.md links/manifest.json public/links/*.md public/links/manifest.json .digest_state.json
