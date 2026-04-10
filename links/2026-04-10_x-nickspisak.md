@@ -1,3 +1,13 @@
+---
+title: "X Post — @NickSpisak_"
+source: "https://x.com/NickSpisak_/status/2040448463540830705"
+date: 2026-04-10
+tags: []
+platform: x
+author: null
+summary: "X post from @NickSpisak_. Content not accessible via web scraping."
+---
+
 # X Post — @NickSpisak_
 
 **Source:** https://x.com/NickSpisak_/status/2040448463540830705

@@ -5,6 +5,7 @@ date: {{ date }}
 tags: {{ tags | tojson }}
 platform: {{ platform }}
 author: {{ author | tojson }}
+summary: {{ (summary or "") | tojson }}
 ---
 
 # {{ title }}

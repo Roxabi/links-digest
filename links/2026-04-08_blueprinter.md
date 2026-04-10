@@ -1,8 +1,17 @@
+---
+title: "Blueprinter — Technical Diagram Generator"
+source: "https://skills.sh/yofine/skills/blueprinter"
+date: 2026-04-08
+tags: ['diagram', 'technical visualization', 'HTML/CSS', 'blueprint style']
+platform: skills
+author: null
+summary: "Blueprinter generates technical diagrams using HTML/CSS in a "Flat Engineering Blueprint" style. The goal is to produce outputs that "look like a tech..."
+---
+
 # Blueprinter — Technical Diagram Generator
 
 **Source:** https://skills.sh/yofine/skills/blueprinter
 **Date:** 2026-04-08
-**Tags:** diagram, technical visualization, HTML/CSS, blueprint style
 
 ---
 

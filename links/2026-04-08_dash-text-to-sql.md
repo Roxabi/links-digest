@@ -1,3 +1,15 @@
+---
+title: "Dash v2 — Self-learning Text-to-SQL Agent (X post)"
+source: "https://x.com/ashpreetbedi/status/2041653884536357122"
+date: 2026-04-08
+tags: []
+platform: x
+author: @ashpreetbedi
+summary: "**What it is**
+- Text-to-SQL agent team (Leader + Analyst + Engineer) that learns from its own errors
+- Free, open source → [`github.com/agno-agi/dash..."
+---
+
 # Dash v2 — Self-learning Text-to-SQL Agent (X post)
 
 **Source:** https://x.com/ashpreetbedi/status/2041653884536357122
@@ -6,15 +18,7 @@
 
 ---
 
-**What it is**
-- Text-to-SQL agent team (Leader + Analyst + Engineer) that learns from its own errors
-- Free, open source → [`github.com/agno-agi/dash`](https://github.com/agno-agi/dash)
-- Interfaces: REST API, Slack, web UI, CLI
-
-### Why Text-to-SQL Usually Fails → How Dash Fixes It
-
-| Problem | Dash solution |
-|---|---|
+|
 | Schema lacks meaning | 6 layers of grounded context |
 | Tribal knowledge missing | Human annotations + institutional docs |
 | No learning from mistakes | Learning loop — errors → diagnosed fixes → saved |

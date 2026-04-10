@@ -1,8 +1,17 @@
+---
+title: "AIRI — Self-hosted AI Virtual Character Platform"
+source: "https://github.com/moeru-ai/airi"
+date: 2026-04-08
+tags: ['AI agent', 'voice', 'virtual character', 'multimodal', 'WebGPU']
+platform: github
+author: null
+summary: "AIRI is a self-hosted AI virtual character/waifu platform inspired by Neuro-sama, designed to create "cyber living beings" that can chat, play games, ..."
+---
+
 # AIRI — Self-hosted AI Virtual Character Platform
 
 **Source:** https://github.com/moeru-ai/airi
 **Date:** 2026-04-08
-**Tags:** AI agent, voice, virtual character, multimodal, WebGPU
 
 ---
 

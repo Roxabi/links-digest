@@ -1,8 +1,17 @@
+---
+title: "I turned my brain into a searchable wiki with Claude Code"
+source: "https://x.com/vibemarketer_/status/2042226854271099342"
+date: 2026-04-09
+tags: ['knowledge management', 'second brain', 'Claude Code', 'LLM', 'personal wiki']
+platform: x
+author: null
+summary: "**The core idea:** Use Claude Code to auto-ingest raw sources (articles, PDFs, meeting notes) into a structured, interlinked markdown wiki — no manual..."
+---
+
 # I turned my brain into a searchable wiki with Claude Code
 
 **Source:** https://x.com/vibemarketer_/status/2042226854271099342
 **Date:** 2026-04-09
-**Tags:** knowledge management, second brain, Claude Code, LLM, personal wiki
 
 ---
 
