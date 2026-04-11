@@ -18,10 +18,10 @@ CF_ACCOUNT   ?= b5e90be971920ce406f7b679c4f1cd33
 LINKS_PORT   ?= 8082
 
 SUPERVISOR_HUB  ?= $(HOME)/projects
-HUB_SERVICES    := links-digest
+HUB_SERVICES    := links
 -include $(SUPERVISOR_HUB)/hub.mk
 
-.PHONY: digest digest-all build deploy open clean links-digest register help
+.PHONY: digest digest-all build deploy open clean links register help
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
@@ -65,16 +65,19 @@ clean:
 
 # ── Supervisor service (hub-dispatched) ─────────────────────────────────────────
 # Usage (from this dir or from ~/projects):
-#   make links-digest start|stop|reload|status|logs|errlogs
+#   make links start|stop|reload|status|logs|errlogs
+#
+# Hub target `links` dispatches to supervisor program `links-digest`
+# (program name kept for historical continuity / conf file naming).
 
-links-digest:
+links:
 	@$(HUB_SVC) links-digest $(SVC_CMD)
 
 # ── Registration ────────────────────────────────────────────────────────────────
 
 register:
 	@echo "Registering links-digest with supervisor hub..."
-	@$(HUB_GEN_MK) links-digest "$(abspath .)" links-digest
+	@$(HUB_GEN_MK) links-digest "$(abspath .)" links
 	$(call hub-link-conf,links-digest,supervisor/conf.d/links-digest.conf)
 	@mkdir -p "$(HOME)/.local/state/links-digest/logs"
 	$(hub_reread)
