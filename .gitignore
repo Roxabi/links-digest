@@ -25,7 +25,6 @@ build/
 Thumbs.db
 
 # Dev-core (DO NOT commit)
-.claude/stack.yml
 .env
 .env.local
 
