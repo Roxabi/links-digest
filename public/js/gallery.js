@@ -497,81 +497,45 @@ function closeContentModalOutside(e) {
   if (e.target === document.getElementById('contentModal')) closeContentModal();
 }
 
-// ── Simple Markdown renderer ─────────────────────────────────────────────────
+// ── Markdown renderer (marked + DOMPurify) ───────────────────────────────────
+//
+// Swapped out the hand-rolled regex renderer (which kept breaking on every
+// new edge case — fenced code whitespace, nested lists, tables with pipes)
+// for the battle-tested `marked` library, sanitized through DOMPurify.
+//
+// Both libs are vendored under public/js/vendor/ (loaded by index.html
+// before this script) so the page stays CSP-clean and offline-capable.
+
+const MARKED_OPTIONS = {
+  gfm: true,       // GitHub-flavored markdown (tables, task lists, strikethrough)
+  breaks: false,   // don't turn single \n into <br> — preserve paragraph semantics
+};
+
+// Open all rendered <a> links in a new tab. DOMPurify hook — runs on every
+// sanitize() call, so we don't need to configure marked's renderer.
+if (typeof DOMPurify !== 'undefined' && DOMPurify.addHook) {
+  DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+    if (node.tagName === 'A') {
+      node.setAttribute('target', '_blank');
+      node.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+}
 
 function renderMarkdown(md) {
-  // Remove YAML frontmatter first
-  let html = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+  // Strip YAML frontmatter — marked doesn't know about it and would render
+  // it as a <hr> + paragraph.
+  const body = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
 
-  // Escape HTML entities
-  html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
+    // Fallback for dev environments where vendored libs failed to load:
+    // escape + wrap in <pre> so at least the content is legible.
+    const esc = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return '<pre>' + esc + '</pre>';
+  }
 
-  // Extract fenced code blocks FIRST and replace with opaque placeholders.
-  // Without this, later passes (headers, paragraphs, bold/italic) mutate
-  // the code content — injecting `</p><p>` and `<h2>` inside the block,
-  // which breaks the browser's whitespace preservation.
-  const codeBlocks = [];
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const idx = codeBlocks.length;
-    codeBlocks.push(`<pre><code class="language-${lang}">${code}</code></pre>`);
-    return `\x00CB${idx}\x00`;
-  });
-
-  // Same for inline code — so * ** _ [ ] patterns inside backticks are left alone.
-  const inlineCodes = [];
-  html = html.replace(/`([^`]+)`/g, (_, code) => {
-    const idx = inlineCodes.length;
-    inlineCodes.push(`<code>${code}</code>`);
-    return `\x00IC${idx}\x00`;
-  });
-
-  // Headers (must have space after #)
-  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
-  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-  // Bold and italic
-  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-  // Unordered lists
-  html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-
-  // Horizontal rule (only standalone ---)
-  html = html.replace(/^---$/gm, '<hr>');
-
-  // Tables
-  html = html.replace(/^\|(.+)\|$/gm, (m, row) => {
-    const cells = row.split('|').map(c => c.trim());
-    if (cells.every(c => c.match(/^-+$/))) return '<!-- skip -->';
-    return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
-  });
-  html = html.replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>');
-  html = html.replace(/<!-- skip -->\n/g, '');
-
-  // Paragraphs - wrap non-block content
-  html = html.replace(/\n\n+/g, '\n\n</p><p>\n\n');
-  html = '<p>' + html + '</p>';
-
-  // Restore code block placeholders BEFORE final cleanup so the
-  // `<p>\s*<pre>` / `</pre>\s*</p>` cleanup rules below can strip the
-  // wrapping paragraph tags around restored blocks.
-  html = html.replace(/\x00CB(\d+)\x00/g, (_, i) => codeBlocks[+i]);
-  html = html.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCodes[+i]);
-
-  // Clean up empty paragraphs and fix nesting
-  html = html.replace(/<p>\s*<\/p>/g, '');
-  html = html.replace(/<p>\s*<(h[1-6]|ul|ol|pre|table|hr)/g, '<$1');
-  html = html.replace(/<\/(h[1-6]|ul|ol|pre|table)>\s*<\/p>/g, '</$1>');
-  html = html.replace(/<p>\s*<hr\s*\/?>\s*<\/p>/g, '<hr>');
-
-  return html;
+  const rawHtml = marked.parse(body, MARKED_OPTIONS);
+  return DOMPurify.sanitize(rawHtml);
 }
 
 // ── Theme ────────────────────────────────────────────────────────────────────
