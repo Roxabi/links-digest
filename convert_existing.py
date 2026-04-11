@@ -7,6 +7,7 @@ from pathlib import Path
 SOURCE_DIR = Path(__file__).parent / "links"
 DEST_DIR = Path(__file__).parent / "links"
 
+
 # Platform detection
 def detect_platform(url: str) -> str:
     url_lower = url.lower()
@@ -70,11 +71,13 @@ def parse_existing_md(filepath: Path) -> dict:
         # Get first non-header, non-table, non-list paragraph
         for para in body.split("\n\n"):
             para = para.strip()
-            if (para and
-                not para.startswith("#") and
-                not para.startswith("|") and
-                not para.startswith("- ") and
-                not para.startswith("* ")):
+            if (
+                para
+                and not para.startswith("#")
+                and not para.startswith("|")
+                and not para.startswith("- ")
+                and not para.startswith("* ")
+            ):
                 # Truncate to 150 chars for card display
                 summary = para[:150] + "..." if len(para) > 150 else para
                 break
@@ -99,7 +102,7 @@ def to_frontmatter(data: dict) -> str:
     lines = ["---"]
     lines.append(f'title: "{data["title"]}"')
     lines.append(f'source: "{data["source"]}"')
-    lines.append(f'date: {data["date"]}')
+    lines.append(f"date: {data['date']}")
     lines.append(f"tags: {data['tags']}")
     lines.append(f"platform: {data['platform']}")
     lines.append(f"author: {data['author'] or 'null'}")
@@ -111,7 +114,7 @@ def to_frontmatter(data: dict) -> str:
     lines.append(f"**Source:** {data['source']}")
     lines.append(f"**Date:** {data['date']}")
     if data["author"]:
-        lines.append(f'**Author:** {data["author"]}')
+        lines.append(f"**Author:** {data['author']}")
     lines.append("")
     lines.append("---")
     lines.append("")
