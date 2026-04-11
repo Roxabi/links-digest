@@ -207,8 +207,17 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 
 
 def find_web_intel() -> Path | None:
-    """Find web-intel plugin root."""
+    """Find web-intel plugin root.
+
+    Prefers the git-tracked source under ~/projects/roxabi-plugins so local
+    fixes take effect immediately without waiting for a marketplace plugin
+    refresh. Falls back to the marketplace cache, then a legacy standalone
+    checkout.
+    """
     candidates = [
+        # Live source of truth — changes to enricher.py / fetchers apply here.
+        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
+        # Marketplace plugin cache (may lag behind git by days).
         Path.home()
         / ".claude"
         / "plugins"
@@ -354,10 +363,12 @@ def generate_slug(url: str, date: str) -> str:
     platform = detect_platform(url)
 
     if platform == "github":
-        # Extract repo name
-        match = re.search(r"github\.com/[^/]+/([^/]+)", url)
+        # Extract repo name. Strip query (?tab=readme-ov-file) / fragment
+        # suffixes before returning — a `?` in the filename is valid on
+        # Linux but breaks URL escaping in the gallery and looks broken.
+        match = re.search(r"github\.com/[^/]+/([^/?#]+)", url)
         if match:
-            return match.group(1).lower().replace("-", "-")
+            return match.group(1).lower()
     elif platform == "gist":
         match = re.search(r"gist\.github\.com/([^/]+)/", url)
         if match:
