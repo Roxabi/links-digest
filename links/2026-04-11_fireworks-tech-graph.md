@@ -2,26 +2,11 @@
 title: "yizhiyanhua-ai/fireworks-tech-graph"
 source: "https://github.com/yizhiyanhua-ai/fireworks-tech-graph"
 date: 2026-04-11
-tags: []
+tags: ["AI", "Diagram Generation", "Claude Code", "SVG", "Technical Documentation"]
 platform: github
 author: null
-summary: "Claude Code skill for generating production-quality SVG+PNG technical diagrams. Supports 8 diagram types, 5 visual styles, and deep AI/Agent domain knowledge."
+summary: "A Claude Code skill that generates production-quality SVG and PNG technical diagrams from natural language descriptions, featuring multiple visual styles and built-in AI domain knowledge."
 ---
-
-# yizhiyanhua-ai/fireworks-tech-graph
-
-**Source:** https://github.com/yizhiyanhua-ai/fireworks-tech-graph
-**Date:** 2026-04-11
-
-
----
-
-
-Claude Code skill for generating production-quality SVG+PNG technical diagrams. Supports 8 diagram types, 5 visual styles, and deep AI/Agent domain knowledge.
-
-
-
-
 # yizhiyanhua-ai/fireworks-tech-graph
 
 **URL:** https://github.com/yizhiyanhua-ai/fireworks-tech-graph
