@@ -411,6 +411,14 @@ def main():
 
     # Setup Jinja
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    # Override `tojson` filter so frontmatter gets raw UTF-8 + raw
+    # apostrophes instead of \uXXXX escapes. Jinja's default `tojson`
+    # uses htmlsafe_json_dumps which escapes both non-ASCII *and*
+    # HTML-special chars ('<>&\'"') regardless of ensure_ascii — that's
+    # wrong for YAML frontmatter (never embedded in HTML attributes).
+    # YAML 1.2 accepts both escaped and raw forms; the gallery's
+    # JSON.parse fallback still decodes legacy escaped files cleanly.
+    env.filters["tojson"] = lambda obj: json.dumps(obj, ensure_ascii=False)
     template = env.get_template("link.md.j2")
 
     # Ensure output dir
