@@ -385,6 +385,7 @@ function renderListView(arr) {
   const rows = arr.map(c => `<div class="list-row" data-file="${escHtml(c.file)}" data-title="${escHtml(c.title)}">
     <span class="list-date">${escHtml(c.date)}</span>
     <span class="list-title">${escHtml(c.title)}</span>
+    <span class="list-summary">${escHtml(c.summary || '')}</span>
     <span class="list-source">${escHtml(c.platform)}</span>
     <span class="list-tags">${(c.tags || []).slice(0, 2).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}</span>
   </div>`).join('');
