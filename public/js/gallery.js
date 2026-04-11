@@ -24,11 +24,16 @@ function parseFrontmatter(text) {
 
   // Simple YAML parser for flat key: value + arrays
   for (const line of yaml.split('\n')) {
+    // Match array with content: tags: ["a", "b"] or tags: [a, b]
     const arrMatch = line.match(/^(\w+):\s*\[(.+)\]$/);
+    // Match empty array: tags: []
+    const emptyArrMatch = line.match(/^(\w+):\s*\[\]$/);
     const strMatch = line.match(/^(\w+):\s*"(.+)"$/);
     const plainMatch = line.match(/^(\w+):\s*(.+)$/);
 
-    if (arrMatch) {
+    if (emptyArrMatch) {
+      data[emptyArrMatch[1]] = [];
+    } else if (arrMatch) {
       data[arrMatch[1]] = arrMatch[2].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
     } else if (strMatch) {
       data[strMatch[1]] = strMatch[2];
@@ -37,6 +42,7 @@ function parseFrontmatter(text) {
       if (val === 'null') val = null;
       else if (val === 'true') val = true;
       else if (val === 'false') val = false;
+      else if (val === '[]') val = [];  // Handle [] that didn't match above
       data[plainMatch[1]] = val;
     }
   }
