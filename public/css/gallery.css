@@ -217,10 +217,10 @@ body {
 .list-row { display: grid; grid-template-columns: 100px minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--card); cursor: pointer; transition: background .1s; }
 .list-row:hover { background: var(--surface); }
 .list-row:last-child { border-bottom: none; border-radius: 0 0 8px 8px; }
-.list-date { font-family: var(--mono); font-size: .68rem; color: var(--text-xdim); }
-.list-main { display: flex; align-items: baseline; gap: 10px; min-width: 0; overflow: hidden; }
-.list-title { flex: 0 1 auto; max-width: 60%; font-size: .82rem; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.list-summary { flex: 1 1 auto; min-width: 0; font-size: .72rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list-date { font-family: var(--mono); font-size: .68rem; color: var(--text-xdim); align-self: start; padding-top: 2px; }
+.list-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow: hidden; }
+.list-title { font-size: .82rem; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list-summary { font-size: .72rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .list-source { font-size: .6rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; font-family: var(--mono); }
 .list-tags { display: flex; gap: 4px; flex-wrap: nowrap; overflow: hidden; max-width: 200px; }
 .list-tags .tag { font-size: .58rem; padding: 2px 5px; }
