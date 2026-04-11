@@ -8,23 +8,31 @@
 #   make build           # Build index + validate
 #   make deploy          # Deploy to Cloudflare Pages
 #   make open            # Open gallery in browser
+#   make start           # Start local server on port 8082
+#   make stop            # Stop local server
+#   make status          # Check server status
 
 PROJECT_NAME ?= links-digest
 CF_PROJECT   ?= links-digest
+CF_ACCOUNT   ?= b5e90be971920ce406f7b679c4f1cd33
+LINKS_PORT   ?= 8082
 
-.PHONY: digest digest-all build deploy open clean
+SUPERVISOR_HUB  ?= /home/mickael/projects
+-include $(SUPERVISOR_HUB)/hub.mk
+
+.PHONY: digest digest-all build deploy open clean start stop reload status logs errlogs
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
 digest:
 	uv run python digest.py --hours $(or $(H),24)
 
+digest-all:
+	uv run python digest.py --all
+
 digest-%:
 	@args=$*; \
-	case $$args in \
-		all) uv run python digest.py --all ;; \
-		*) uv run python digest.py --$${args} ;; \
-	esac
+	uv run python digest.py --$${args}
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 
@@ -42,7 +50,7 @@ build:
 
 deploy: build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
-	npx wrangler pages deploy public --project-name=$(CF_PROJECT) --branch=main
+	CLOUDFLARE_ACCOUNT_ID=$(CF_ACCOUNT) npx wrangler pages deploy public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
 # ── Dev ───────────────────────────────────────────────────────────────────────
 
@@ -53,3 +61,23 @@ open:
 
 clean:
 	rm -rf links/*.md links/manifest.json public/links/*.md public/links/manifest.json .digest_state.json
+
+# ── Server ──────────────────────────────────────────────────────────────────────
+
+start:
+	$(HUB_SVC) links-digest start
+
+stop:
+	$(HUB_SVC) links-digest stop
+
+reload:
+	$(HUB_SVC) links-digest reload
+
+status:
+	$(HUB_SVC) links-digest status
+
+logs:
+	$(HUB_SVC) links-digest logs
+
+errlogs:
+	$(HUB_SVC) links-digest errlogs
