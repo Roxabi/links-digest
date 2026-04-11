@@ -253,6 +253,31 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
         return None
 
 
+def enrich_content(data: dict, web_intel_root: Path) -> dict:
+    """Enrich scraped content with LLM-extracted tags and summary."""
+    try:
+        # Pass scraped data to enricher via stdin
+        input_json = json.dumps(data)
+        result = subprocess.run(
+            ["uv", "run", "python", "scripts/enricher.py"],
+            cwd=web_intel_root,
+            input=input_json,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+
+        if result.returncode == 0:
+            return json.loads(result.stdout)
+        else:
+            print(f"  Enrichment failed: {result.stderr[:80]}")
+            return {"tags": [], "summary": "", "key_points": []}
+
+    except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
+        print(f"  Enrichment error: {e}")
+        return {"tags": [], "summary": "", "key_points": []}
+
+
 # ── Platform detection ────────────────────────────────────────────────────────
 
 
@@ -388,15 +413,22 @@ def main():
             date = item["timestamp"][:10]
             slug = generate_slug(url, date)
 
+            # Enrich with LLM
+            print(f"  Enriching {slug}...")
+            enriched = enrich_content(data, web_intel)
+
             md_data = {
                 "title": data.get("title") or "Untitled",
                 "source": url,
                 "date": date,
-                "tags": data.get("tags", [])[:5] if data.get("tags") else [],
+                "tags": enriched.get("tags", []) if enriched.get("tags") else [],
                 "platform": detect_platform(url),
                 "author": data.get("author") or data.get("username"),
-                "summary": data.get("description") or data.get("excerpt"),
-                "content": data.get("content"),
+                "summary": enriched.get("summary")
+                or data.get("description")
+                or data.get("excerpt")
+                or "",
+                "content": data.get("text"),  # scraper returns "text", not "content"
             }
 
             # Write MD
