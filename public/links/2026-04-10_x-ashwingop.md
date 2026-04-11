@@ -1,20 +1,21 @@
 ---
-title: "X Post — @ashwingop"
+title: "The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail "
 source: "https://x.com/ashwingop/status/2042604890988646750"
 date: 2026-04-10
 tags: []
 platform: x
-author: null
-summary: "X post from @ashwingop. Content not accessible via web scraping."
+author: "@ashwingop"
+summary: ""
 ---
 
-# X Post — @ashwingop
+# The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail 
 
 **Source:** https://x.com/ashwingop/status/2042604890988646750
 **Date:** 2026-04-10
+**Author:** @ashwingop
+
 
 ---
 
-X post from @ashwingop. Content not accessible via web scraping.
 
-**Discord jump URL:** https://discord.com/channels/1479060220293415066/1482877201891463169/1492243017036464148
+

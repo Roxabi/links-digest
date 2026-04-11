@@ -1,20 +1,21 @@
 ---
-title: "X Post — @rohit4verse"
+title: "How I built harness for my agent using Claude Code leaks"
 source: "https://x.com/rohit4verse/status/2041548810804211936"
 date: 2026-04-10
 tags: []
 platform: x
-author: null
-summary: "X post from @rohit4verse. Content not accessible via web scraping."
+author: "@rohit4verse"
+summary: ""
 ---
 
-# X Post — @rohit4verse
+# How I built harness for my agent using Claude Code leaks
 
 **Source:** https://x.com/rohit4verse/status/2041548810804211936
 **Date:** 2026-04-10
+**Author:** @rohit4verse
+
 
 ---
 
-X post from @rohit4verse. Content not accessible via web scraping.
 
-**Discord jump URL:** https://discord.com/channels/1479060220293415066/1482877201891463169/1492242856696348712
+

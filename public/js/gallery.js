@@ -539,3 +539,24 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ── Live reload via SSE (dev only) ─────────────────────────────────────────────
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  (function() {
+    let es;
+    function connect() {
+      es = new EventSource('/api/events');
+      es.onmessage = function(e) {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.type === 'reload') {
+            console.log('[live-reload] manifest changed:', msg.changed);
+            loadLinks().then(render);
+          }
+        } catch(_) {}
+      };
+      es.onerror = function() { es.close(); setTimeout(connect, 5000); };
+    }
+    connect();
+  })();
+}

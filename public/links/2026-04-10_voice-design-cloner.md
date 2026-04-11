@@ -1,25 +1,22 @@
 ---
-title: "VoiceDesignCloner — Recording-Free TTS Training Data Generator via Qwen3-TTS GUI"
+title: "reinehonoka/Voice-Design-Cloner"
 source: "https://github.com/reinehonoka/Voice-Design-Cloner"
 date: 2026-04-10
-tags: ['TTS', 'voice cloning', 'Qwen3', 'Style-Bert-VITS2', 'Python']
+tags: []
 platform: github
 author: null
-summary: "A GUI tool that solves the hardest part of building a custom TTS model: **getting training data without recording anything yourself.**"
+summary: "\u9332\u97f3\u4e0d\u8981\u3067\u30aa\u30ea\u30b8\u30ca\u30ebAI\u97f3\u58f0\u306e\u6559\u5e2b\u30c7\u30fc\u30bf\u3092\u4f5c\u308bGUI\u30c4\u30fc\u30eb"
 ---
 
-# VoiceDesignCloner — Recording-Free TTS Training Data Generator via Qwen3-TTS GUI
+# reinehonoka/Voice-Design-Cloner
 
 **Source:** https://github.com/reinehonoka/Voice-Design-Cloner
 **Date:** 2026-04-10
 
+
 ---
 
-|
-| GPU | NVIDIA CUDA |
-| VRAM | 8 GB min — **16 GB recommended** |
-| Python | 3.10–3.12 |
 
-Your RTX 5070 Ti (16 GB) hits the sweet spot — it's actually in the confirmed-working matrix (RTX 5070 at 12 GB passed). You'd run the `faster` backend comfortably.
+録音不要でオリジナルAI音声の教師データを作るGUIツール
 
-**Relevance to voiceCLI:** direct overlap — this could feed training data into a Style-Bert-VITS2 pipeline, or the `faster-qwen3-tts` backend could be worth benchmarking as an alternative inference path.
+
