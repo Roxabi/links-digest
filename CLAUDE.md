@@ -14,14 +14,14 @@ Add project overview here.
 - **Project:** links-digest
 - **Before work:** Use `/dev #N` as the single entry point — it determines tier (S / F-lite / F-full) and drives the full lifecycle
 - **Always** `AskUserQuestion` for choices — never plain-text questions
-- **Never** commit without asking, push without request, or use `--force`/`--hard`/`--amend`
+- **Never** use `--force`/`--hard`/`--amend`
 - **Always** use appropriate skill even without slash command
 
 ### 1. Git
 
 Format: `<type>(<scope>): <desc>` + `Co-Authored-By: Claude <model> <noreply@anthropic.com>`
 Types: feat|fix|refactor|docs|style|test|chore|ci|perf
-Never push without request. Never force/hard/amend. Hook fail → fix + NEW commit.
+Never force/hard/amend. Hook fail → fix + NEW commit.
 
 ## Gotchas
 
