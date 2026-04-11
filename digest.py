@@ -253,8 +253,49 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
         return None
 
 
+# Signals that an enrichment result has bled in reasoning text or prompt
+# fragments — we discard the whole enrichment when these appear rather than
+# letting salvaged bullet-list garbage reach the MD frontmatter.
+_ENRICH_BLEED_TAG_CHARS = set("`()?*[]{}")
+_ENRICH_BLEED_RE = re.compile(
+    r"\b(draft|encapsulat|one sentence|keywords\?|refinement|let me|"
+    r"thinking|revised)\b",
+    re.IGNORECASE,
+)
+
+
+def validate_enrichment(enriched: dict) -> tuple[bool, str]:
+    """Return (ok, reason) — reject garbage enrichment output.
+
+    Defence-in-depth after the enricher's own validator. If this returns
+    False, the caller should treat the enrichment as empty and fall back
+    to the scraper-provided description.
+    """
+    tags = enriched.get("tags", []) or []
+    summary = (enriched.get("summary") or "").strip()
+
+    for t in tags:
+        if not isinstance(t, str) or not t.strip():
+            return False, f"non-string or empty tag: {t!r}"
+        if any(ch in t for ch in _ENRICH_BLEED_TAG_CHARS):
+            return False, f"tag has markdown bleed chars: {t!r}"
+        if _ENRICH_BLEED_RE.search(t):
+            return False, f"tag echoes prompt vocabulary: {t!r}"
+        if len(t) > 40 or len(t.split()) > 5:
+            return False, f"tag too long or phrase-like: {t!r}"
+
+    if summary:
+        if summary.startswith(("*", "-", "`", "#", ">")):
+            return False, f"summary starts with markdown: {summary[:40]!r}"
+        if _ENRICH_BLEED_RE.search(summary):
+            return False, f"summary echoes prompt vocabulary: {summary[:60]!r}"
+
+    return True, "ok"
+
+
 def enrich_content(data: dict, web_intel_root: Path) -> dict:
     """Enrich scraped content with LLM-extracted tags and summary."""
+    empty = {"tags": [], "summary": "", "key_points": []}
     try:
         # Pass scraped data to enricher via stdin
         input_json = json.dumps(data)
@@ -264,18 +305,23 @@ def enrich_content(data: dict, web_intel_root: Path) -> dict:
             input=input_json,
             capture_output=True,
             text=True,
-            timeout=30,
+            timeout=60,
         )
 
-        if result.returncode == 0:
-            return json.loads(result.stdout)
-        else:
+        if result.returncode != 0:
             print(f"  Enrichment failed: {result.stderr[:80]}")
-            return {"tags": [], "summary": "", "key_points": []}
+            return empty
 
+        enriched = json.loads(result.stdout)
     except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
         print(f"  Enrichment error: {e}")
-        return {"tags": [], "summary": "", "key_points": []}
+        return empty
+
+    ok, reason = validate_enrichment(enriched)
+    if not ok:
+        print(f"  Enrichment rejected by validator: {reason}")
+        return empty
+    return enriched
 
 
 # ── Platform detection ────────────────────────────────────────────────────────

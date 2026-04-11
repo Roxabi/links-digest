@@ -2,10 +2,10 @@
 title: "The Spec Is the New Code. A Guide to Spec Driven Development"
 source: "https://x.com/juliandeangeiis/status/2033303156340240481?s=46"
 date: 2026-03-15
-tags: []
+tags: ["Spec Driven Development", "AI Coding Agents", "Software Development", "Methodology", "Automation"]
 platform: x
 author: "@juliandeangeIis"
-summary: ""
+summary: "This article argues that AI coding agents fail primarily due to ambiguous human instructions and introduces Spec Driven Development (SDD) as a four-step methodology to eliminate ambiguity by defining"
 ---
 The Spec Is the New Code
 
