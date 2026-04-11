@@ -1,31 +1,12 @@
 ---
-title: "Untitled"
+title: "Everyone is missing the most important part of their AI Second Brain."
 source: "https://x.com/infinitejulian0/status/2042300920315462034?s=12"
 date: 2026-04-10
-tags: []
+tags: ["AI", "Second Brain", "Productivity", "Life OS", "Knowledge Management"]
 platform: x
 author: "@InfiniteJulian0"
-summary: ""
+summary: "The author proposes a specific folder structure for an AI Second Brain\u2014Identity, Aspirations, and Live Logs\u2014that enables the AI to deeply understand the user and function as a proactive \u0027Life OS\u0027"
 ---
-
-# Untitled
-
-**Source:** https://x.com/infinitejulian0/status/2042300920315462034?s=12
-**Date:** 2026-04-10
-**Author:** @InfiniteJulian0
-
-
----
-
-
-
-
-
-Auteur: @InfiniteJulian0 (Julian Alvarez)
-Type: tweet
-Titre: 
-
-Contenu:
 Everyone is missing the most important part of their AI Second Brain.  
 
 Here are three folders that will 10x your second brain:  

@@ -2,34 +2,11 @@
 title: "The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail "
 source: "https://x.com/ashwingop/status/2042604890988646750"
 date: 2026-04-10
-tags: ["semantic memory", "rag", "knowledge graphs", "intrinsic dimensionality", "forgetting"]
+tags: ["Artificial Intelligence", "RAG", "Knowledge Graphs", "Semantic Memory", "Vector Databases"]
 platform: x
 author: "@ashwingop"
-summary: "**\n        *   Needs to be one sentence.\n        *   *Draft 1:* The article presents a formal"
+summary: "The article presents a formal \u0027no-escape theorem\u0027 proving that forgetting and false recall are mathematically inevitable for any memory system relying on semantic retrieval, due to the low intrinsic"
 ---
-
-# The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail 
-
-**Source:** https://x.com/ashwingop/status/2042604890988646750
-**Date:** 2026-04-10
-**Author:** @ashwingop
-
-
----
-
-
-**
-        *   Needs to be one sentence.
-        *   *Draft 1:* The article presents a formal
-
-
-
-
-Auteur: @ashwingop (Ashwin Gopinath)
-Type: article
-Titre: The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail 
-
-Contenu:
 TL;DR
 
 Forgetting and false recall are mathematically, provably, inevitable for any memory system that organises information by meaning. Not just embeddings. Not just one architecture. Any system satisfying minimal conditions about semantic retrieval.

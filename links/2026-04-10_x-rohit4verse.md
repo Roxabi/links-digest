@@ -2,33 +2,11 @@
 title: "How I built harness for my agent using Claude Code leaks"
 source: "https://x.com/rohit4verse/status/2041548810804211936"
 date: 2026-04-10
-tags: ["*", "ai agents", "claude code", "software architecture", "reverse engineering"]
+tags: ["AI Agents", "Claude Code", "Software Architecture", "Reverse Engineering", "Infrastructure"]
 platform: x
 author: "@rohit4verse"
-summary: "**\n        *   *Draft 1:* This article explains how the author reverse-engineered Claude Code to create a production-ready agent harness, emphasizing the importance of infrastructure and async generat"
+summary: "The author analyzes Claude Code\u0027s source code to propose a four-layer architecture for building robust AI agents, emphasizing the critical role of infrastructure and async generators."
 ---
-
-# How I built harness for my agent using Claude Code leaks
-
-**Source:** https://x.com/rohit4verse/status/2041548810804211936
-**Date:** 2026-04-10
-**Author:** @rohit4verse
-
-
----
-
-
-**
-        *   *Draft 1:* This article explains how the author reverse-engineered Claude Code to create a production-ready agent harness, emphasizing the importance of infrastructure and async generat
-
-
-
-
-Auteur: @rohit4verse (Rohit)
-Type: article
-Titre: How I built harness for my agent using Claude Code leaks
-
-Contenu:
 Anthropic just taught you how to build the best AI agent harness.
 
 Claude Code's source is sitting in the open: 55 directories, 331 modules, the most battle-tested agent architecture in production today. I pulled apart every file. Every architectural decision. Every retry path, every compaction strategy, every permission stage.

@@ -2,34 +2,11 @@
 title: "How to Build Your Second Brain"
 source: "https://x.com/NickSpisak_/status/2040448463540830705?s=20"
 date: 2026-04-10
-tags: ["second brain", "ai", "knowledge management", "productivity", "tutorial"]
+tags: ["knowledge-management", "AI", "productivity", "second-brain", "automation"]
 platform: x
 author: "@NickSpisak_"
-summary: "**\n        *   *Draft 1:* This article explains how to build a personal knowledge base using a simple folder structure and AI, inspired by Andrej Karpathy.\n        *   *Draft 2:* Nick Spisak outlines "
+summary: "This article outlines a simple method to build a personal knowledge base using a three-folder structure, automated web scraping with agent-browser, and AI-powered organization that compounds in value"
 ---
-
-# How to Build Your Second Brain
-
-**Source:** https://x.com/NickSpisak_/status/2040448463540830705?s=20
-**Date:** 2026-04-10
-**Author:** @NickSpisak_
-
-
----
-
-
-**
-        *   *Draft 1:* This article explains how to build a personal knowledge base using a simple folder structure and AI, inspired by Andrej Karpathy.
-        *   *Draft 2:* Nick Spisak outlines 
-
-
-
-
-Auteur: @NickSpisak_ (Nick Spisak)
-Type: article
-Titre: How to Build Your Second Brain
-
-Contenu:
 @karpathy  dropped a post describing how he uses AI to build personal knowledge bases.
 
 The idea is simple: instead of keeping notes scattered across apps, you dump everything into one folder. Then you tell your AI to organize all of it into a personal wiki - summaries, connections, articles - that gets smarter every time you use it.
