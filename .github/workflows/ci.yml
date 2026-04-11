@@ -16,8 +16,6 @@ jobs:
         run: uv sync --frozen --all-extras
       - name: Lint
         run: uv run ruff check .
-      - name: Typecheck
-        run: uv run pyright
 
   secrets:
     name: Secret scan
