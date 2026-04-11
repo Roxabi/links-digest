@@ -1,19 +1,21 @@
 ---
-title: "X Post — @howdymerry"
-source: "https://x.com/howdymerry/status/2041616469084270917"
+title: "Untitled"
+source: "https://x.com/howdymerry/status/2041616469084270917?s=46"
 date: 2026-04-08
 tags: []
 platform: x
-author: null
+author: "@howdymary"
+summary: ""
 ---
 
-# X Post — @howdymerry
+# Untitled
 
-**Source:** https://x.com/howdymerry/status/2041616469084270917
+**Source:** https://x.com/howdymerry/status/2041616469084270917?s=46
 **Date:** 2026-04-08
+**Author:** @howdymary
+
 
 ---
 
-X post from @howdymerry. Content not accessible via web scraping.
 
-**Discord jump URL:** https://discord.com/channels/1479060220293415066/1482877201891463169/1491410593372966952
+

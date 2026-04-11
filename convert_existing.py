@@ -4,8 +4,8 @@
 import re
 from pathlib import Path
 
-SOURCE_DIR = Path.home() / ".roxabi" / "forge" / "links-digest"
-DEST_DIR = Path(__file__).parent / "public" / "links"
+SOURCE_DIR = Path(__file__).parent / "links"
+DEST_DIR = Path(__file__).parent / "links"
 
 # Platform detection
 def detect_platform(url: str) -> str:
@@ -62,16 +62,21 @@ def parse_existing_md(filepath: Path) -> dict:
     if author_match:
         author = author_match.group(1)
 
-    # Extract summary (first paragraph after ---)
+    # Extract summary (first paragraph after ---, skip tables/lists)
     summary = ""
-    parts = content.split("---")
+    parts = content.split("\n---\n")
     if len(parts) >= 2:
         body = parts[-1].strip()
-        # Get first non-header paragraph
+        # Get first non-header, non-table, non-list paragraph
         for para in body.split("\n\n"):
             para = para.strip()
-            if para and not para.startswith("#") and not para.startswith("**"):
-                summary = para[:200] + "..." if len(para) > 200 else para
+            if (para and
+                not para.startswith("#") and
+                not para.startswith("|") and
+                not para.startswith("- ") and
+                not para.startswith("* ")):
+                # Truncate to 150 chars for card display
+                summary = para[:150] + "..." if len(para) > 150 else para
                 break
 
     # Platform
@@ -98,6 +103,7 @@ def to_frontmatter(data: dict) -> str:
     lines.append(f"tags: {data['tags']}")
     lines.append(f"platform: {data['platform']}")
     lines.append(f"author: {data['author'] or 'null'}")
+    lines.append(f'summary: "{data["summary"] or ""}"')
     lines.append("---")
     lines.append("")
     lines.append(f"# {data['title']}")

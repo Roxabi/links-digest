@@ -5,22 +5,19 @@ date: {{ date }}
 tags: {{ tags | tojson }}
 platform: {{ platform }}
 author: {{ author | tojson }}
+summary: {{ (summary or "") | tojson }}
 ---
 
+{%- if content %}
+{{ content }}
+{%- else %}
 # {{ title }}
 
 **Source:** {{ source }}
 **Date:** {{ date }}
 {% if author %}**Author:** {{ author }}
 {% endif %}
-
----
-
 {% if summary %}
 {{ summary }}
 {% endif %}
-
-{% if content %}
-
-{{ content }}
-{% endif %}
+{%- endif %}

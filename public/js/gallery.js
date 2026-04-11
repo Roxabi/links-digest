@@ -11,6 +11,66 @@ let cardMinWidth = 360;
 let jsZipLoaded = false;
 
 const STORE_KEY = 'links-digest-gallery';
+const SETTINGS_KEY = STORE_KEY + '-settings';
+
+// ── State persistence ────────────────────────────────────────────────────────
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.viewMode) viewMode = s.viewMode;
+    if (s.groupMode) groupMode = s.groupMode;
+    if (s.sortMode) sortMode = s.sortMode;
+    if (typeof s.cardMinWidth === 'number') cardMinWidth = s.cardMinWidth;
+    if (s.filters && typeof s.filters === 'object') {
+      for (const k of Object.keys(s.filters)) {
+        if (s.filters[k]) filters[k] = s.filters[k];
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load gallery state:', e);
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      viewMode, groupMode, sortMode, cardMinWidth,
+      filters: { ...filters },
+    }));
+  } catch {
+    // ignore quota / privacy-mode errors
+  }
+}
+
+function applyStateToUI() {
+  const mark = (containerId, value) => {
+    document.querySelectorAll(`#${containerId} .seg`).forEach(b => {
+      b.classList.toggle('on', b.dataset.v === value);
+    });
+  };
+  mark('viewSegs', viewMode);
+  mark('groupSegs', groupMode);
+  mark('sortSegs', sortMode);
+  const sizeLabel = document.getElementById('sizeLabel');
+  if (sizeLabel) sizeLabel.textContent = cardMinWidth;
+
+  // Filter buttons (may not exist yet — caller must invoke after buildFilterButtons)
+  for (const dim of Object.keys(FILTER_DIMS)) {
+    const el = document.getElementById(`${dim}Filter`);
+    if (!el) continue;
+    const val = filters[dim] || 'all';
+    el.querySelectorAll('.seg').forEach(b => {
+      b.classList.toggle('on', b.dataset.v === val);
+    });
+  }
+
+  // Hide size control in list view
+  const sizeCtrl = document.querySelector('.size-btn')?.closest('.ctrl');
+  if (sizeCtrl) sizeCtrl.style.display = viewMode === 'list' ? 'none' : 'flex';
+}
 
 // ── Gray-matter parsing (lightweight, no deps) ───────────────────────────────
 
@@ -24,11 +84,16 @@ function parseFrontmatter(text) {
 
   // Simple YAML parser for flat key: value + arrays
   for (const line of yaml.split('\n')) {
+    // Match array with content: tags: ["a", "b"] or tags: [a, b]
     const arrMatch = line.match(/^(\w+):\s*\[(.+)\]$/);
+    // Match empty array: tags: []
+    const emptyArrMatch = line.match(/^(\w+):\s*\[\]$/);
     const strMatch = line.match(/^(\w+):\s*"(.+)"$/);
     const plainMatch = line.match(/^(\w+):\s*(.+)$/);
 
-    if (arrMatch) {
+    if (emptyArrMatch) {
+      data[emptyArrMatch[1]] = [];
+    } else if (arrMatch) {
       data[arrMatch[1]] = arrMatch[2].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
     } else if (strMatch) {
       data[strMatch[1]] = strMatch[2];
@@ -37,6 +102,7 @@ function parseFrontmatter(text) {
       if (val === 'null') val = null;
       else if (val === 'true') val = true;
       else if (val === 'false') val = false;
+      else if (val === '[]') val = [];  // Handle [] that didn't match above
       data[plainMatch[1]] = val;
     }
   }
@@ -168,6 +234,15 @@ const GROUP_TITLES = {
   other: '📎 Other',
 };
 
+const PLATFORM_LABELS = {
+  github: '🐙 GitHub',
+  x: '🐦 X',
+  web: '🌐 Web',
+  reddit: '💬 Reddit',
+  gist: '📄 Gist',
+  youtube: '📺 YouTube',
+};
+
 function groupCards(arr, dim) {
   const groups = {};
   for (const c of arr) {
@@ -176,6 +251,35 @@ function groupCards(arr, dim) {
     groups[key].push(c);
   }
   return groups;
+}
+
+function orderGroupKeys(groups, mode) {
+  const keys = Object.keys(groups);
+  if (mode === 'section') {
+    const order = ['knowledge', 'agents', 'devtools', 'voice', 'llm', 'other'];
+    return [
+      ...order.filter(k => keys.includes(k)),
+      ...keys.filter(k => !order.includes(k)).sort(),
+    ];
+  }
+  if (mode === 'date') {
+    return keys.sort((a, b) => b.localeCompare(a));
+  }
+  if (mode === 'platform') {
+    // By count desc, then alpha
+    return keys.sort((a, b) => {
+      const diff = groups[b].length - groups[a].length;
+      return diff !== 0 ? diff : a.localeCompare(b);
+    });
+  }
+  return keys.sort();
+}
+
+function groupTitle(key, mode) {
+  if (mode === 'section') return GROUP_TITLES[key] || key.toUpperCase();
+  if (mode === 'platform') return PLATFORM_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+  if (mode === 'date') return `📅 ${key}`;
+  return key;
 }
 
 // ── Rendering ────────────────────────────────────────────────────────────────
@@ -240,12 +344,12 @@ function render() {
     el.innerHTML = `<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(${cardMinWidth}px,1fr))">${sorted.map(mkCard).join('')}</div>`;
   } else {
     const groups = groupCards(sorted, groupMode);
-    const order = ['knowledge', 'agents', 'devtools', 'voice', 'llm', 'other'];
+    const keys = orderGroupKeys(groups, groupMode);
     let html = '';
-    for (const key of order) {
+    for (const key of keys) {
       const gCards = groups[key];
       if (!gCards?.length) continue;
-      const title = GROUP_TITLES[key] || key.toUpperCase();
+      const title = groupTitle(key, groupMode);
       html += `<div class="group-hdr">
         <span class="group-tag">${escHtml(title)}</span>
         <span class="group-cnt">${gCards.length}</span>
@@ -278,6 +382,7 @@ function resizeCards(d) {
   document.querySelectorAll('.card-grid').forEach(g => {
     g.style.gridTemplateColumns = `repeat(auto-fill,minmax(${cardMinWidth}px,1fr))`;
   });
+  saveState();
 }
 
 // ── Downloads ────────────────────────────────────────────────────────────────
@@ -395,32 +500,76 @@ function closeContentModalOutside(e) {
 // ── Simple Markdown renderer ─────────────────────────────────────────────────
 
 function renderMarkdown(md) {
-  let html = md
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/^### (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    .replace(/^---$/gm, '<hr>')
-    .replace(/^- (.*$)/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/^\|(.+)\|$/gm, (m, row) => {
-      const cells = row.split('|').map(c => c.trim());
-      if (cells.every(c => c.match(/^-+$/))) return '<!-- skip -->';
-      return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
-    })
-    .replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>')
-    .replace(/<!-- skip -->\n/g, '')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/^(?!<[hpultbhcod])/gm, '<p>')
-    .replace(/(?<![>])$/gm, '</p>')
-    .replace(/<p><\/p>/g, '')
-    .replace(/<p>(<[hupltb])/g, '$1')
-    .replace(/(<\/[hupltb].*>)<\/p>/g, '$1');
+  // Remove YAML frontmatter first
+  let html = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+
+  // Escape HTML entities
+  html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Extract fenced code blocks FIRST and replace with opaque placeholders.
+  // Without this, later passes (headers, paragraphs, bold/italic) mutate
+  // the code content — injecting `</p><p>` and `<h2>` inside the block,
+  // which breaks the browser's whitespace preservation.
+  const codeBlocks = [];
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const idx = codeBlocks.length;
+    codeBlocks.push(`<pre><code class="language-${lang}">${code}</code></pre>`);
+    return `\x00CB${idx}\x00`;
+  });
+
+  // Same for inline code — so * ** _ [ ] patterns inside backticks are left alone.
+  const inlineCodes = [];
+  html = html.replace(/`([^`]+)`/g, (_, code) => {
+    const idx = inlineCodes.length;
+    inlineCodes.push(`<code>${code}</code>`);
+    return `\x00IC${idx}\x00`;
+  });
+
+  // Headers (must have space after #)
+  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+  // Bold and italic
+  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+  // Unordered lists
+  html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+
+  // Horizontal rule (only standalone ---)
+  html = html.replace(/^---$/gm, '<hr>');
+
+  // Tables
+  html = html.replace(/^\|(.+)\|$/gm, (m, row) => {
+    const cells = row.split('|').map(c => c.trim());
+    if (cells.every(c => c.match(/^-+$/))) return '<!-- skip -->';
+    return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
+  });
+  html = html.replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>');
+  html = html.replace(/<!-- skip -->\n/g, '');
+
+  // Paragraphs - wrap non-block content
+  html = html.replace(/\n\n+/g, '\n\n</p><p>\n\n');
+  html = '<p>' + html + '</p>';
+
+  // Restore code block placeholders BEFORE final cleanup so the
+  // `<p>\s*<pre>` / `</pre>\s*</p>` cleanup rules below can strip the
+  // wrapping paragraph tags around restored blocks.
+  html = html.replace(/\x00CB(\d+)\x00/g, (_, i) => codeBlocks[+i]);
+  html = html.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCodes[+i]);
+
+  // Clean up empty paragraphs and fix nesting
+  html = html.replace(/<p>\s*<\/p>/g, '');
+  html = html.replace(/<p>\s*<(h[1-6]|ul|ol|pre|table|hr)/g, '<$1');
+  html = html.replace(/<\/(h[1-6]|ul|ol|pre|table)>\s*<\/p>/g, '</$1>');
+  html = html.replace(/<p>\s*<hr\s*\/?>\s*<\/p>/g, '<hr>');
 
   return html;
 }
@@ -477,6 +626,7 @@ function buildFilterButtons() {
     // Wire
     wireSegs(`${dim}Filter`, v => {
       filters[dim] = v === 'all' ? null : v;
+      saveState();
       render();
     });
   }
@@ -486,19 +636,22 @@ function buildFilterButtons() {
 
 async function init() {
   initTheme();
+  loadState();  // restore viewMode / groupMode / sortMode / cardMinWidth / filters
   await loadLinks();
   buildFilterButtons();
+  applyStateToUI();  // reflect restored state on the now-complete DOM
   render();
 
-  // Wire controls
-  wireSegs('sortSegs', v => { sortMode = v; render(); });
+  // Wire controls — change handlers save state then re-render
+  wireSegs('sortSegs', v => { sortMode = v; saveState(); render(); });
   wireSegs('viewSegs', v => {
     viewMode = v;
     const sizeCtrl = document.querySelector('.size-btn')?.closest('.ctrl');
     if (sizeCtrl) sizeCtrl.style.display = viewMode === 'list' ? 'none' : 'flex';
+    saveState();
     render();
   });
-  wireSegs('groupSegs', v => { groupMode = v; render(); });
+  wireSegs('groupSegs', v => { groupMode = v; saveState(); render(); });
 
   // Search
   document.getElementById('searchInput').addEventListener('input', render);
@@ -539,3 +692,24 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ── Live reload via SSE (dev only) ─────────────────────────────────────────────
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  (function() {
+    let es;
+    function connect() {
+      es = new EventSource('/api/events');
+      es.onmessage = function(e) {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.type === 'reload') {
+            console.log('[live-reload] manifest changed:', msg.changed);
+            loadLinks().then(render);
+          }
+        } catch(_) {}
+      };
+      es.onerror = function() { es.close(); setTimeout(connect, 5000); };
+    }
+    connect();
+  })();
+}

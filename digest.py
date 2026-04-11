@@ -14,11 +14,10 @@ import json
 import re
 import subprocess
 import sys
+import tomllib
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
 
-import tomllib
 from jinja2 import Environment, FileSystemLoader
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -26,7 +25,7 @@ from jinja2 import Environment, FileSystemLoader
 PROJECT_ROOT = Path(__file__).parent
 CONFIG_PATH = PROJECT_ROOT / "config.toml"
 TEMPLATE_DIR = PROJECT_ROOT / "templates"
-LINKS_DIR = PROJECT_ROOT / "public" / "links"
+LINKS_DIR = PROJECT_ROOT / "links"
 STATE_FILE = PROJECT_ROOT / ".digest_state.json"
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -57,20 +56,51 @@ def save_state(state: dict) -> None:
 
 
 def get_discord_token() -> str:
-    """Get Discord bot token from Lyra CredentialStore."""
-    # Try importing from lyra
-    try:
-        sys.path.insert(0, str(Path.home() / "projects" / "lyra" / "src"))
-        from lyra.core.credentials import CredentialStore
-        from lyra.core.keyring import LyraKeyring
+    """Get Discord bot token from Lyra's CredentialStore."""
+    import asyncio
 
-        keyring = LyraKeyring.load_or_create()
-        store = CredentialStore(keyring=keyring)
-        return store.get("discord_bot_token")
-    except Exception as e:
-        print(f"ERROR: Could not load Discord token from CredentialStore: {e}")
-        print("Make sure lyra is installed and discord_bot_token is stored.")
+    lyra_dir = Path.home() / ".lyra"
+
+    # Check if Lyra's credential store exists
+    keyring_path = lyra_dir / "keyring.key"
+    db_path = lyra_dir / "config.db"
+
+    if not keyring_path.exists() or not db_path.exists():
+        print("ERROR: Lyra credential store not found")
+        print("Run 'lyra bot add' to store Discord token first")
         sys.exit(1)
+
+    # Import Lyra's credential store
+    try:
+        from lyra.core.stores.credential_store import CredentialStore, LyraKeyring
+    except ImportError:
+        print("ERROR: lyra package not installed")
+        print("Install it or set DISCORD_TOKEN env var")
+        sys.exit(1)
+
+    async def _get_token() -> str | None:
+        keyring = LyraKeyring.load_or_create(keyring_path)
+        store = CredentialStore(db_path=db_path, keyring=keyring)
+        await store.connect()
+        try:
+            # Try 'lyra' bot first, then any discord bot
+            token = await store.get("discord", "lyra")
+            if not token:
+                # List all discord bots and use the first one
+                rows = await store.list_all()
+                discord_bots = [r for r in rows if r.platform == "discord"]
+                if discord_bots:
+                    token = await store.get("discord", discord_bots[0].bot_id)
+            return token
+        finally:
+            await store.close()
+
+    token = asyncio.run(_get_token())
+    if not token:
+        print("ERROR: No Discord bot token found in Lyra credential store")
+        print("Run: lyra bot add --platform discord --bot-id lyra")
+        sys.exit(1)
+    return token
 
 
 def fetch_discord_messages(
@@ -82,7 +112,7 @@ def fetch_discord_messages(
 
     intents = discord.Intents.default()
     intents.message_content = True
-    bot = commands.Bot(intents=intents)
+    bot = commands.Bot(command_prefix="!", intents=intents)
 
     messages = []
 
@@ -95,17 +125,24 @@ def fetch_discord_messages(
             await bot.close()
             return
 
+        # Only text channels have name and history
+        if not isinstance(channel, discord.TextChannel):
+            print(f"ERROR: Channel {channel_id} is not a text channel")
+            await bot.close()
+            return
+
         print(f"Fetching messages from #{channel.name}...")
 
         # Convert after to snowflake if provided
-        after_id = None
+        after_snowflake = None
         if after:
             # Discord epoch: 2015-01-01
             discord_epoch = datetime(2015, 1, 1, tzinfo=timezone.utc)
             snowflake_time = (after - discord_epoch).total_seconds() * 1000
             after_id = int(snowflake_time) << 22
+            after_snowflake = discord.Object(after_id)
 
-        async for msg in channel.history(limit=limit, after=after_id):
+        async for msg in channel.history(limit=limit, after=after_snowflake):
             if msg.content:  # Skip empty messages
                 messages.append(
                     {
@@ -172,7 +209,13 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 def find_web_intel() -> Path | None:
     """Find web-intel plugin root."""
     candidates = [
-        Path.home() / ".claude" / "plugins" / "cache" / "roxabi-marketplace" / "web-intel" / "0.1.0",
+        Path.home()
+        / ".claude"
+        / "plugins"
+        / "cache"
+        / "roxabi-marketplace"
+        / "web-intel"
+        / "0.1.0",
         Path.home() / "projects" / "web-intel",
     ]
     for p in candidates:
@@ -190,7 +233,10 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
             capture_output=True,
             text=True,
             timeout=60,
-            env={**dict(__import__("os").environ), "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"},
+            env={
+                **dict(__import__("os").environ),
+                "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
+            },
         )
 
         if result.returncode != 0:
@@ -207,13 +253,41 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
         return None
 
 
+def enrich_content(data: dict, web_intel_root: Path) -> dict:
+    """Enrich scraped content with LLM-extracted tags and summary."""
+    try:
+        # Pass scraped data to enricher via stdin
+        input_json = json.dumps(data)
+        result = subprocess.run(
+            ["uv", "run", "python", "scripts/enricher.py"],
+            cwd=web_intel_root,
+            input=input_json,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+
+        if result.returncode == 0:
+            return json.loads(result.stdout)
+        else:
+            print(f"  Enrichment failed: {result.stderr[:80]}")
+            return {"tags": [], "summary": "", "key_points": []}
+
+    except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
+        print(f"  Enrichment error: {e}")
+        return {"tags": [], "summary": "", "key_points": []}
+
+
 # ── Platform detection ────────────────────────────────────────────────────────
 
 
 def detect_platform(url: str) -> str:
     """Detect platform from URL."""
     url_lower = url.lower()
-    if "github.com" in url_lower:
+    # gist.github.com must be checked BEFORE github.com (substring match)
+    if "gist.github.com" in url_lower:
+        return "gist"
+    elif "github.com" in url_lower:
         return "github"
     elif "x.com" in url_lower or "twitter.com" in url_lower:
         return "x"
@@ -221,8 +295,6 @@ def detect_platform(url: str) -> str:
         return "youtube"
     elif "reddit.com" in url_lower:
         return "reddit"
-    elif "gist.github.com" in url_lower:
-        return "gist"
     else:
         return "web"
 
@@ -240,6 +312,10 @@ def generate_slug(url: str, date: str) -> str:
         match = re.search(r"github\.com/[^/]+/([^/]+)", url)
         if match:
             return match.group(1).lower().replace("-", "-")
+    elif platform == "gist":
+        match = re.search(r"gist\.github\.com/([^/]+)/", url)
+        if match:
+            return f"gist-{match.group(1).lower()}"
     elif platform == "x":
         # Extract author
         match = re.search(r"x\.com/([^/]+)/status/", url)
@@ -260,6 +336,17 @@ def generate_slug(url: str, date: str) -> str:
 def render_md(data: dict, template) -> str:
     """Render MD from template."""
     return template.render(**data)
+
+
+def synthesize_tweet_title(text: str, author: str | None) -> str:
+    """Build a meaningful title from a tweet body when none is provided."""
+    if text:
+        first = next((line.strip() for line in text.splitlines() if line.strip()), "")
+        if first:
+            if len(first) > 80:
+                first = first[:77].rstrip() + "..."
+            return first
+    return f"@{author} on X" if author else "X post"
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -339,18 +426,44 @@ def main():
 
         if scraped and scraped.get("success"):
             data = scraped.get("data", {})
+            content_type = scraped.get("content_type", "web")
             date = item["timestamp"][:10]
             slug = generate_slug(url, date)
 
+            # Enrich with LLM
+            print(f"  Enriching {slug}...")
+            enriched = enrich_content(data, web_intel)
+
+            # Per-content-type extraction.
+            # web-intel's `data.text` is a French LLM-prompt blob
+            # ("Auteur: ... Type: ... Titre: ... Contenu: ...") meant for the
+            # enricher. Render the clean field for the markdown body instead.
+            if content_type == "twitter":
+                content = data.get("raw_text") or ""
+                author = data.get("author") or data.get("username")
+                # Regular tweets have no title field — synthesize from body.
+                title = data.get("title") or synthesize_tweet_title(content, author)
+            elif content_type == "gist":
+                content = data.get("content") or ""
+                author = data.get("owner")
+                title = data.get("title") or "Untitled Gist"
+            else:
+                content = data.get("text") or ""
+                author = data.get("author") or data.get("username")
+                title = data.get("title") or "Untitled"
+
             md_data = {
-                "title": data.get("title") or "Untitled",
+                "title": title,
                 "source": url,
                 "date": date,
-                "tags": data.get("tags", [])[:5] if data.get("tags") else [],
+                "tags": enriched.get("tags", []) if enriched.get("tags") else [],
                 "platform": detect_platform(url),
-                "author": data.get("author") or data.get("username"),
-                "summary": data.get("description") or data.get("excerpt"),
-                "content": data.get("content"),
+                "author": author,
+                "summary": enriched.get("summary")
+                or data.get("description")
+                or data.get("excerpt")
+                or "",
+                "content": content,
             }
 
             # Write MD
@@ -373,6 +486,9 @@ def main():
                 # Extract username
                 match = re.search(r"x\.com/([^/]+)/status/", url)
                 author = f"@{match.group(1)}" if match else None
+            elif platform == "gist":
+                match = re.search(r"gist\.github\.com/([^/]+)/", url)
+                author = match.group(1) if match else None
             else:
                 author = None
 

@@ -10,10 +10,10 @@ links-digest/
 ├── config.toml         # Channel ID, time window
 ├── templates/
 │   └── link.md.j2      # Jinja2 template with frontmatter
+├── links/              # YYYY-MM-DD_slug.md files
+│   └── manifest.json
 ├── public/             # Deploy root (CF Pages)
 │   ├── index.html      # Dynamic gallery
-│   ├── links/          # YYYY-MM-DD_slug.md files
-│   │   └── manifest.json
 │   ├── css/gallery.css
 │   └── js/gallery.js
 └── Makefile

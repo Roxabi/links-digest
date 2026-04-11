@@ -3,12 +3,16 @@ name = "links-digest"
 version = "0.1.0"
 description = "Discord links digest with frontmatter MDs and dynamic gallery"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "discord.py>=2.4",
     "jinja2>=3.1",
     "tomli>=2.0; python_version < '3.11'",
+    "lyra",
 ]
+
+[tool.uv.sources]
+lyra = { git = "https://github.com/Roxabi/lyra.git", branch = "staging" }
 
 [project.optional-dependencies]
 dev = ["ruff>=0.4"]
@@ -26,3 +30,9 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[dependency-groups]
+dev = [
+    "pip-licenses>=5.5.5",
+    "pre-commit>=4.5.1",
+]
