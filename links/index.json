@@ -1,0 +1,3014 @@
+[
+  {
+    "file": "2026-03-15_x-juliandeangeiis.md",
+    "title": "The Spec Is the New Code. A Guide to Spec Driven Development",
+    "source": "https://x.com/juliandeangeiis/status/2033303156340240481?s=46",
+    "date": "2026-03-15",
+    "tags": [
+      "Spec Driven Development",
+      "AI Coding Agents",
+      "Software Development",
+      "Methodology",
+      "Automation"
+    ],
+    "platform": "x",
+    "author": "@juliandeangeIis",
+    "summary": "This article argues that AI coding agents fail primarily due to ambiguous human instructions and introduces Spec Driven Development (SDD) as a four-step methodology to eliminate ambiguity by defining"
+  },
+  {
+    "file": "2026-03-16_deepagents-tab-readme-ov-file.md",
+    "title": "langchain-ai/deepagents",
+    "source": "https://github.com/langchain-ai/deepagents?tab=readme-ov-file",
+    "date": "2026-03-16",
+    "tags": [
+      "langchain",
+      "langgraph",
+      "ai-agents",
+      "python",
+      "agent-harness"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Deep Agents is a batteries-included agent harness built with LangChain and LangGraph that provides pre-configured tools for planning, file operations, shell access, and sub-agent delegation."
+  },
+  {
+    "file": "2026-03-16_letta-code.md",
+    "title": "letta-ai/letta-code",
+    "source": "https://github.com/letta-ai/letta-code",
+    "date": "2026-03-16",
+    "tags": [
+      "ai",
+      "coding-agent",
+      "memory",
+      "typescript",
+      "developer-tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Letta Code is a memory-first coding agent that persists across sessions to learn over time, supporting various LLM models."
+  },
+  {
+    "file": "2026-03-16_obliteratus.md",
+    "title": "elder-plinius/OBLITERATUS",
+    "source": "https://github.com/elder-plinius/OBLITERATUS",
+    "date": "2026-03-16",
+    "tags": [
+      "llm",
+      "abliteration",
+      "mechanistic-interpretability",
+      "open-source",
+      "refusal-removal"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "OBLITERATUS is an open-source toolkit and distributed research experiment that uses abliteration techniques to surgically remove content refusal behaviors from large language models without"
+  },
+  {
+    "file": "2026-03-16_taste-skill.md",
+    "title": "Leonxlnx/taste-skill",
+    "source": "https://github.com/Leonxlnx/taste-skill",
+    "date": "2026-03-16",
+    "tags": [
+      "AI coding skills",
+      "frontend design",
+      "code generation",
+      "UI aesthetics",
+      "design tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A collection of AI skills that help coding agents generate modern, premium frontend designs instead of generic, boring interfaces."
+  },
+  {
+    "file": "2026-03-16_vesper.md",
+    "title": "ranausmanai/VespeR",
+    "source": "https://github.com/ranausmanai/VespeR",
+    "date": "2026-03-16",
+    "tags": [
+      "ai-agents",
+      "claude-code",
+      "workflow-automation",
+      "developer-tools",
+      "python"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "VespeR is a visual control plane for Claude Code workflows offering interactive sessions, reusable agents, pattern execution, and execution observability."
+  },
+  {
+    "file": "2026-03-16_x-ericosiu.md",
+    "title": "Your OpenClaw Setup Is At 10%. Here's The 10x System For Work.",
+    "source": "https://x.com/ericosiu/status/2033251563725279700?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "OpenClaw",
+      "AI Agents",
+      "Automation",
+      "Cost Optimization",
+      "Cybersecurity"
+    ],
+    "platform": "x",
+    "author": "@ericosiu",
+    "summary": "The author details a system for optimizing OpenClaw agents by routing models to reduce costs, securing agents against prompt injection, and coordinating multiple specialized agents through automated"
+  },
+  {
+    "file": "2026-03-16_x-glitch_.md",
+    "title": "a swarm & hermes that grows with you",
+    "source": "https://x.com/glitch_/status/2033175616485286254?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "AI Agents",
+      "Hermes Framework",
+      "OpenClaw",
+      "Swarm Intelligence",
+      "Python"
+    ],
+    "platform": "x",
+    "author": "@glitch_",
+    "summary": "The author details the creation of a Python-based multi-agent swarm framework called Hermes to automate growth experiments, highlighting its technical superiority over OpenClaw in terms of execution"
+  },
+  {
+    "file": "2026-03-16_x-hamostaf04.md",
+    "title": "The Agent Research Loop",
+    "source": "https://x.com/hamostaf04/status/2033305681395392932?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "AI Agents",
+      "Machine Learning",
+      "Autonomous Research",
+      "Scientific Method",
+      "Experimentation"
+    ],
+    "platform": "x",
+    "author": "@hamostaf04",
+    "summary": "Karpathy's autoresearch pattern demonstrates that tight loops with structured feedback allow AI agents to conduct autonomous research, shifting the human role from execution to strategic"
+  },
+  {
+    "file": "2026-03-16_x-iamsupersocks.md",
+    "title": "Jour 3 : Mon homelab IA tourne. 23 modèles locaux. Zéro cloud. Et j’ai tout f...",
+    "source": "https://x.com/iamsupersocks/status/2033149337820168224?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "AI",
+      "Homelab",
+      "Local LLM",
+      "Ryzen AI",
+      "Ollama"
+    ],
+    "platform": "x",
+    "author": "@iamsupersocks",
+    "summary": "A non-engineer documents building a local AI inference station in three days using a Ryzen AI mini PC, successfully running 23 models while optimizing VRAM management and storage."
+  },
+  {
+    "file": "2026-03-16_x-ksimback.md",
+    "title": "Everything is Agent: A Review of OpenClaw Alternatives (Part 1)",
+    "source": "https://x.com/ksimback/status/2027812237390512631?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "OpenClaw",
+      "AI Agents",
+      "Software Alternatives",
+      "Tech Review",
+      "Self-Hosted"
+    ],
+    "platform": "x",
+    "author": "@KSimback",
+    "summary": "This article reviews consumer-grade alternatives to OpenClaw, analyzing how new projects are addressing the original's usability and safety challenges while maintaining the core benefits of"
+  },
+  {
+    "file": "2026-03-16_x-lydiahallie.md",
+    "title": "Btw you can add `context: fork` to run a skill in an isolated subagent. The m...",
+    "source": "https://x.com/lydiahallie/status/2033603164398883042?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "claude",
+      "agents",
+      "subagent",
+      "coding",
+      "context-fork"
+    ],
+    "platform": "x",
+    "author": "@lydiahallie",
+    "summary": "The author explains that adding `context: fork` allows running a skill in an isolated subagent, giving it a fresh context window while returning only the final result to the main context."
+  },
+  {
+    "file": "2026-03-16_x-theturingpost.md",
+    "title": "7 emerging memory architectures for AI agents",
+    "source": "https://x.com/theturingpost/status/2033142035218374889?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "AI Agents",
+      "Memory Architecture",
+      "Artificial Intelligence",
+      "Computer Architecture"
+    ],
+    "platform": "x",
+    "author": "@TheTuringPost",
+    "summary": "A post listing seven emerging memory architectures specifically designed for AI agents."
+  },
+  {
+    "file": "2026-03-16_x-tom_doerr.md",
+    "title": "Builds local codebase graph for Claude Code",
+    "source": "https://x.com/tom_doerr/status/2033184588936147193?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "Claude Code",
+      "Codebase Graph",
+      "Developer Tools",
+      "AI",
+      "Tom Dörr"
+    ],
+    "platform": "x",
+    "author": "@tom_doerr",
+    "summary": "Tom Dörr introduces a tool for generating a local codebase graph to enhance Claude Code functionality."
+  },
+  {
+    "file": "2026-03-16_x-witcheer.md",
+    "title": "I migrated my entire AI agent setup from OpenClaw to Hermes Agent (@NousResea...",
+    "source": "https://x.com/witcheer/status/2033533371821789551?s=46",
+    "date": "2026-03-16",
+    "tags": [
+      "AI Agent",
+      "Hermes Agent",
+      "NousResearch",
+      "OpenClaw",
+      "Migration"
+    ],
+    "platform": "x",
+    "author": "@witcheer",
+    "summary": "The author details a 3-hour migration from OpenClaw to Hermes Agent, noting that while data transfer was quick, resolving delivery pipeline bugs regarding Telegram integration was the main challenge."
+  },
+  {
+    "file": "2026-03-17_link-02df5404.md",
+    "title": "This Is the Most Underrated Feature of Claude Code",
+    "source": "https://www.youtube.com/watch?v=04zBiBqzKQA&list=TLPQMTcwMzIwMja--LFGItPkgg&index=4",
+    "date": "2026-03-17",
+    "tags": [
+      "claude code",
+      "claude code tutorial",
+      "claude code tips",
+      "claude code hidden feature",
+      "claude code guide"
+    ],
+    "platform": "youtube",
+    "author": "Mark Kashef",
+    "summary": "Join My Community: https://www.skool.com/earlyaidopters/about\n\nPrompts: https://markkashef.gumroad.com/l/claude-code-guide-5-levels\n\n---\n\nThere's a sub-agent built into every single instance of Claude Code that most people don't know exists — and the ones who do barely scratch the surface. It's called the @claude-code-guide, and it acts like a personal concierge that knows every slash command, every hook, and every detail of how the latest versions of Claude Code work. In this video I walk you through 5 escalating levels of using it — from asking the most basic question all the way to having it self-heal broken parts of your existing repository.\n\n---\n\nTimestamps\n\n00:00 - The Claude Code feature most people are missing\n00:41 - What is @claude-code-guide and how does it work\n01:20 - The demo project setup (intentionally broken)\n02:10 - Level 1: Ask anything — basic questions answered instantly\n03:49 - Level 2: Diagnose your CLAUDE.md — find out what's missing\n05:14 - Level 3: Learn the hooks landscape — 17 hook types explained\n06:24 - Level 4: Build — create a custom /standup slash command\n07:34 - Level 5: Self-heal — fix broken hooks and rename garbage files\n10:18 - What to do next\n\n---\n\nBook a Consultation: https://calendly.com/d/crfp-qz3-m4z\n\n#claudecode #claudecodeai #anthropic #aitools #aitutorial #claudecodetools #aiagents #codingai  #llmtools #claudecodetips"
+  },
+  {
+    "file": "2026-03-17_link-5c0fe5de.md",
+    "title": "A sufficiently detailed spec is code",
+    "source": "https://haskellforall.com/2026/03/a-sufficiently-detailed-spec-is-code",
+    "date": "2026-03-17",
+    "tags": [
+      "specification documents",
+      "code generation",
+      "agentic coding",
+      "software engineering",
+      "technical misconceptions"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "The article argues that sufficiently detailed specifications essentially become code themselves, debunking claims that agentic coding can generate quality code from simpler specifications."
+  },
+  {
+    "file": "2026-03-17_link-6316e62e.md",
+    "title": "My Personal AI Infrastructure  -  Why I chose Factory AI's Droid",
+    "source": "https://youtu.be/mqOMsSa4Eys",
+    "date": "2026-03-17",
+    "tags": [
+      "AI Infrastructure",
+      "Local LLM",
+      "Hardware",
+      "RTX 3090",
+      "GLM 4.5"
+    ],
+    "platform": "youtube",
+    "author": "0xSero",
+    "summary": "The creator details the construction of a personal AI infrastructure using eight RTX 3090 GPUs to run open-weight models locally, discussing hardware trade-offs, cost savings over subscriptions, and"
+  },
+  {
+    "file": "2026-03-17_traul.md",
+    "title": "dandaka/traul",
+    "source": "https://github.com/dandaka/traul",
+    "date": "2026-03-17",
+    "tags": [
+      "personal-intelligence",
+      "local-first",
+      "ai-agent",
+      "vector-search",
+      "sqlite"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Traul is a local-first Personal Intelligence Engine that indexes communication streams from multiple platforms into a searchable SQLite database to provide AI agents with cross-platform memory and"
+  },
+  {
+    "file": "2026-03-17_x-iamsupersocks.md",
+    "title": "Incroyable ce repo. X depuis le terminal.",
+    "source": "https://x.com/iamsupersocks/status/2033681113059643608?s=46",
+    "date": "2026-03-17",
+    "tags": [
+      "clix",
+      "X",
+      "CLI",
+      "automation",
+      "MCP"
+    ],
+    "platform": "x",
+    "author": "@iamsupersocks",
+    "summary": "The author reviews 'clix', a CLI tool for controlling X via terminal using browser cookies, and outlines plans to automate their AI news curation and publishing pipeline."
+  },
+  {
+    "file": "2026-03-17_x-jayscambler.md",
+    "title": "autocontext: The Recursive Self-Improving Loop that Many are Calling AGI",
+    "source": "https://x.com/JayScambler/status/2033971974284714355",
+    "date": "2026-03-17",
+    "tags": [
+      "AI Agents",
+      "Recursive Self-Improvement",
+      "Infrastructure",
+      "autocontext",
+      "Persistent Memory"
+    ],
+    "platform": "x",
+    "author": "@JayScambler",
+    "summary": "The article introduces autocontext, a closed-loop optimization infrastructure that enables AI agents to learn from past runs by analyzing results and updating a shared knowledge base, effectively"
+  },
+  {
+    "file": "2026-03-17_x-trq212.md",
+    "title": "Lessons from Building Claude Code: How We Use Skills ",
+    "source": "https://x.com/trq212/status/2033949937936085378?s=46",
+    "date": "2026-03-17",
+    "tags": [
+      "Claude Code",
+      "Anthropic",
+      "AI Agents",
+      "Software Development",
+      "Skills"
+    ],
+    "platform": "x",
+    "author": "@trq212",
+    "summary": "Anthropic outlines lessons learned from using Skills in Claude Code, defining them as folder-based extensions containing scripts and assets, and categorizing them into four distinct types to improve"
+  },
+  {
+    "file": "2026-03-18_everything-claude-code.md",
+    "title": "affaan-m/everything-claude-code",
+    "source": "https://github.com/affaan-m/everything-claude-code",
+    "date": "2026-03-18",
+    "tags": [
+      "ai-agents",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "developer-tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Everything Claude Code is an agent harness performance optimization system providing skills, instincts, memory optimization, security scanning, and research-first development for Claude Code and"
+  },
+  {
+    "file": "2026-03-18_hermes-agent.md",
+    "title": "NousResearch/hermes-agent",
+    "source": "https://github.com/NousResearch/hermes-agent",
+    "date": "2026-03-18",
+    "tags": [
+      "ai-agent",
+      "llm",
+      "self-improving",
+      "python",
+      "automation"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Hermes Agent is a self-improving AI agent by Nous Research that features autonomous skill creation, persistent memory, and model-agnostic deployment across various platforms."
+  },
+  {
+    "file": "2026-03-18_hermes-workspace.md",
+    "title": "outsourc-e/hermes-workspace",
+    "source": "https://github.com/outsourc-e/hermes-workspace",
+    "date": "2026-03-18",
+    "tags": [
+      "AI agent workspace",
+      "web terminal interface",
+      "memory management system",
+      "React TypeScript app",
+      "OpenAI compatible backend"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Hermes Workspace is a native web workspace for AI agents that provides chat, terminal, memory, skills, and inspector features in one unified interface."
+  },
+  {
+    "file": "2026-03-18_impeccable.md",
+    "title": "pbakaus/impeccable",
+    "source": "https://github.com/pbakaus/impeccable",
+    "date": "2026-03-18",
+    "tags": [
+      "AI design tool",
+      "frontend design",
+      "design system",
+      "GitHub repository"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Impeccable is a design language and skill framework that helps AI assistants create better frontend designs through commands, anti-patterns, and domain-specific references."
+  },
+  {
+    "file": "2026-03-18_skills.md",
+    "title": "mcollina/skills",
+    "source": "https://github.com/mcollina/skills",
+    "date": "2026-03-18",
+    "tags": [
+      "nodejs",
+      "typescript",
+      "ai-assisted",
+      "fastify",
+      "skills"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A collection of specialized skills and best practices for AI-assisted Node.js development."
+  },
+  {
+    "file": "2026-03-18_x-0xink_.md",
+    "title": "if you're looking for a great free ASCII art tool,",
+    "source": "https://x.com/0xInk_/status/2034108541293015067",
+    "date": "2026-03-18",
+    "tags": [
+      "ASCII art",
+      "Tool",
+      "Midjourney",
+      "Grok"
+    ],
+    "platform": "x",
+    "author": "@0xInk_",
+    "summary": "A free ASCII art tool created by Kailash using Midjourney and Grok is announced."
+  },
+  {
+    "file": "2026-03-18_x-heynavtoor.md",
+    "title": "🚨 Governments pay millions for this. Someone just open sourced it for free.",
+    "source": "https://x.com/heynavtoor/status/2034034576893612113",
+    "date": "2026-03-18",
+    "tags": [
+      "open source",
+      "intelligence",
+      "dashboard",
+      "surveillance",
+      "crucix"
+    ],
+    "platform": "x",
+    "author": "@heynavtoor",
+    "summary": "Crucix is a free, open-source intelligence terminal that aggregates data from 26 global sources into a Jarvis-style dashboard with two-way alert capabilities via Telegram and Discord."
+  },
+  {
+    "file": "2026-03-18_x-krispuckett.md",
+    "title": "A Designer's Guide to the AI Galaxy",
+    "source": "https://x.com/krispuckett/status/2034034332738998377",
+    "date": "2026-03-18",
+    "tags": [
+      "AI",
+      "Design",
+      "Agents",
+      "Skills",
+      "MCP"
+    ],
+    "platform": "x",
+    "author": "@krispuckett",
+    "summary": "A designer's guide clarifying fundamental AI concepts—Agents, Skills, Plugins, Hooks, and Oracles—to establish distinct terminology for building AI systems without hype."
+  },
+  {
+    "file": "2026-03-18_x-lydiahallie.md",
+    "title": "if your skill depends on dynamic content, you can embed !`command` in your SK...",
+    "source": "https://x.com/lydiahallie/status/2034337963820327017?s=12",
+    "date": "2026-03-18",
+    "tags": [
+      "claude code",
+      "cli",
+      "skills",
+      "shell commands",
+      "dynamic content"
+    ],
+    "platform": "x",
+    "author": "@lydiahallie",
+    "summary": "Lydia Hallie explains how to embed shell commands in SKILL.md files to inject dynamic content directly into Claude Code prompts."
+  },
+  {
+    "file": "2026-03-18_x-promptcowboy.md",
+    "title": "Thanks for this, partner 🤠 Copy prompt below.",
+    "source": "https://x.com/promptcowboy/status/2034343636989817208?s=46",
+    "date": "2026-03-18",
+    "tags": [
+      "software architecture",
+      "documentation",
+      "prompt engineering",
+      "ARCHITECTURE.md",
+      "developer tools"
+    ],
+    "platform": "x",
+    "author": "@promptcowboy",
+    "summary": "A prompt template designed to guide an AI in generating a comprehensive ARCHITECTURE.md file by analyzing a codebase's structure, components, security, and deployment details."
+  },
+  {
+    "file": "2026-03-18_x-promptllm.md",
+    "title": "Never Procrastinate again by gamifying your life with AI (Prompt Included)",
+    "source": "https://x.com/PromptLLM/status/2034013337218892212",
+    "date": "2026-03-18",
+    "tags": [
+      "Gamification",
+      "AI",
+      "Dopamine",
+      "Productivity",
+      "Neuroscience"
+    ],
+    "platform": "x",
+    "author": "@PromptLLM",
+    "summary": "The article explains how to leverage AI to create gamified task systems that exploit the brain's dopamine pathways and intermittent rewards to overcome procrastination."
+  },
+  {
+    "file": "2026-03-18_x-rohit4verse.md",
+    "title": "The Harness Is Everything: What Cursor, Claude Code, and Perplexity Actually Built",
+    "source": "https://x.com/rohit4verse/status/2033945654377283643?s=46",
+    "date": "2026-03-18",
+    "tags": [
+      "AI Engineering",
+      "Harness",
+      "Coding Agents",
+      "LLM",
+      "Agent-Computer Interface"
+    ],
+    "platform": "x",
+    "author": "@rohit4verse",
+    "summary": "The article argues that the designed environment or 'harness' surrounding a language model is more critical to performance than the model itself, defining it as the most valuable engineering skill"
+  },
+  {
+    "file": "2026-03-18_x-socoloffalex.md",
+    "title": "The words cannot describe how I love brand design ✨ https://t.co/gcjSZOwNcX",
+    "source": "https://x.com/socoloffalex/status/2031399535860465946",
+    "date": "2026-03-18",
+    "tags": [
+      "brand design",
+      "passion",
+      "design",
+      "creativity"
+    ],
+    "platform": "x",
+    "author": "@socoloffalex",
+    "summary": "The author expresses an immense passion for brand design that transcends verbal description."
+  },
+  {
+    "file": "2026-03-18_x-stitchbygoogle.md",
+    "title": "Meet the new Stitch, your vibe design partner.",
+    "source": "https://x.com/stitchbygoogle/status/2034332847893574080?s=12",
+    "date": "2026-03-18",
+    "tags": [
+      "Stitch",
+      "Google",
+      "Design",
+      "AI",
+      "Product Update"
+    ],
+    "platform": "x",
+    "author": "@stitchbygoogle",
+    "summary": "Google's Stitch introduces five major upgrades, including an AI-native canvas and voice capabilities, to enhance design creation and collaboration."
+  },
+  {
+    "file": "2026-03-18_x-tomcrawshaw01.md",
+    "title": "Claude Lets You Run Your Computer From Your Phone ",
+    "source": "https://x.com/tomcrawshaw01/status/2034254381995139403",
+    "date": "2026-03-18",
+    "tags": [
+      "Anthropic",
+      "Claude",
+      "Mobile",
+      "Remote Control",
+      "Productivity"
+    ],
+    "platform": "x",
+    "author": "@tomcrawshaw01",
+    "summary": "Anthropic introduced Dispatch and Remote Control, new features that enable users to assign tasks and manage active Claude Code sessions on their desktops remotely via their mobile phones."
+  },
+  {
+    "file": "2026-03-18_x-trq212.md",
+    "title": "Lessons from Building Claude Code: How We Use Skills ",
+    "source": "https://x.com/trq212/status/2033949937936085378?s=12",
+    "date": "2026-03-18",
+    "tags": [
+      "Claude Code",
+      "Skills",
+      "AI Agents",
+      "Software Development",
+      "Anthropic"
+    ],
+    "platform": "x",
+    "author": "@trq212",
+    "summary": "Anthropic shares internal lessons on utilizing 'Skills' in Claude Code to accelerate development, categorizing them into four distinct types and offering examples for effective implementation."
+  },
+  {
+    "file": "2026-03-19_link-4c2efc9b.md",
+    "title": "Radiant — Open Source Shaders & Effects",
+    "source": "https://radiant-shaders.com/",
+    "date": "2026-03-19",
+    "tags": [
+      "shaders",
+      "web-development",
+      "open-source",
+      "html",
+      "graphics"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "Radiant offers a curated collection of production-ready, open-source web shaders and effects delivered as single, self-contained HTML files with no dependencies."
+  },
+  {
+    "file": "2026-03-19_link-eb4fc5b7.md",
+    "title": "Stitch - Design with AI",
+    "source": "https://stitch.withgoogle.com/",
+    "date": "2026-03-19",
+    "tags": [
+      "AI",
+      "Design",
+      "UI",
+      "Web Development",
+      "Prototyping"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "Stitch is an AI-powered tool that generates user interfaces for mobile and web applications to streamline the design ideation process."
+  },
+  {
+    "file": "2026-03-19_x-alphasignalai.md",
+    "title": "Getting started with Paperclip AI: Build Zero Human Companies",
+    "source": "https://x.com/alphasignalai/status/2034647427609751913?s=46",
+    "date": "2026-03-19",
+    "tags": [
+      "AI Agents",
+      "Paperclip AI",
+      "Autonomous Business",
+      "Node.js",
+      "Open Source"
+    ],
+    "platform": "x",
+    "author": "@AlphaSignalAI",
+    "summary": "This article provides a guide on setting up Paperclip AI, an open-source platform that orchestrates AI agents to run a business autonomously under human supervision."
+  },
+  {
+    "file": "2026-03-19_x-jayscambler.md",
+    "title": "autocontext: The Recursive Self-Improving Loop that Many are Calling AGI",
+    "source": "https://x.com/jayscambler/status/2033971974284714355?s=46",
+    "date": "2026-03-19",
+    "tags": [
+      "autocontext",
+      "AI agents",
+      "recursive self-improvement",
+      "AGI",
+      "persistent memory"
+    ],
+    "platform": "x",
+    "author": "@JayScambler",
+    "summary": "The article introduces autocontext, a recursive self-improving infrastructure layer designed to solve the lack of persistent memory in AI agents by creating a closed-loop system that accumulates and"
+  },
+  {
+    "file": "2026-03-19_x-journoverax.md",
+    "title": "How to Read the Order Book Like a Quant. Every Model, Every Formula, Runnable Code ",
+    "source": "https://x.com/journoverax/status/2034630639664652465?s=46",
+    "date": "2026-03-19",
+    "tags": [
+      "quantitative finance",
+      "order book analysis",
+      "Kyle's Lambda",
+      "Hawkes process",
+      "market microstructure"
+    ],
+    "platform": "x",
+    "author": "@journoverax",
+    "summary": "This article explains how to analyze order books using quantitative models like Kyle's Lambda and Hawkes processes to build a simulation engine for trading prediction markets and optimizing execution."
+  },
+  {
+    "file": "2026-03-19_x-nickspisak_.md",
+    "title": "Installed Paperclip, Now What !?",
+    "source": "https://x.com/nickspisak_/status/2034635430700679445?s=46",
+    "date": "2026-03-19",
+    "tags": [
+      "AI Agents",
+      "Paperclip",
+      "gstack",
+      "Automation",
+      "Open Source"
+    ],
+    "platform": "x",
+    "author": "@NickSpisak_",
+    "summary": "This article guides users on setting up an autonomous AI company using three integrated tools: Paperclip for management, gstack for engineering, and autoresearch for R&D."
+  },
+  {
+    "file": "2026-03-19_x-roeymiterany.md",
+    "title": "Extracted content. Here you go 👇",
+    "source": "https://x.com/roeymiterany/status/2034363403893113038?s=46",
+    "date": "2026-03-19",
+    "tags": [
+      "workflow orchestration",
+      "AI agents",
+      "software engineering",
+      "best practices",
+      "task management"
+    ],
+    "platform": "x",
+    "author": "@roeymiterany",
+    "summary": "A comprehensive guide for AI agent workflows emphasizing structured planning, autonomous debugging, rigorous verification, and continuous self-improvement."
+  },
+  {
+    "file": "2026-03-20_openviking.md",
+    "title": "volcengine/OpenViking",
+    "source": "https://github.com/volcengine/OpenViking",
+    "date": "2026-03-20",
+    "tags": [
+      "context database",
+      "ai agents",
+      "file system",
+      "open-source"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "OpenViking is an open-source context database for AI Agents that unifies memory, resources, and skills using a file system paradigm."
+  },
+  {
+    "file": "2026-03-20_x-aleiahlock.md",
+    "title": "Overhype and marketing | MIROFISH decoded",
+    "source": "https://x.com/aleiahlock/status/2034933878968705503?s=46",
+    "date": "2026-03-20",
+    "tags": [
+      "MiroFish",
+      "Artificial Intelligence",
+      "Swarm Intelligence",
+      "Code Analysis",
+      "Marketing Hype"
+    ],
+    "platform": "x",
+    "author": "@AleiahLock",
+    "summary": "A code-based investigation reveals that MiroFish is not a revolutionary predictive swarm intelligence engine but rather a wrapper for existing third-party tools and commercial LLMs with no native AI"
+  },
+  {
+    "file": "2026-03-20_x-meta_alchemist.md",
+    "title": "Spark: self-improving agents meeting collective intelligence",
+    "source": "https://x.com/meta_alchemist/status/2034713309610680774?s=46",
+    "date": "2026-03-20",
+    "tags": [
+      "AI",
+      "Self-improving agents",
+      "Collective intelligence",
+      "Open-source",
+      "Machine Learning"
+    ],
+    "platform": "x",
+    "author": "@meta_alchemist",
+    "summary": "Spark is an open-source AI system designed to overcome the limitations of current static models by enabling recursive self-improvement and collective evolution through structured research and"
+  },
+  {
+    "file": "2026-03-20_x-neural_avb.md",
+    "title": "Recursive Language Models - what finally gave me the 'aha' moment",
+    "source": "https://x.com/neural_avb/status/2035040781074145412?s=46",
+    "date": "2026-03-20",
+    "tags": [
+      "Recursive Language Models",
+      "RLM",
+      "AI architectures",
+      "ReAct",
+      "RAG"
+    ],
+    "platform": "x",
+    "author": "@neural_avb",
+    "summary": "The author shares insights from implementing Recursive Language Models and explains how RLMs solve problems differently compared to other architectures like direct generation, RAG, and ReAct."
+  },
+  {
+    "file": "2026-03-21_claude-control.md",
+    "title": "sverrirsig/claude-control",
+    "source": "https://github.com/sverrirsig/claude-control",
+    "date": "2026-03-21",
+    "tags": [
+      "macOS",
+      "Claude Code",
+      "dashboard",
+      "monitoring",
+      "git"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A native macOS desktop application for monitoring and managing multiple Claude Code sessions in real-time, featuring auto-discovery, git integration, and quick action controls."
+  },
+  {
+    "file": "2026-03-21_plannotator.md",
+    "title": "backnotprop/plannotator",
+    "source": "https://github.com/backnotprop/plannotator",
+    "date": "2026-03-21",
+    "tags": [
+      "ai-coding",
+      "code-review",
+      "developer-tools",
+      "typescript",
+      "open-source"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Plannotator is a visual tool for annotating and reviewing AI coding agent plans and code diffs, enabling team collaboration and direct feedback to agents."
+  },
+  {
+    "file": "2026-03-21_understand-anything.md",
+    "title": "Lum1104/Understand-Anything",
+    "source": "https://github.com/Lum1104/Understand-Anything",
+    "date": "2026-03-21",
+    "tags": [
+      "knowledge graph",
+      "code analysis",
+      "multi-platform tool",
+      "codebase visualization"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Understand Anything is a Claude Code plugin that converts codebases, Dockerfiles, and docs into interactive knowledge graphs for exploration."
+  },
+  {
+    "file": "2026-03-21_x-0xsero.md",
+    "title": "I'm not the only one doing this.",
+    "source": "https://x.com/0xsero/status/2035064089345478658?s=46",
+    "date": "2026-03-21",
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "LLM",
+      "Open Source",
+      "Tech Influencers"
+    ],
+    "platform": "x",
+    "author": "@0xSero",
+    "summary": "A curated list of influential figures in the AI and open-source community, highlighting their specific contributions to LLM training, tools, hardware, and research."
+  },
+  {
+    "file": "2026-03-21_x-daievolutionhub.md",
+    "title": " 🚨Top Github Repositories which everyone should look ",
+    "source": "https://x.com/daievolutionhub/status/2034996724490805331?s=46",
+    "date": "2026-03-21",
+    "tags": [
+      "GitHub",
+      "Programming",
+      "Software Development",
+      "Open Source",
+      "Resources"
+    ],
+    "platform": "x",
+    "author": "@DAIEvolutionHub",
+    "summary": "A curated list of essential GitHub repositories for developers covering learning roadmaps, interview preparation, system design, and free tools."
+  },
+  {
+    "file": "2026-03-21_x-hasantoxr.md",
+    "title": "Best GitHub repos for Claude code that will 10x your next project:",
+    "source": "https://x.com/hasantoxr/status/2035312729427480840?s=46",
+    "date": "2026-03-21",
+    "tags": [
+      "Claude",
+      "GitHub",
+      "Repositories",
+      "AI Tools",
+      "Development"
+    ],
+    "platform": "x",
+    "author": "@hasantoxr",
+    "summary": "A curated list of top GitHub repositories designed to enhance productivity and capabilities when working with Claude code."
+  },
+  {
+    "file": "2026-03-22_link-3071bc33.md",
+    "title": "Agentic coding 101 - How I work on 8 projects at a time",
+    "source": "https://youtu.be/VgR66ybAtdg?si=mt0LXudulfRI4Whv",
+    "date": "2026-03-22",
+    "tags": [
+      "claude code",
+      "codex",
+      "ai coding",
+      "best agentic coding tools",
+      "how to code with agents like a pro"
+    ],
+    "platform": "youtube",
+    "author": "0xSero",
+    "summary": "This is how i use claude code and codex to code on 8x projects at a time\n\nhttps://x.com/0xsero\nhttps://github.com/0xsero"
+  },
+  {
+    "file": "2026-03-22_x-0xsero.md",
+    "title": "Open Source must win. ",
+    "source": "https://x.com/0xsero/status/2035022588439581076?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "Open Source",
+      "Artificial Intelligence",
+      "AI Ethics",
+      "Decentralization",
+      "Future of Technology"
+    ],
+    "platform": "x",
+    "author": "@0xSero",
+    "summary": "The author argues that the consolidation of AI power within closed-source labs threatens global autonomy, making the success of Open Source AI essential to preserve freedom and prevent a dystopian"
+  },
+  {
+    "file": "2026-03-22_x-alexfinn.md",
+    "title": "[1/2] Maybe the sickest OpenClaw use case I've ever built",
+    "source": "https://x.com/alexfinn/status/2035480284238606598?s=12",
+    "date": "2026-03-22",
+    "tags": [
+      "AI",
+      "OpenClaw",
+      "Automation",
+      "Business Growth",
+      "R&D"
+    ],
+    "platform": "x",
+    "author": "@AlexFinn",
+    "summary": "Alex Finn describes an automated OpenClaw workflow where multiple AI models act as an autonomous R&D department to analyze business performance and suggest revenue growth strategies."
+  },
+  {
+    "file": "2026-03-22_x-atenov_d.md",
+    "title": "Default OpenClaw is useless. Here's the architecture that actually works.",
+    "source": "https://x.com/atenov_d/status/2035691878113267868?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "AI Agents",
+      "OpenClaw",
+      "Configuration",
+      "Workflow Automation",
+      "Best Practices"
+    ],
+    "platform": "x",
+    "author": "@Atenov_D",
+    "summary": "The author provides a specific architecture for configuring OpenClaw AI agents, detailing essential files like soul.md and learnings.md, workflow management, and security rules to ensure reliability"
+  },
+  {
+    "file": "2026-03-22_x-ctatedev.md",
+    "title": "Sign in with Google",
+    "source": "https://x.com/ctatedev/status/2035756810179670376?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "testing",
+      "emulator",
+      "google",
+      "integration",
+      "developer-tools"
+    ],
+    "platform": "x",
+    "author": "@ctatedev",
+    "summary": "Emulate is a service emulator that allows developers to test integrations like Google Sign-In without connecting to the actual provider, ensuring stability for CI and agents."
+  },
+  {
+    "file": "2026-03-22_x-cyrilxbt.md",
+    "title": "Obsidian + Claude Code is the most underrated productivity stack in tech right now.(Full course)",
+    "source": "https://x.com/cyrilxbt/status/2035761611764347219?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "Obsidian",
+      "Claude Code",
+      "AI Productivity",
+      "Personal Knowledge Management",
+      "Markdown"
+    ],
+    "platform": "x",
+    "author": "@cyrilXBT",
+    "summary": "Combining Obsidian's local markdown note-taking with Claude Code's local command line capabilities creates a personalized AI assistant that leverages your entire knowledge base for context-aware"
+  },
+  {
+    "file": "2026-03-22_x-daievolutionhub.md",
+    "title": "Most people using Claude Code are wasting 80% of it.",
+    "source": "https://x.com/daievolutionhub/status/2035744725849018806?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "Claude Code",
+      "AI Agents",
+      "Software Engineering",
+      "Productivity",
+      "Workflow Optimization"
+    ],
+    "platform": "x",
+    "author": "@DAIEvolutionHub",
+    "summary": "Kshitij Mishra argues that most users underutilize Claude Code and suggests configuring it as a 29-agent engineering team to dramatically increase development speed."
+  },
+  {
+    "file": "2026-03-22_x-dhravyashah.md",
+    "title": "We broke the frontier in agent memory: Introducing ~99% SOTA memory system.",
+    "source": "https://x.com/dhravyashah/status/2035517012647272689?s=12",
+    "date": "2026-03-22",
+    "tags": [
+      "AI Memory",
+      "Agent Systems",
+      "LongMemEval",
+      "ASMR",
+      "Artificial Intelligence"
+    ],
+    "platform": "x",
+    "author": "@DhravyaShah",
+    "summary": "The article introduces ASMR, an experimental agentic technique that achieved ~99% on the LongMemEval benchmark by using active reasoning instead of vector databases to handle complex temporal data."
+  },
+  {
+    "file": "2026-03-22_x-nurijanian.md",
+    "title": "Improving AI Skills with autoresearch & evals-skills",
+    "source": "https://x.com/nurijanian/status/2035257434365976671?s=46",
+    "date": "2026-03-22",
+    "tags": [
+      "AI",
+      "evals",
+      "prompt-engineering",
+      "optimization",
+      "machine-learning"
+    ],
+    "platform": "x",
+    "author": "@nurijanian",
+    "summary": "The author shares lessons from using Auto Research to optimize AI skills, emphasizing that manual data observation is a prerequisite for closing the 'Gulf of Comprehension' and creating effective"
+  },
+  {
+    "file": "2026-03-23_awesome-hermes-agent.md",
+    "title": "0xNyk/awesome-hermes-agent",
+    "source": "https://github.com/0xNyk/awesome-hermes-agent",
+    "date": "2026-03-23",
+    "tags": [
+      "ai-agents",
+      "awesome-list",
+      "hermes-agent",
+      "nous-research",
+      "skills"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A curated GitHub list of skills, tools, integrations, and resources for Hermes Agent, a self-improving AI agent by Nous Research with built-in learning capabilities."
+  },
+  {
+    "file": "2026-03-23_link-8be254cc.md",
+    "title": "This AI Agent self-evolves (Hermes Explained)",
+    "source": "https://youtu.be/PVs2VTPZ3dw?si=9WQouYmvTHm_APU7",
+    "date": "2026-03-23",
+    "tags": [
+      "claude code",
+      "agentic engineering",
+      "ai agents",
+      "hermes agent"
+    ],
+    "platform": "youtube",
+    "author": "Igor Kudryk (Salesforce)",
+    "summary": "Build your first AI Agent in 60 minutes (for free): https://learnagents.dev/?utm_source=youtube\n\nTimecodes: \n\n00:00 - Introduction to Hermes AI Agent\n00:52 - How Hermes Agent is built\n01:19 - Entry Points into Hermes Agent\n02:51 - USER.md and MEMORY.md in Hermes Agent\n07:21 - Hermes Agent memory writing loop\n17:23 - SessionDB in Hermes Agent\n19:20 - Self-improving Memory (Memory Nudge)\n26:10 - Memory Flush & Compression\n32:57 - Self-improving skills in Hermes\n36:01 - Constructing System Prompt\n38:52 - Recursive Skill discovery\n41:21 - Why you should protect System Prompt\n42:09 - Honcho memory for Hermes Agent"
+  },
+  {
+    "file": "2026-03-23_x-akshay_pachaar.md",
+    "title": "Anatomy of the .claude/ folder",
+    "source": "https://x.com/akshay_pachaar/status/2035341800739877091",
+    "date": "2026-03-23",
+    "tags": [
+      "Claude Code",
+      "Configuration",
+      "Developer Tools",
+      "AI",
+      "Tutorial"
+    ],
+    "platform": "x",
+    "author": "@akshay_pachaar",
+    "summary": "A comprehensive guide explaining the anatomy of the .claude/ folder, detailing how to use CLAUDE.md, rules, commands, and permissions to customize Claude Code behavior for projects and teams."
+  },
+  {
+    "file": "2026-03-23_x-artemxtech.md",
+    "title": "5 Claude Agents, 5 Discord Channels, 1 Obsidian Vault",
+    "source": "https://x.com/artemxtech/status/2035933150186975304?s=12",
+    "date": "2026-03-23",
+    "tags": [
+      "claude-code",
+      "discord",
+      "obsidian",
+      "anthropic",
+      "channels"
+    ],
+    "platform": "x",
+    "author": "@ArtemXTech",
+    "summary": "The author explains how Anthropic's new Channels feature enables mobile Discord access to Claude Code sessions integrated with their Obsidian vault, comparing it to OpenClaw and demonstrating"
+  },
+  {
+    "file": "2026-03-23_x-bentoboinft.md",
+    "title": "I Fixed OpenClaw's Biggest Problem (Memory)",
+    "source": "https://x.com/bentoboinft/status/2036085692850135256?s=12",
+    "date": "2026-03-23",
+    "tags": [
+      "OpenClaw",
+      "AI Agents",
+      "Memory Management",
+      "LLM",
+      "Context Window"
+    ],
+    "platform": "x",
+    "author": "@BentoBoiNFT",
+    "summary": "The author explains the flaws in OpenClaw's default memory system, specifically regarding amnesia and context loss, and provides detailed configuration fixes and prompts to improve agent recall."
+  },
+  {
+    "file": "2026-03-23_x-code_rams.md",
+    "title": "Just implemented all of this.",
+    "source": "https://x.com/code_rams/status/2036097565632938451?s=12",
+    "date": "2026-03-23",
+    "tags": [
+      "AI Agents",
+      "Context Management",
+      "Memory Distillation",
+      "Multi-agent Systems",
+      "Automation"
+    ],
+    "platform": "x",
+    "author": "@code_rams",
+    "summary": "The author suggests three advanced features—Lossless Context Management, automated memory distillation, and shared workspaces—to improve upon basic AI memory implementations for multi-agent systems."
+  },
+  {
+    "file": "2026-03-23_x-coreyganim.md",
+    "title": "Anatomy of a perfect Openclaw setup",
+    "source": "https://x.com/coreyganim/status/2036070952987988290",
+    "date": "2026-03-23",
+    "tags": [
+      "OpenClaw",
+      "AI assistant",
+      "configuration",
+      "workspace setup",
+      "technical guide"
+    ],
+    "platform": "x",
+    "author": "@coreyganim",
+    "summary": "A comprehensive guide explaining how to properly configure OpenClaw workspace files including AGENTS.md, SOUL.md, IDENTITY.md, USER.md, HEARTBEAT.md, and TOOLS.md to optimize AI assistant behavior"
+  },
+  {
+    "file": "2026-03-23_x-mattpocockuk.md",
+    "title": "For weeks, folks have been asking me to make a video building a feature with...",
+    "source": "https://x.com/mattpocockuk/status/2034274298915889604?s=46",
+    "date": "2026-03-23",
+    "tags": [
+      "Claude",
+      "AI Coding",
+      "Tutorial",
+      "Software Development"
+    ],
+    "platform": "x",
+    "author": "@mattpocockuk",
+    "summary": "Matt Pocock released a video tutorial demonstrating how to build a feature using Claude code in a real codebase, covering the process from idea to QA."
+  },
+  {
+    "file": "2026-03-23_x-mehmetozsoyart.md",
+    "title": "Static illustrations don't tell the story.",
+    "source": "https://x.com/mehmetozsoyart/status/2036070712461451661?s=12",
+    "date": "2026-03-23",
+    "tags": [
+      "animation",
+      "illustration",
+      "design",
+      "user engagement"
+    ],
+    "platform": "x",
+    "author": "@mehmetozsoyart",
+    "summary": "The author argues that static illustrations fail to tell the full story and that animation is crucial for engaging users."
+  },
+  {
+    "file": "2026-03-23_x-rohit4verse.md",
+    "title": "the missing layer in your agentic stack",
+    "source": "https://x.com/rohit4verse/status/2036156196613431595",
+    "date": "2026-03-23",
+    "tags": [
+      "Agentic AI",
+      "Event Sourcing",
+      "Trace Architecture",
+      "Memory Layer",
+      "AI Infrastructure"
+    ],
+    "platform": "x",
+    "author": "@rohit4verse",
+    "summary": "The article identifies the lack of a persistent memory layer for reasoning traces as the primary cause of failure in agentic AI systems, proposing event sourcing architecture as the necessary"
+  },
+  {
+    "file": "2026-03-23_x-the_smart_ape.md",
+    "title": "how i fixed my AI agent's memory.",
+    "source": "https://x.com/the_smart_ape/status/2035643464465916052?s=46",
+    "date": "2026-03-23",
+    "tags": [
+      "AI Agents",
+      "Memory Management",
+      "Token Optimization",
+      "Context Window",
+      "LLM"
+    ],
+    "platform": "x",
+    "author": "@the_smart_ape",
+    "summary": "The author proposes a three-tier memory architecture—pocket, desk, and bookshelf—to fix AI agent amnesia while reducing costs and avoiding performance degradation caused by large context windows."
+  },
+  {
+    "file": "2026-03-24_agent-orchestrator.md",
+    "title": "ComposioHQ/agent-orchestrator",
+    "source": "https://github.com/ComposioHQ/agent-orchestrator/",
+    "date": "2026-03-24",
+    "tags": [
+      "orchestration",
+      "parallel-agents",
+      "multi-agent",
+      "git-worktrees",
+      "ai-agents"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Agent Orchestrator is an orchestration layer for managing parallel AI coding agents that autonomously handle CI fixes, code reviews, and merge conflicts using isolated git worktrees."
+  },
+  {
+    "file": "2026-03-24_atomic-agents-tab-readme-ov-file.md",
+    "title": "BrainBlend-AI/atomic-agents",
+    "source": "https://github.com/BrainBlend-AI/atomic-agents?tab=readme-ov-file",
+    "date": "2026-03-24",
+    "tags": [
+      "ai",
+      "python",
+      "llm",
+      "agents",
+      "framework"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Atomic Agents is a lightweight and modular Python framework designed for building Agentic AI pipelines and applications using atomic, composable components."
+  },
+  {
+    "file": "2026-03-24_claude-plugins-official.md",
+    "title": "anthropics/claude-plugins-official",
+    "source": "https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/discord",
+    "date": "2026-03-24",
+    "tags": [
+      "Claude Code plugins",
+      "MCP servers",
+      "Plugin directory",
+      "Anthropic official"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "An official Anthropic-managed directory of high-quality Claude Code plugins with internal and third-party options."
+  },
+  {
+    "file": "2026-03-24_link-f4ab21a8.md",
+    "title": "Harness design for long-running application development",
+    "source": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+    "date": "2026-03-24",
+    "tags": [
+      "AI engineering",
+      "multi-agent systems",
+      "context management",
+      "harness design",
+      "autonomous coding"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "The author describes a multi-agent harness design and context reset strategy to improve the reliability and quality of long-running autonomous coding and design applications."
+  },
+  {
+    "file": "2026-03-24_qodo-skills.md",
+    "title": "qodo-ai/qodo-skills",
+    "source": "https://github.com/qodo-ai/qodo-skills",
+    "date": "2026-03-24",
+    "tags": [
+      "code review tools",
+      "AI coding agents",
+      "shift-left development",
+      "developer tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Qodo Skills provides shift-left code review capabilities for AI coding agents compatible with Claude Code, Cursor, Windsurf, Cline and other platforms."
+  },
+  {
+    "file": "2026-03-24_x-amirmushich.md",
+    "title": "CLAUDE + OPENART WORLDS. The Virtual Production Pipeline",
+    "source": "https://x.com/amirmushich/status/2036169931612467708?s=12",
+    "date": "2026-03-24",
+    "tags": [
+      "AI",
+      "Virtual Production",
+      "Claude AI",
+      "OpenArt",
+      "Design Pipeline"
+    ],
+    "platform": "x",
+    "author": "@AmirMushich",
+    "summary": "This article presents a framework for building agency-grade design pipelines using Claude AI and OpenArt tools to create professional 3D environments and characters for commercial visual production."
+  },
+  {
+    "file": "2026-03-24_x-mitcheil.md",
+    "title": "I made my client a millionaire with Claude Code",
+    "source": "https://x.com/mitcheil/status/2036098438908293349?s=12",
+    "date": "2026-03-24",
+    "tags": [
+      "AI Agents",
+      "Claude Code",
+      "Content Marketing",
+      "Automation",
+      "Revenue Generation"
+    ],
+    "platform": "x",
+    "author": "@MitcheIl",
+    "summary": "The author describes how a system of 20 specialized AI agents built within Claude Code generated over $3 million in revenue for a client by automating deep research and enforcing strict quality"
+  },
+  {
+    "file": "2026-03-24_x-sidgraph.md",
+    "title": "How Hermes Agent remembers, learns, and becomes yours ",
+    "source": "https://x.com/sidgraph/status/2036417870473863674?s=12",
+    "date": "2026-03-24",
+    "tags": [
+      "Hermes Agent",
+      "NousResearch",
+      "AI Architecture",
+      "Memory Systems",
+      "Cognitive Science"
+    ],
+    "platform": "x",
+    "author": "@sidgraph",
+    "summary": "This article provides a deep analysis of the Hermes Agent codebase, explaining how its four-part cognitive memory architecture enables persistent identity and continuous learning."
+  },
+  {
+    "file": "2026-03-25_agentic-design-patterns.md",
+    "title": "Mathews-Tom/Agentic-Design-Patterns",
+    "source": "https://github.com/Mathews-Tom/Agentic-Design-Patterns",
+    "date": "2026-03-25",
+    "tags": [
+      "ai",
+      "design-patterns",
+      "llm",
+      "multi-agent-systems",
+      "book"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "This repository hosts the full text of the book 'Agentic Design Patterns,' which details 21 core patterns for building intelligent autonomous AI systems with practical code examples."
+  },
+  {
+    "file": "2026-03-25_clawteam.md",
+    "title": "HKUDS/ClawTeam",
+    "source": "https://github.com/HKUDS/ClawTeam",
+    "date": "2026-03-25",
+    "tags": [
+      "AI agent swarms",
+      "swarm intelligence",
+      "automation framework",
+      "multi-agent collaboration",
+      "Python framework"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "ClawTeam is a Python framework enabling AI agents to form swarms and automate tasks through a single command."
+  },
+  {
+    "file": "2026-03-25_openspace.md",
+    "title": "HKUDS/OpenSpace",
+    "source": "https://github.com/HKUDS/OpenSpace",
+    "date": "2026-03-25",
+    "tags": [
+      "AI Agents",
+      "Self-Evolving",
+      "MCP",
+      "Python",
+      "HKUDS"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "OpenSpace is an open-source framework designed to make AI agents smarter, low-cost, and self-evolving through skill sharing and experience aggregation across platforms like Claude Code and Codex."
+  },
+  {
+    "file": "2026-03-25_skills.md",
+    "title": "slavingia/skills",
+    "source": "https://github.com/slavingia/skills",
+    "date": "2026-03-25",
+    "tags": [
+      "Claude Code",
+      "Plugin",
+      "The Minimalist Entrepreneur",
+      "Business Strategy",
+      "Sahil Lavingia"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "This repository provides a Claude Code plugin containing 10 business skills derived from Sahil Lavingia's book 'The Minimalist Entrepreneur' to guide users through the startup lifecycle."
+  },
+  {
+    "file": "2026-03-25_x-bogdan_qclay.md",
+    "title": "What do you think about the eye contact hook on the hero section? https://t.c...",
+    "source": "https://x.com/bogdan_qclay/status/2036746524651123069?s=46",
+    "date": "2026-03-25",
+    "tags": [
+      "web design",
+      "hero section",
+      "eye contact",
+      "UI design"
+    ],
+    "platform": "x",
+    "author": "@bogdan_qclay",
+    "summary": "The author asks for opinions regarding the use of an eye contact hook in a website's hero section."
+  },
+  {
+    "file": "2026-03-25_x-huang_chao4969.md",
+    "title": "Introducing OpenSpace: The self-evolving engine that makes your AI agents sma...",
+    "source": "https://x.com/huang_chao4969/status/2036493834495074704?s=12",
+    "date": "2026-03-25",
+    "tags": [
+      "OpenSpace",
+      "AI Agents",
+      "Self-evolving engine",
+      "Token Efficiency",
+      "GitHub"
+    ],
+    "platform": "x",
+    "author": "@huang_chao4969",
+    "summary": "OpenSpace is a self-evolving engine for AI agents that enables skill sharing and automatic improvement to reduce costs by 46% and enhance collective intelligence."
+  },
+  {
+    "file": "2026-03-25_x-kevinnguyendn.md",
+    "title": "Native, Structured and Long-term Memory Plugin for OpenClaw",
+    "source": "https://x.com/kevinnguyendn/status/2036457783906934959?s=46",
+    "date": "2026-03-25",
+    "tags": [
+      "OpenClaw",
+      "memory plugin",
+      "AI agents",
+      "ByteRover",
+      "context engine"
+    ],
+    "platform": "x",
+    "author": "@kevinnguyendn",
+    "summary": "ByteRover launches a native memory plugin for OpenClaw that integrates directly into prompt assembly, achieving over 92% retrieval accuracy with a structured Context Tree and featuring a 24/7 memory"
+  },
+  {
+    "file": "2026-03-25_x-lexnlin.md",
+    "title": "Ressources and inspo for designers and vibecoders",
+    "source": "https://x.com/lexnlin/status/2036549813337031133?s=12",
+    "date": "2026-03-25",
+    "tags": [
+      "design",
+      "resources",
+      "inspiration",
+      "UI/UX",
+      "illustrations"
+    ],
+    "platform": "x",
+    "author": "@LexnLin",
+    "summary": "A curated list of websites providing inspiration and resources for designers, covering illustrations, UI components, portfolios, typography, animations, and icons."
+  },
+  {
+    "file": "2026-03-25_x-pawelhuryn.md",
+    "title": "The Claude Dispatch Guide: 48 Hours Running AI From My Phone",
+    "source": "https://x.com/pawelhuryn/status/2036058594433519790?s=12",
+    "date": "2026-03-25",
+    "tags": [
+      "Claude",
+      "Dispatch",
+      "AI Productivity",
+      "Mobile Workflows",
+      "Product Management"
+    ],
+    "platform": "x",
+    "author": "@PawelHuryn",
+    "summary": "The article details how Claude's Dispatch feature enables users to orchestrate asynchronous AI tasks from a mobile phone, transforming downtime into productive workflow management by using the phone"
+  },
+  {
+    "file": "2026-03-25_x-zachlloydtweets.md",
+    "title": "Build vs buy: how to deploy coding agents at scale",
+    "source": "https://x.com/zachlloydtweets/status/2036509756404158559?s=12",
+    "date": "2026-03-25",
+    "tags": [
+      "coding agents",
+      "build vs buy",
+      "AI infrastructure",
+      "software engineering",
+      "orchestration"
+    ],
+    "platform": "x",
+    "author": "@zachlloydtweets",
+    "summary": "The article explores the strategic decision engineering leaders face between building in-house orchestration systems or buying commercial platforms to deploy and scale coding agents effectively."
+  },
+  {
+    "file": "2026-03-26_gstack.md",
+    "title": "garrytan/gstack",
+    "source": "https://github.com/garrytan/gstack",
+    "date": "2026-03-26",
+    "tags": [
+      "claude-code",
+      "garry-tan",
+      "y-combinator",
+      "ai-agents",
+      "software-engineering"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Garry Tan's open-source gstack tool provides 23 specialized AI agent roles and slash commands that transform Claude Code into a virtual engineering team, enabling massive productivity gains like"
+  },
+  {
+    "file": "2026-03-26_harness.md",
+    "title": "wedow/harness",
+    "source": "https://github.com/wedow/harness",
+    "date": "2026-03-26",
+    "tags": [
+      "bash",
+      "agent-loop",
+      "plugin-architecture",
+      "cli-tool",
+      "state-machine"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A minimal agent loop in bash featuring a pure state follower core with plugin-based tools, hooks, providers, and commands."
+  },
+  {
+    "file": "2026-03-26_x-thedankoe.md",
+    "title": "How to become so creative it feels illegal",
+    "source": "https://x.com/thedankoe/status/2036824811712942576?s=12",
+    "date": "2026-03-26",
+    "tags": [
+      "creativity",
+      "burnout",
+      "personal development"
+    ],
+    "platform": "x",
+    "author": "@thedankoe",
+    "summary": "The author explains how creativity is a natural state of consciousness that becomes blocked by mental interference like conditioning and distraction, offering a guide to restore it."
+  },
+  {
+    "file": "2026-03-27_picsou-finance.md",
+    "title": "Zoeille/picsou-finance",
+    "source": "https://github.com/Zoeille/picsou-finance",
+    "date": "2026-03-27",
+    "tags": [
+      "finance",
+      "open-source",
+      "self-hosted",
+      "java",
+      "spring-boot"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Picsou is a self-hosted, open-source personal finance dashboard built with Spring Boot and React designed for single-user local tracking of accounts, goals, and bank synchronization."
+  },
+  {
+    "file": "2026-03-27_x-nickspisak_.md",
+    "title": "How to build a company run entirely by AI agents (free, open source, 5-minute setup)",
+    "source": "https://x.com/nickspisak_/status/2033518072724705437?s=12",
+    "date": "2026-03-27",
+    "tags": [
+      "AI agents",
+      "open source",
+      "automation",
+      "project management",
+      "Paperclip"
+    ],
+    "platform": "x",
+    "author": "@NickSpisak_",
+    "summary": "Paperclip is a free, open-source tool that organizes existing AI coding agents into a structured company framework with defined roles, budgets, and centralized management."
+  },
+  {
+    "file": "2026-03-27_x-roundtablespace.md",
+    "title": "Hermes Agent now runs Browser Use CLI 2.0.",
+    "source": "https://x.com/roundtablespace/status/2037541400494112794?s=12",
+    "date": "2026-03-27",
+    "tags": [
+      "Browser Automation",
+      "Hermes Agent",
+      "Browser Use CLI 2.0",
+      "AI Agents",
+      "Tech Update"
+    ],
+    "platform": "x",
+    "author": "@RoundtableSpace",
+    "summary": "Hermes Agent now integrates Browser Use CLI 2.0, enabling state-of-the-art browser automation with lower token usage and persistent cloud authentication."
+  },
+  {
+    "file": "2026-03-27_x-startupideaspod.md",
+    "title": "How to build an AI Agent company using Paperclip",
+    "source": "https://x.com/startupideaspod/status/2037247132927926452?s=12",
+    "date": "2026-03-27",
+    "tags": [
+      "Paperclip",
+      "AI Agents",
+      "Orchestration",
+      "Open Source",
+      "Startup"
+    ],
+    "platform": "x",
+    "author": "@startupideaspod",
+    "summary": "Paperclip is an open-source orchestration layer that enables users to manage a virtual company of AI agents, solving context and tracking issues by organizing work around business goals, defined"
+  },
+  {
+    "file": "2026-03-27_x-witcheer.md",
+    "title": "Living With an AI agent - My Full Setup After 2 Months",
+    "source": "https://x.com/witcheer/status/2037528582298194123?s=12",
+    "date": "2026-03-27",
+    "tags": [
+      "AI Agent",
+      "Hermes Agent",
+      "Local LLM",
+      "Mac Mini",
+      "Automation"
+    ],
+    "platform": "x",
+    "author": "@witcheer",
+    "summary": "The author details a comprehensive two-month experiment running a fully autonomous AI agent on a local Mac Mini using the Hermes framework and a multi-model stack to perform research and daily tasks"
+  },
+  {
+    "file": "2026-03-28_deep-live-cam.md",
+    "title": "hacksider/Deep-Live-Cam",
+    "source": "https://github.com/hacksider/Deep-Live-Cam",
+    "date": "2026-03-28",
+    "tags": [
+      "real-time face swap",
+      "video deepfake",
+      "deepfake software",
+      "python project"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Deep-Live-Cam is a real-time face swap and video deepfake tool that operates with just a single image."
+  },
+  {
+    "file": "2026-03-28_link-ee8ef231.md",
+    "title": "mistralai/Voxtral-4B-TTS-2603 · Hugging Face",
+    "source": "https://huggingface.co/mistralai/Voxtral-4B-TTS-2603",
+    "date": "2026-03-28",
+    "tags": [
+      "Text-to-Speech",
+      "Mistral AI",
+      "Open Weights",
+      "Multilingual",
+      "vLLM"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "Voxtral-4B-TTS-2603 is a fast, open-weights text-to-speech model from Mistral AI that generates lifelike, multilingual speech for production voice agents."
+  },
+  {
+    "file": "2026-03-28_llama-cpp-turboquant-cuda.md",
+    "title": "spiritbuun/buun-llama-cpp",
+    "source": "https://github.com/spiritbuun/llama-cpp-turboquant-cuda",
+    "date": "2026-03-28",
+    "tags": [
+      "llama.cpp",
+      "quantization",
+      "kv-cache",
+      "tcq",
+      "cuda"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "An experimental fork of llama.cpp implementing Trellis-Coded Quantization (TCQ) for KV cache compression, allowing 2-3x more context in VRAM while maintaining or beating FP16 quality."
+  },
+  {
+    "file": "2026-03-28_onyx.md",
+    "title": "onyx-dot-app/onyx",
+    "source": "https://github.com/onyx-dot-app/onyx",
+    "date": "2026-03-28",
+    "tags": [
+      "open source ai",
+      "llm platform",
+      "agentic rag",
+      "ai chat interface"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Onyx is an open-source AI platform offering a feature-rich interface for LLMs with capabilities like RAG and code execution."
+  },
+  {
+    "file": "2026-03-28_pretext.md",
+    "title": "chenglou/pretext",
+    "source": "https://github.com/chenglou/pretext",
+    "date": "2026-03-28",
+    "tags": [
+      "text measurement",
+      "text layout",
+      "TypeScript library",
+      "performance optimization",
+      "font rendering"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Pretext is a TypeScript library for fast, accurate text measurement without DOM reflow, supporting multiple rendering targets."
+  },
+  {
+    "file": "2026-03-28_x-ctatedev.md",
+    "title": "Introducing the agent-browser dashboard",
+    "source": "https://x.com/ctatedev/status/2037599050112160165?s=46",
+    "date": "2026-03-28",
+    "tags": [
+      "agent-browser",
+      "dashboard",
+      "developer-tools",
+      "debugging",
+      "headless-browser"
+    ],
+    "platform": "x",
+    "author": "@ctatedev",
+    "summary": "@ctatedev introduces a new agent-browser dashboard that enables developers to watch headless browsers in real time, manage sessions, and debug using various inspection panels."
+  },
+  {
+    "file": "2026-03-28_x-hasantoxr.md",
+    "title": "[1/2] 🚨 Claude Code just got superpowers.",
+    "source": "https://x.com/hasantoxr/status/2037963944313430474?s=12",
+    "date": "2026-03-28",
+    "tags": [
+      "Claude Code",
+      "AI",
+      "Multi-agent",
+      "Developer Tools",
+      "Automation"
+    ],
+    "platform": "x",
+    "author": "@hasantoxr",
+    "summary": "A new multi-agent orchestration layer for Claude Code introduces 32 specialized agents and 5 execution modes to significantly increase output speed without requiring new subscriptions."
+  },
+  {
+    "file": "2026-03-28_x-ksimback.md",
+    "title": "Two Powerful Claude Code Plugins: gstack vs CE",
+    "source": "https://x.com/ksimback/status/2037168696259403929?s=12",
+    "date": "2026-03-28",
+    "tags": [
+      "Claude Code",
+      "AI Plugins",
+      "gstack",
+      "Compound Engineering",
+      "Developer Tools"
+    ],
+    "platform": "x",
+    "author": "@KSimback",
+    "summary": "This article compares two powerful Claude Code plugins, Garry Tan's gstack for virtual team simulation and Every.to's Compound Engineering for systematic workflow methodology, guiding developers on"
+  },
+  {
+    "file": "2026-03-28_x-nyk_builderz.md",
+    "title": "How to become AI native",
+    "source": "https://x.com/nyk_builderz/status/2037419750351839241?s=12",
+    "date": "2026-03-28",
+    "tags": [
+      "AI Native",
+      "AI Augmented",
+      "Productivity",
+      "Future of Work",
+      "Workflows"
+    ],
+    "platform": "x",
+    "author": "@nyk_builderz",
+    "summary": "This article distinguishes between being AI-augmented and AI-native, arguing that the growing productivity gap is driven by workers who integrate AI as a core mechanism in their workflows rather than"
+  },
+  {
+    "file": "2026-03-28_x-starks_arq.md",
+    "title": "seedance 2.0 can change your life, here's the complete guide",
+    "source": "https://x.com/starks_arq/status/2037928570257903983?s=46",
+    "date": "2026-03-28",
+    "tags": [
+      "AI Video",
+      "Seedance 2.0",
+      "CapCut",
+      "Tutorial",
+      "Prompt Engineering"
+    ],
+    "platform": "x",
+    "author": "@starks_arq",
+    "summary": "A technical guide on how to access Seedance 2.0 via CapCut using an Indonesian VPN and utilize specific prompt structures and editing workflows to create professional AI video content."
+  },
+  {
+    "file": "2026-03-28_x-voxyz_ai.md",
+    "title": "you installed openclaw and used it to chat.",
+    "source": "https://x.com/voxyz_ai/status/2037982540766883984?s=12",
+    "date": "2026-03-28",
+    "tags": [
+      "AI agents",
+      "automation",
+      "productivity",
+      "OpenClaw",
+      "workflow"
+    ],
+    "platform": "x",
+    "author": "@Voxyz_ai",
+    "summary": "The content outlines the capabilities of the OpenClaw AI agent, detailing how it automates professional tasks like social media ops and competitive research, as well as personal life management"
+  },
+  {
+    "file": "2026-03-29_clawtalk-ios.md",
+    "title": "sam-david/clawtalk-ios",
+    "source": "https://github.com/sam-david/clawtalk-ios",
+    "date": "2026-03-29",
+    "tags": [
+      "ios",
+      "voice-assistant",
+      "openclaw",
+      "speech-to-text",
+      "whisperkit"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "ClawTalk is a native iOS app for voice and text chat with OpenClaw agents, featuring on-device speech recognition via WhisperKit and multi-agent channel support."
+  },
+  {
+    "file": "2026-03-29_deer-flow.md",
+    "title": "bytedance/deer-flow",
+    "source": "https://github.com/bytedance/deer-flow",
+    "date": "2026-03-29",
+    "tags": [
+      "agent",
+      "superagent",
+      "ai",
+      "open-source",
+      "python"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "DeerFlow is an open-source long-horizon SuperAgent harness from ByteDance that orchestrates sub-agents, memory, and sandboxes to research, code, and create solutions for complex tasks."
+  },
+  {
+    "file": "2026-03-29_x-0xsero.md",
+    "title": "Here's a codebase ready for plugin into any agentic harness that will auto st...",
+    "source": "https://x.com/0xsero/status/2038203496625803697?s=46",
+    "date": "2026-03-29",
+    "tags": [
+      "security",
+      "privacy",
+      "huggingface",
+      "ai-agents",
+      "developer-tools"
+    ],
+    "platform": "x",
+    "author": "@0xSero",
+    "summary": "A new codebase integrates with agentic harnesses to automatically strip secrets, anonymize data, and push it to Hugging Face."
+  },
+  {
+    "file": "2026-03-30_x-0xmaxou.md",
+    "title": "Le 'Harness' Fait Tout: ce que Cursor, Lovable, Claude Code ont vraiment sous le capot",
+    "source": "https://x.com/0xmaxou/status/2038293702574035216?s=12",
+    "date": "2026-03-30",
+    "tags": [
+      "IA",
+      "LLM",
+      "Harness",
+      "Agents",
+      "Développement"
+    ],
+    "platform": "x",
+    "author": "@0xmaxou",
+    "summary": "L'article explique que la performance des outils IA comme Cursor ou Claude Code ne vient pas des modèles bruts, mais du 'harness' (l'environnement structuré) qui les encapsule, gère leur raisonnement"
+  },
+  {
+    "file": "2026-03-30_x-brivaelfr.md",
+    "title": "Je reçois beaucoup de messages de soutien en MP depuis le lancement de ce com...",
+    "source": "https://x.com/brivaelfr/status/2038365510207725706?s=46",
+    "date": "2026-03-30",
+    "tags": [
+      "economics",
+      "entrepreneurship",
+      "artificial intelligence",
+      "public debate",
+      "austrian school"
+    ],
+    "platform": "x",
+    "author": "@BrivaelFr",
+    "summary": "The author argues that AI empowers entrepreneurs to effectively engage in public debates against collectivist ideologies, breaking the cultural monopoly of those who previously dominated the"
+  },
+  {
+    "file": "2026-03-30_x-nousresearch.md",
+    "title": "The Hermes Agent update you've been waiting for is here. https://t.co/2uwpMzIOug",
+    "source": "https://x.com/nousresearch/status/2038688578201346513?s=12",
+    "date": "2026-03-30",
+    "tags": [
+      "Hermes Agent",
+      "Nous Research",
+      "Update"
+    ],
+    "platform": "x",
+    "author": "@NousResearch",
+    "summary": "Nous Research announces the release of the awaited Hermes Agent update."
+  },
+  {
+    "file": "2026-03-30_x-shruti_0810.md",
+    "title": "OpenClaw: 10 Insanely Powerful Prompts You Need to Steal",
+    "source": "https://x.com/shruti_0810/status/2038283293666512935?s=12",
+    "date": "2026-03-30",
+    "tags": [
+      "OpenClaw",
+      "AI Prompts",
+      "Productivity",
+      "Automation",
+      "Workflow"
+    ],
+    "platform": "x",
+    "author": "@Shruti_0810",
+    "summary": "This article provides 10 optimized prompts for OpenClaw designed to automate complex tasks and improve workflow efficiency without requiring user tweaking."
+  },
+  {
+    "file": "2026-03-30_x-voxyz_ai.md",
+    "title": "I Compared gstack, Superpowers, and Compound Engineering. They Solve Three Completely Different Prob",
+    "source": "https://x.com/voxyz_ai/status/2038237755654783107?s=12",
+    "date": "2026-03-30",
+    "tags": [
+      "AI Coding",
+      "Claude Code",
+      "gstack",
+      "Superpowers",
+      "Compound Engineering"
+    ],
+    "platform": "x",
+    "author": "@Voxyz_ai",
+    "summary": "The article compares three Claude Code tools—gstack, Superpowers, and Compound Engineering—arguing that they serve distinct, complementary layers of AI development (planning, execution, and knowledge"
+  },
+  {
+    "file": "2026-03-31_x-jack.md",
+    "title": "From Hierarchy to Intelligence",
+    "source": "https://x.com/jack/status/2039003879841362278?s=12",
+    "date": "2026-03-31",
+    "tags": [
+      "Organizational Design",
+      "Artificial Intelligence",
+      "Management History",
+      "Sequoia",
+      "Block"
+    ],
+    "platform": "x",
+    "author": "@jack",
+    "summary": "This article traces the military origins of corporate hierarchy and explores how AI can fundamentally transform organizational design to prioritize speed, as exemplified by Block."
+  },
+  {
+    "file": "2026-03-31_x-michaelxbloch.md",
+    "title": "The Only Moats That Matter",
+    "source": "https://x.com/michaelxbloch/status/2038753872890778029?s=12",
+    "date": "2026-03-31",
+    "tags": [
+      "Artificial Intelligence",
+      "Business Strategy",
+      "Investing",
+      "Moats",
+      "Startups"
+    ],
+    "platform": "x",
+    "author": "@michaelxbloch",
+    "summary": "In an era where AI renders execution trivial, business defensibility relies on five 'hard to get' assets: compounding proprietary data, network effects, regulatory permission, capital at scale, and"
+  },
+  {
+    "file": "2026-04-01_x-brivaelfr.md",
+    "title": "Pour information : l'intégralité des tweets produits sur ce compte et les sta...",
+    "source": "https://x.com/brivaelfr/status/2038749591273677303?s=12",
+    "date": "2026-04-01",
+    "tags": [
+      "AI",
+      "ContentAutomation",
+      "TwitterGrowth",
+      "DataAnalytics",
+      "SocialMediaStrategy"
+    ],
+    "platform": "x",
+    "author": "@BrivaelFr",
+    "summary": "The author details how an AI agent automated 80% of their Twitter content production, resulting in rapid growth to 12.4K followers and 14M impressions in 5 weeks through data-driven optimization and"
+  },
+  {
+    "file": "2026-04-01_x-outsource_.md",
+    "title": "🚀 Imagine running Claude 4.6 Opus-level reasoning... but entirely on your own...",
+    "source": "https://x.com/outsource_/status/2038999111039357302",
+    "date": "2026-04-01",
+    "tags": [
+      "AI",
+      "LLM",
+      "Qwen3.5",
+      "Local LLM",
+      "Coding"
+    ],
+    "platform": "x",
+    "author": "@outsource_",
+    "summary": "A distilled 27B Qwen3.5 model offers Claude 4.6 Opus-level reasoning locally on 16GB VRAM, outperforming Claude Sonnet 4.5 on coding benchmarks."
+  },
+  {
+    "file": "2026-04-01_x-_overment.md",
+    "title": "cooking.",
+    "source": "https://x.com/_overment/status/2039061635776618554?s=46",
+    "date": "2026-04-01",
+    "tags": [
+      "architecture",
+      "LLM",
+      "dynamic dependency graph",
+      "personal system"
+    ],
+    "platform": "x",
+    "author": "@_overment",
+    "summary": "The author shares a personal system architecture based on a dynamic dependency graph and a heartbeat mechanism involving an LLM, code, and events."
+  },
+  {
+    "file": "2026-04-01_x-troyhua.md",
+    "title": "How Anthropic Built 7 Layers of Memory and a Dreaming System for Claude Code  (video breakdown)",
+    "source": "https://x.com/troyhua/status/2039052328070734102?s=12",
+    "date": "2026-04-01",
+    "tags": [
+      "Claude Code",
+      "Memory Management",
+      "Anthropic",
+      "Context Window",
+      "Reverse Engineering"
+    ],
+    "platform": "x",
+    "author": "@troyhua",
+    "summary": "This technical analysis reverse-engineers Claude Code's 7-layer memory architecture, explaining how it manages bounded context windows through tool result storage, microcompaction, and a background"
+  },
+  {
+    "file": "2026-04-02_x-jackdishman.md",
+    "title": "Building Agents That Scale: A practical guide to event-driven agent architecture",
+    "source": "https://x.com/jackdishman/status/2039452216730222969?s=12",
+    "date": "2026-04-02",
+    "tags": [
+      "AI Agents",
+      "Event-Driven Architecture",
+      "System Design",
+      "Scalability",
+      "Software Engineering"
+    ],
+    "platform": "x",
+    "author": "@JackDishman",
+    "summary": "A practical guide detailing a five-layer, event-driven architecture for building production-grade AI agents that autonomously monitor, reason, and act without human involvement."
+  },
+  {
+    "file": "2026-04-02_x-realmcore_.md",
+    "title": "Skill chaining and why skills should be actions",
+    "source": "https://x.com/realmcore_/status/2039382343581147414",
+    "date": "2026-04-02",
+    "tags": [
+      "AI Agents",
+      "Skill Chaining",
+      "LLM",
+      "Context Management",
+      "Slate"
+    ],
+    "platform": "x",
+    "author": "@realmcore_",
+    "summary": "The article advocates for reframing AI agent skills as dynamic, executable actions rather than static prompts, utilizing the Slate execution model to bridge the 'knowledge overhang' through"
+  },
+  {
+    "file": "2026-04-02_x-yacinemtb.md",
+    "title": "software 3.0 ",
+    "source": "https://x.com/yacinemtb/status/2039344583687934053?s=12",
+    "date": "2026-04-02",
+    "tags": [
+      "Artificial Intelligence",
+      "Neural Networks",
+      "Software 3.0",
+      "Predictive Models",
+      "Software Engineering"
+    ],
+    "platform": "x",
+    "author": "@yacineMTB",
+    "summary": "Software 3.0 describes a paradigm shift where neural networks replace traditional code to become the software itself, acting as predictors to handle complex, dynamic tasks that hand-written logic"
+  },
+  {
+    "file": "2026-04-03_ai-avatar-system.md",
+    "title": "PunithVT/ai-avatar-system",
+    "source": "https://github.com/PunithVT/ai-avatar-system",
+    "date": "2026-04-03",
+    "tags": [
+      "ai-avatar",
+      "voice-cloning",
+      "lip-sync",
+      "real-time-voice",
+      "generative-ai"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "AvatarAI is an open-source AI avatar platform that enables real-time conversations with any face using voice cloning, lip-sync video generation, and multi-LLM integrations."
+  },
+  {
+    "file": "2026-04-03_autoagent.md",
+    "title": "kevinrgu/autoagent",
+    "source": "https://github.com/kevinrgu/autoagent",
+    "date": "2026-04-03",
+    "tags": [
+      "autonomous agents",
+      "agent engineering",
+      "benchmark optimization",
+      "Python framework",
+      "meta-agent system"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "AutoAgent enables AI to autonomously build and iterate on agent harnesses by modifying configurations and running benchmarks to optimize scores."
+  },
+  {
+    "file": "2026-04-03_lightrag.md",
+    "title": "hkuds/LightRAG",
+    "source": "https://github.com/hkuds/lightrag",
+    "date": "2026-04-03",
+    "tags": [
+      "retrieval-augmented-generation",
+      "knowledge-graph",
+      "large-language-models",
+      "graphrag",
+      "python"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "LightRAG is a simple and fast Retrieval-Augmented Generation framework developed by HKUDS that integrates knowledge graphs with large language models."
+  },
+  {
+    "file": "2026-04-03_pal.md",
+    "title": "agno-agi/pal",
+    "source": "https://github.com/agno-agi/pal",
+    "date": "2026-04-03",
+    "tags": [
+      "personal agent",
+      "knowledge base",
+      "python project",
+      "multi-agent system"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Pal is a personal agent that learns user workflows by organizing data into a wiki and SQL database via specialized agents."
+  },
+  {
+    "file": "2026-04-03_turboquant_plus.md",
+    "title": "TheTom/turboquant_plus",
+    "source": "https://github.com/TheTom/turboquant_plus",
+    "date": "2026-04-03",
+    "tags": [
+      "python",
+      "llm",
+      "quantization",
+      "kv-cache-compression",
+      "llama.cpp"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "TurboQuant+ is a Python implementation of KV cache compression for local LLM inference, featuring experimental llama.cpp integration and validated findings on asymmetric compression strategies."
+  },
+  {
+    "file": "2026-04-03_x-0xsero.md",
+    "title": "Free Droid for all.",
+    "source": "https://x.com/0xSero/status/2040012153885761973",
+    "date": "2026-04-03",
+    "tags": [
+      "Factory Droid",
+      "LLM",
+      "BYOK",
+      "Configuration",
+      "Proxy"
+    ],
+    "platform": "x",
+    "author": "@0xSero",
+    "summary": "A guide on configuring Factory Droid to use custom LLM providers and existing subscriptions through JSON edits and local proxies."
+  },
+  {
+    "file": "2026-04-03_x-gkisokay.md",
+    "title": "I Gave My Hermes + OpenClaw Agents a Subconscious, and Now They Self-Improve 24/7 | Full Guide",
+    "source": "https://x.com/gkisokay/status/2040044476060864598?s=12",
+    "date": "2026-04-03",
+    "tags": [
+      "AI Agents",
+      "Self-Improvement",
+      "Workflow Automation",
+      "Hermes",
+      "OpenClaw"
+    ],
+    "platform": "x",
+    "author": "@gkisokay",
+    "summary": "This guide details the architecture for a 'subconscious' agent system that enables Hermes and OpenClaw agents to autonomously self-improve by analyzing past runs and updating their own persistent"
+  },
+  {
+    "file": "2026-04-03_x-karpathy.md",
+    "title": "LLM Knowledge Bases",
+    "source": "https://x.com/karpathy/status/2039805659525644595?s=12",
+    "date": "2026-04-03",
+    "tags": [
+      "LLM",
+      "Knowledge Management",
+      "Obsidian",
+      "Workflow",
+      "AI"
+    ],
+    "platform": "x",
+    "author": "@karpathy",
+    "summary": "Andrej Karpathy outlines a workflow where LLMs ingest raw data to automatically compile, maintain, and query a personal markdown wiki within Obsidian."
+  },
+  {
+    "file": "2026-04-03_x-voxyz_ai.md",
+    "title": "I Stopped Collecting Agent Skills. Started Wiring Them Into Loops. ",
+    "source": "https://x.com/voxyz_ai/status/2039704571165987213?s=12",
+    "date": "2026-04-03",
+    "tags": [
+      "AI agents",
+      "automation",
+      "feedback loops",
+      "skill development",
+      "workflow optimization"
+    ],
+    "platform": "x",
+    "author": "@Voxyz_ai",
+    "summary": "The author argues that static AI skill collections are ineffective compared to wiring skills into iterative loops where agents learn from user edits and feedback to improve over time."
+  },
+  {
+    "file": "2026-04-04_byterover-cli.md",
+    "title": "campfirein/byterover-cli",
+    "source": "https://github.com/campfirein/byterover-cli",
+    "date": "2026-04-04",
+    "tags": [
+      "AI memory layer",
+      "context management",
+      "coding agents",
+      "LLM integration",
+      "CLI tool"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "ByteRover CLI is a portable memory layer for autonomous coding agents that provides persistent structured memory with cloud sync capabilities."
+  },
+  {
+    "file": "2026-04-04_x-gkisokay.md",
+    "title": "Anthropic just banned Claude subscriptions from powering OpenClaw.",
+    "source": "https://x.com/gkisokay/status/2040352080196755780?s=12",
+    "date": "2026-04-04",
+    "tags": [
+      "AI Agents",
+      "LLM Architecture",
+      "Cost Optimization",
+      "Multi-Model Stack",
+      "OpenClaw"
+    ],
+    "platform": "x",
+    "author": "@gkisokay",
+    "summary": "The author describes a resilient multi-LLM agent stack that uses local models for volume and subscriptions for execution to avoid service bans and minimize costs."
+  },
+  {
+    "file": "2026-04-05_gitnexus.md",
+    "title": "abhigyanpatwari/GitNexus",
+    "source": "https://github.com/abhigyanpatwari/GitNexus",
+    "date": "2026-04-05",
+    "tags": [
+      "code-intelligence",
+      "knowledge-graph",
+      "typescript",
+      "rag",
+      "ai-agents"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "GitNexus is a zero-server client-side code intelligence engine that indexes repositories into interactive knowledge graphs to enhance code exploration and provide architectural context for AI agents."
+  },
+  {
+    "file": "2026-04-05_hermes-agent-self-evolution.md",
+    "title": "NousResearch/hermes-agent-self-evolution",
+    "source": "https://github.com/NousResearch/hermes-agent-self-evolution",
+    "date": "2026-04-05",
+    "tags": [
+      "python",
+      "ai-agent",
+      "prompt-engineering",
+      "dsp",
+      "gepa"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Hermes Agent Self-Evolution utilizes DSPy and GEPA to automatically optimize and evolve the Hermes Agent's skills, prompts, and code via API calls without requiring GPU training."
+  },
+  {
+    "file": "2026-04-05_vice.md",
+    "title": "Webba-Creative-Technologies/vice",
+    "source": "https://github.com/Webba-Creative-Technologies/vice",
+    "date": "2026-04-05",
+    "tags": [
+      "security",
+      "cli",
+      "javascript",
+      "vulnerability-scanner",
+      "github-action"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "VICE is a CLI security auditing tool that identifies vulnerabilities in web applications through remote black-box scans and local white-box code audits."
+  },
+  {
+    "file": "2026-04-05_x-arscontexta.md",
+    "title": "Skill Graphs > SKILL.md",
+    "source": "https://x.com/arscontexta/status/2023957499183829467?s=46",
+    "date": "2026-04-05",
+    "tags": [
+      "skill graphs",
+      "knowledge management",
+      "ai agents",
+      "context engineering",
+      "markdown"
+    ],
+    "platform": "x",
+    "author": "@arscontexta",
+    "summary": "Skill graphs propose a structure of interconnected markdown files using wikilinks and YAML metadata to allow AI agents to efficiently navigate complex knowledge bases through progressive disclosure."
+  },
+  {
+    "file": "2026-04-05_x-gkisokay.md",
+    "title": "Practical tips to save time and tokens when using Claude or Codex externally...",
+    "source": "https://x.com/gkisokay/status/2040627715079098737",
+    "date": "2026-04-05",
+    "tags": [
+      "AI Agents",
+      "Claude",
+      "Debugging",
+      "LLM",
+      "Hermes"
+    ],
+    "platform": "x",
+    "author": "@gkisokay",
+    "summary": "Practical tips for efficiently building and debugging Hermes and OpenClaw agents using external LLMs like Claude or Codex."
+  },
+  {
+    "file": "2026-04-05_x-kevinnguyendn.md",
+    "title": "Opensource Native Memory for Hermes Agent (4k+ stars)",
+    "source": "https://x.com/kevinnguyendn/status/2040424094655721947",
+    "date": "2026-04-05",
+    "tags": [
+      "Hermes Agent",
+      "ByteRover",
+      "AI Memory",
+      "Open Source",
+      "Nous Research"
+    ],
+    "platform": "x",
+    "author": "@kevinnguyendn",
+    "summary": "ByteRover integrates a persistent, high-accuracy native memory layer into Hermes Agent, enabling long-running intelligence and significantly reducing token costs."
+  },
+  {
+    "file": "2026-04-05_x-meta_alchemist.md",
+    "title": "The Best Claude Alternatives for Openclaw & Hermes + Guide To Make Them Even Better",
+    "source": "https://x.com/meta_alchemist/status/2040416725775352258?s=46",
+    "date": "2026-04-05",
+    "tags": [
+      "AI",
+      "Claude",
+      "Alternatives",
+      "OpenClaw",
+      "Hermes"
+    ],
+    "platform": "x",
+    "author": "@meta_alchemist",
+    "summary": "Following Anthropic's ban on third-party OAuth tokens for tools like OpenClaw and Hermes, this article recommends cost-effective AI model alternatives such as GLM 5.1, Minimax 2.7, and OpenAI Codex,"
+  },
+  {
+    "file": "2026-04-05_x-nyk_builderz.md",
+    "title": "The Harness Is The Product. The Model Never Was",
+    "source": "https://x.com/nyk_builderz/status/2031237851300716888",
+    "date": "2026-04-05",
+    "tags": [
+      "AI Agents",
+      "Harness Engineering",
+      "LLM",
+      "Software Architecture",
+      "Context Management"
+    ],
+    "platform": "x",
+    "author": "@nyk_builderz",
+    "summary": "This article argues that the infrastructure wrapping an AI model, known as the 'harness,' is the true driver of production success, outlining a framework based on context architecture,"
+  },
+  {
+    "file": "2026-04-06_claude-mem.md",
+    "title": "thedotmack/claude-mem",
+    "source": "https://github.com/thedotmack/claude-mem",
+    "date": "2026-04-06",
+    "tags": [
+      "ai memory system",
+      "claude code plugin",
+      "context compression",
+      "session memory",
+      "rag integration"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Claude-mem is a TypeScript plugin for Claude Code that captures session context, compresses it with AI, and injects relevant memories into future coding sessions."
+  },
+  {
+    "file": "2026-04-06_link-f9ae2a4f.md",
+    "title": "SOUL.md Personality Guide - OpenClaw",
+    "source": "https://docs.openclaw.ai/concepts/soul#the-molty-prompt",
+    "date": "2026-04-06",
+    "tags": [
+      "AI agents",
+      "prompt engineering",
+      "personality configuration",
+      "OpenClaw",
+      "SOUL.md"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "SOUL.md serves as the high-priority instruction layer for OpenClaw agents, defining their voice, tone, and personality traits to replace bland outputs with distinct, iterated instructions."
+  },
+  {
+    "file": "2026-04-06_pi-subagents.md",
+    "title": "nicobailon/pi-subagents",
+    "source": "https://github.com/nicobailon/pi-subagents",
+    "date": "2026-04-06",
+    "tags": [
+      "pi-extension",
+      "subagents",
+      "task-delegation",
+      "async",
+      "typescript"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A Pi extension for delegating tasks to asynchronous subagents with support for chains, parallel execution, and session sharing."
+  },
+  {
+    "file": "2026-04-06_pi-vs-claude-code.md",
+    "title": "disler/pi-vs-claude-code",
+    "source": "https://github.com/disler/pi-vs-claude-code/tree/main",
+    "date": "2026-04-06",
+    "tags": [
+      "github",
+      "coding-agent",
+      "open-source",
+      "typescript",
+      "comparison"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "This GitHub repository compares the open-source Pi Coding Agent with Claude Code, offering customized instances for UI, orchestration, and safety auditing."
+  },
+  {
+    "file": "2026-04-06_turboquant-gpu.md",
+    "title": "DevTechJr/turboquant-gpu",
+    "source": "https://github.com/DevTechJr/turboquant-gpu/tree/main",
+    "date": "2026-04-06",
+    "tags": [
+      "gpu",
+      "llm",
+      "kv-cache",
+      "compression",
+      "quantization"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "TurboQuant-GPU is a Python library achieving 5.02x KV cache compression for LLM inference on NVIDIA GPUs via optimized quantization kernels."
+  },
+  {
+    "file": "2026-04-06_x-0xsero.md",
+    "title": "As promised!",
+    "source": "https://x.com/0xsero/status/2040822269400723955?s=12",
+    "date": "2026-04-06",
+    "tags": [
+      "AI",
+      "LLM",
+      "Gemma",
+      "Model Release",
+      "VRAM"
+    ],
+    "platform": "x",
+    "author": "@0xSero",
+    "summary": "The author announces the release of Gemma-4-21B-REAP, highlighting its improved reasoning accuracy and efficiency allowing it to run on consumer hardware with 12-16GB of VRAM."
+  },
+  {
+    "file": "2026-04-06_x-ihtesham2005.md",
+    "title": "Claude Code is terrible at UI design and everyone knows it.",
+    "source": "https://x.com/ihtesham2005/status/2040710213100322828?s=12",
+    "date": "2026-04-06",
+    "tags": [
+      "AI",
+      "UI Design",
+      "Developer Tools",
+      "Open Source",
+      "Design Systems"
+    ],
+    "platform": "x",
+    "author": "@ihtesham2005",
+    "summary": "VoltAgent's awesome-design-md repo provides DESIGN.md files extracted from 31 real websites to help AI agents generate UI designs matching established design systems."
+  },
+  {
+    "file": "2026-04-06_x-manuelmaly.md",
+    "title": "Giving /chains by @nicopreme  a shot. 10 agents in a row, wcgw?",
+    "source": "https://x.com/manuelmaly/status/2041098504659972401?s=12",
+    "date": "2026-04-06",
+    "tags": [
+      "AI agents",
+      "chains",
+      "experiment",
+      "Twitter"
+    ],
+    "platform": "x",
+    "author": "@manuelmaly",
+    "summary": "Manuel Maly is testing the /chains tool by running 10 AI agents sequentially and questioning the outcome."
+  },
+  {
+    "file": "2026-04-07_open-llm-vtuber.md",
+    "title": "Open-LLM-VTuber/Open-LLM-VTuber",
+    "source": "https://github.com/Open-LLM-VTuber/Open-LLM-VTuber",
+    "date": "2026-04-07",
+    "tags": [
+      "ai-vtuber",
+      "live2d",
+      "llm",
+      "voice-interaction",
+      "local-execution"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Open-LLM-VTuber is a cross-platform application enabling hands-free voice interaction with local LLMs featuring Live2D avatar support and voice interruption capabilities."
+  },
+  {
+    "file": "2026-04-07_openscreen.md",
+    "title": "siddharthvaddem/openscreen",
+    "source": "https://github.com/siddharthvaddem/openscreen",
+    "date": "2026-04-07",
+    "tags": [
+      "screen recording tool",
+      "open-source software",
+      "demo creation app",
+      "Screen Studio alternative"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "OpenScreen is a free open-source screen recording tool for creating product demos with automatic zooms and customizable backgrounds."
+  },
+  {
+    "file": "2026-04-07_x-whyarethis.md",
+    "title": "As promised.  Our first paper and contribution to the amazing work going on t...",
+    "source": "https://x.com/whyarethis/status/2041609904524595504?s=12",
+    "date": "2026-04-07",
+    "tags": [
+      "Machine Learning",
+      "Transformers",
+      "Model Optimization",
+      "Physics",
+      "Open Source"
+    ],
+    "platform": "x",
+    "author": "@whyarethis",
+    "summary": "Researchers introduced a universal physics-derived formula that identifies dead attention heads in transformers to automate model pruning without losing quality."
+  },
+  {
+    "file": "2026-04-08_airi.md",
+    "title": "moeru-ai/airi",
+    "source": "https://github.com/moeru-ai/airi",
+    "date": "2026-04-08",
+    "tags": [
+      "ai-vtuber",
+      "self-hosted",
+      "neuro-sama",
+      "ai-companion",
+      "live2d"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Project AIRI is a self-hosted AI companion and VTuber platform inspired by Neuro-sama that features realtime voice chat and the ability to play games like Minecraft."
+  },
+  {
+    "file": "2026-04-08_caveman.md",
+    "title": "JuliusBrussee/caveman",
+    "source": "https://github.com/JuliusBrussee/caveman",
+    "date": "2026-04-08",
+    "tags": [
+      "ai",
+      "claude",
+      "prompt-engineering",
+      "token-optimization",
+      "python"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A Claude Code skill that reduces token usage by approximately 75% by making the AI respond in simplified caveman-style language while preserving technical accuracy."
+  },
+  {
+    "file": "2026-04-08_context-mode.md",
+    "title": "mksglu/context-mode",
+    "source": "https://github.com/mksglu/context-mode",
+    "date": "2026-04-08",
+    "tags": [
+      "context window optimization",
+      "MCP server",
+      "AI coding agents",
+      "session continuity",
+      "code generation"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Context Mode is an MCP server that optimizes context windows for AI coding agents by sandboxing tool output and tracking session data."
+  },
+  {
+    "file": "2026-04-08_graphify.md",
+    "title": "safishamsi/graphify",
+    "source": "https://github.com/safishamsi/graphify",
+    "date": "2026-04-08",
+    "tags": [
+      "AI coding assistant",
+      "knowledge graph",
+      "graphrag",
+      "multimodal",
+      "Python"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "An AI coding assistant skill that transforms code, documents, and media files into queryable knowledge graphs for various coding platforms."
+  },
+  {
+    "file": "2026-04-08_hermes-ecosystem.md",
+    "title": "ksimback/hermes-ecosystem",
+    "source": "https://github.com/ksimback/hermes-ecosystem",
+    "date": "2026-04-08",
+    "tags": [
+      "hermes-agent",
+      "nous-research",
+      "ai-agents",
+      "directory",
+      "rag"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Hermes Atlas is a curated directory and RAG-powered chatbot mapping the Hermes Agent ecosystem with over 80 tools and integrations."
+  },
+  {
+    "file": "2026-04-08_link-2f42bbc2.md",
+    "title": "blueprinter by yofine/skills",
+    "source": "https://skills.sh/yofine/skills/blueprinter",
+    "date": "2026-04-08",
+    "tags": [
+      "diagrams",
+      "html-css",
+      "blueprint-style",
+      "technical-documentation",
+      "flat-design"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "Blueprinter is a skill for generating technical diagrams using HTML/CSS following a precise, flat engineering blueprint style with a high data-ink ratio."
+  },
+  {
+    "file": "2026-04-08_x-ashpreetbedi.md",
+    "title": "Dash v2: The self-learning data team is almost ready.",
+    "source": "https://x.com/ashpreetbedi/status/2041653884536357122?s=46",
+    "date": "2026-04-08",
+    "tags": [
+      "AI Agents",
+      "SQL",
+      "Data Engineering",
+      "Open Source",
+      "Dash"
+    ],
+    "platform": "x",
+    "author": "@ashpreetbedi",
+    "summary": "Dash v2 is an open-source, self-learning data agent that uses a multi-agent team and six layers of context to answer natural language queries while automatically learning from errors."
+  },
+  {
+    "file": "2026-04-08_x-ctatedev.md",
+    "title": "agent-browser + Lightpanda + batch + multi-session is a dangerous combo",
+    "source": "https://x.com/ctatedev/status/2041928222766399805?s=12",
+    "date": "2026-04-08",
+    "tags": [
+      "agent-browser",
+      "Lightpanda",
+      "benchmark",
+      "performance",
+      "web-automation"
+    ],
+    "platform": "x",
+    "author": "@ctatedev",
+    "summary": "The author demonstrates a powerful combination of agent-browser and Lightpanda features that completed a benchmark task in 5.85 seconds."
+  },
+  {
+    "file": "2026-04-08_x-howdymerry.md",
+    "title": "TLDR on Meta Harnesses and a practical implementation that I built for Hermes",
+    "source": "https://x.com/howdymerry/status/2041616469084270917?s=46",
+    "date": "2026-04-08",
+    "tags": [
+      "Meta Harnesses",
+      "Hermes",
+      "AI Agents",
+      "Runtime Optimization",
+      "Machine Learning"
+    ],
+    "platform": "x",
+    "author": "@howdymary",
+    "summary": "The content introduces a practical implementation of meta harnesses for the Hermes agent runtime, focusing on optimizing operational policies rather than model weights to improve benchmark"
+  },
+  {
+    "file": "2026-04-09_camofox-browser.md",
+    "title": "jo-inc/camofox-browser",
+    "source": "https://github.com/jo-inc/camofox-browser",
+    "date": "2026-04-09",
+    "tags": [
+      "browser-automation",
+      "anti-detection",
+      "ai-agents",
+      "headless-browser",
+      "web-scraping"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A headless browser automation server powered by Camoufox that enables AI agents to bypass bot detection and interact with web pages via a REST API."
+  },
+  {
+    "file": "2026-04-09_link-6d0a333c.md",
+    "title": "AXI: Agent eXperience Interface",
+    "source": "https://axi.md/",
+    "date": "2026-04-09",
+    "tags": [
+      "AI agents",
+      "CLI design",
+      "MCP",
+      "token optimization",
+      "developer tools"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "AXI is a set of 10 design principles for creating agent-ergonomic CLI interfaces that optimize token usage while achieving high task success rates."
+  },
+  {
+    "file": "2026-04-09_qwen3535ba3buncensoredfernfloweraigguf.md",
+    "title": "Qwen3.5-35B-A3B-Uncensored-FernflowerAI-GGUF",
+    "source": "https://www.reddit.com/r/LocalLLaMA/comments/1sfwauj/qwen3535ba3buncensoredfernfloweraigguf/",
+    "date": "2026-04-09",
+    "tags": [
+      "LLM",
+      "Qwen",
+      "bug-fix",
+      "MoE",
+      "DeltaNet"
+    ],
+    "platform": "reddit",
+    "author": "u/EvilEnginer",
+    "summary": ""
+  },
+  {
+    "file": "2026-04-09_x-vibemarketer_.md",
+    "title": "i turned my brain into a searchable wiki with claude code. here's how.",
+    "source": "https://x.com/vibemarketer_/status/2042226854271099342?s=46",
+    "date": "2026-04-09",
+    "tags": [
+      "Claude Code",
+      "Knowledge Management",
+      "Second Brain",
+      "Andrej Karpathy",
+      "AI"
+    ],
+    "platform": "x",
+    "author": "@VibeMarketer_",
+    "summary": "The article details a method inspired by Andrej Karpathy to build a persistent, searchable personal wiki using Claude Code and Markdown, allowing an LLM to automatically organize raw files into a"
+  },
+  {
+    "file": "2026-04-10_gbrain.md",
+    "title": "garrytan/gbrain",
+    "source": "https://github.com/garrytan/gbrain",
+    "date": "2026-04-10",
+    "tags": [
+      "memex",
+      "personal-knowledge-management",
+      "markdown",
+      "ai-agent",
+      "postgres"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "GBrain is a personal knowledge base system that functions as a 'memex' for knowledge workers, utilizing markdown files and Postgres with vector search to help AI agents manage and search personal data"
+  },
+  {
+    "file": "2026-04-10_gist-karpathy.md",
+    "title": "llm-wiki",
+    "source": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+    "date": "2026-04-10",
+    "tags": [
+      "LLM",
+      "Knowledge Management",
+      "Wiki",
+      "RAG",
+      "Obsidian"
+    ],
+    "platform": "gist",
+    "author": "karpathy",
+    "summary": "The text proposes a pattern where LLMs incrementally build and maintain a persistent, structured wiki, creating a compounding knowledge artifact that offers advantages over standard RAG retrieval"
+  },
+  {
+    "file": "2026-04-10_pi-fff.md",
+    "title": "SamuelLHuber/pi-fff",
+    "source": "https://github.com/SamuelLHuber/pi-fff",
+    "date": "2026-04-10",
+    "tags": [
+      "TypeScript",
+      "pi-extension",
+      "fuzzy-search",
+      "file-finder",
+      "grep"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A pi extension that replaces built-in find and grep tools with FFF-powered fuzzy file and content search featuring SIMD acceleration and frecency ranking."
+  },
+  {
+    "file": "2026-04-10_voice-design-cloner.md",
+    "title": "reinehonoka/Voice-Design-Cloner",
+    "source": "https://github.com/reinehonoka/Voice-Design-Cloner",
+    "date": "2026-04-10",
+    "tags": [
+      "Python",
+      "Text-to-Speech",
+      "AI Voice",
+      "Voice Cloning",
+      "Qwen3-TTS"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Voice-Design-Cloner is a GUI tool that allows users to design original AI voices via text prompts and generate training datasets for models like Style-Bert-VITS2 without requiring manual recording."
+  },
+  {
+    "file": "2026-04-10_x-ashwingop.md",
+    "title": "The Price of Meaning: Why RAG, Knowledge Graphs, and Every Semantic Memory Will Always Fail ",
+    "source": "https://x.com/ashwingop/status/2042604890988646750",
+    "date": "2026-04-10",
+    "tags": [
+      "Artificial Intelligence",
+      "RAG",
+      "Knowledge Graphs",
+      "Semantic Memory",
+      "Vector Databases"
+    ],
+    "platform": "x",
+    "author": "@ashwingop",
+    "summary": "The article presents a formal 'no-escape theorem' proving that forgetting and false recall are mathematically inevitable for any memory system relying on semantic retrieval, due to the low intrinsic"
+  },
+  {
+    "file": "2026-04-10_x-infinitejulian0.md",
+    "title": "Everyone is missing the most important part of their AI Second Brain.",
+    "source": "https://x.com/infinitejulian0/status/2042300920315462034?s=12",
+    "date": "2026-04-10",
+    "tags": [
+      "AI",
+      "Second Brain",
+      "Productivity",
+      "Life OS",
+      "Knowledge Management"
+    ],
+    "platform": "x",
+    "author": "@InfiniteJulian0",
+    "summary": "The author proposes a specific folder structure for an AI Second Brain—Identity, Aspirations, and Live Logs—that enables the AI to deeply understand the user and function as a proactive 'Life OS'"
+  },
+  {
+    "file": "2026-04-10_x-nickspisak_.md",
+    "title": "How to Build Your Second Brain",
+    "source": "https://x.com/NickSpisak_/status/2040448463540830705?s=20",
+    "date": "2026-04-10",
+    "tags": [
+      "knowledge-management",
+      "AI",
+      "productivity",
+      "second-brain",
+      "automation"
+    ],
+    "platform": "x",
+    "author": "@NickSpisak_",
+    "summary": "This article outlines a simple method to build a personal knowledge base using a three-folder structure, automated web scraping with agent-browser, and AI-powered organization that compounds in value"
+  },
+  {
+    "file": "2026-04-10_x-rohit4verse.md",
+    "title": "How I built harness for my agent using Claude Code leaks",
+    "source": "https://x.com/rohit4verse/status/2041548810804211936",
+    "date": "2026-04-10",
+    "tags": [
+      "AI Agents",
+      "Claude Code",
+      "Software Architecture",
+      "Reverse Engineering",
+      "Infrastructure"
+    ],
+    "platform": "x",
+    "author": "@rohit4verse",
+    "summary": "The author analyzes Claude Code's source code to propose a four-layer architecture for building robust AI agents, emphasizing the critical role of infrastructure and async generators."
+  },
+  {
+    "file": "2026-04-11_architecture-diagram-generator.md",
+    "title": "Cocoon-AI/architecture-diagram-generator",
+    "source": "https://github.com/Cocoon-AI/architecture-diagram-generator",
+    "date": "2026-04-11",
+    "tags": [
+      "architecture diagrams",
+      "claude ai skill",
+      "html generator",
+      "system design tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "A Claude AI skill that generates dark-themed system architecture diagrams as standalone HTML/SVG files from plain English descriptions."
+  },
+  {
+    "file": "2026-04-11_claude-code-system-prompts.md",
+    "title": "Piebald-AI/claude-code-system-prompts",
+    "source": "https://github.com/Piebald-AI/claude-code-system-prompts?tab=readme-ov-file",
+    "date": "2026-04-11",
+    "tags": [
+      "claude-code prompts",
+      "system prompts",
+      "ai developer tools",
+      "tool descriptions"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "This repository provides a comprehensive collection of Claude Code system prompts, builtin tool descriptions, and sub-agent prompts updated for each version release."
+  },
+  {
+    "file": "2026-04-11_cli.md",
+    "title": "entireio/cli",
+    "source": "https://github.com/entireio/cli",
+    "date": "2026-04-11",
+    "tags": [
+      "AI agent sessions",
+      "Git workflow",
+      "Developer platform",
+      "Code traceability",
+      "Session recovery"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Entire is a developer platform that captures AI agent sessions during git workflows, creating searchable records of code changes with full context and reasoning."
+  },
+  {
+    "file": "2026-04-11_fireworks-tech-graph.md",
+    "title": "yizhiyanhua-ai/fireworks-tech-graph",
+    "source": "https://github.com/yizhiyanhua-ai/fireworks-tech-graph",
+    "date": "2026-04-11",
+    "tags": [
+      "diagram-generator",
+      "claude-code",
+      "svg",
+      "technical-documentation",
+      "ai-tools"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "Fireworks-tech-graph is a Claude Code skill that generates production-quality SVG and PNG technical diagrams from natural language descriptions using various visual styles."
+  },
+  {
+    "file": "2026-04-11_link-e973652f.md",
+    "title": "Keyboard shortcuts",
+    "source": "https://zhanghandong.github.io/pi-book/",
+    "date": "2026-04-11",
+    "tags": [
+      "Agent design",
+      "System architecture",
+      "Pi runtime",
+      "Technical book"
+    ],
+    "platform": "web",
+    "author": null,
+    "summary": "The text outlines the scope, audience, prerequisites, and structure of a book about the design decisions behind the pi agent runtime."
+  },
+  {
+    "file": "2026-04-11_snip.md",
+    "title": "edouard-claude/snip",
+    "source": "https://github.com/edouard-claude/snip",
+    "date": "2026-04-11",
+    "tags": [
+      "LLM token optimization",
+      "CLI proxy tool",
+      "YAML filters",
+      "AI coding assistant",
+      "Go application"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "snip is a CLI proxy that filters shell output to reduce LLM token usage by 60-90% for AI coding assistants."
+  },
+  {
+    "file": "2026-04-11_voxcpm.md",
+    "title": "OpenBMB/VoxCPM",
+    "source": "https://github.com/OpenBMB/VoxCPM",
+    "date": "2026-04-11",
+    "tags": [
+      "text-to-speech",
+      "voice cloning",
+      "multilingual tts",
+      "ai model"
+    ],
+    "platform": "github",
+    "author": null,
+    "summary": "VoxCPM2 is a tokenizer-free, multilingual text-to-speech model capable of creative voice design and high-fidelity cloning."
+  },
+  {
+    "file": "2026-04-11_x-alphabatcher.md",
+    "title": "Architectural principles for building your own AI agent:",
+    "source": "https://x.com/alphabatcher/status/2042606770816704643?s=12",
+    "date": "2026-04-11",
+    "tags": [
+      "AI agents",
+      "agent architecture",
+      "production infrastructure",
+      "error recovery"
+    ],
+    "platform": "x",
+    "author": "@alphabatcher",
+    "summary": "The post details architectural principles for building production-ready AI agents, covering tool execution, caching, and infrastructure."
+  },
+  {
+    "file": "2026-04-11_x-droid_35719.md",
+    "title": "We built Missions at Factory, and I wrote about the architecture that I led t...",
+    "source": "https://x.com/droid_35719/status/2042718783815717211?s=12",
+    "date": "2026-04-11",
+    "tags": [
+      "AI",
+      "Autonomous Coding",
+      "Factory",
+      "Missions",
+      "Software Architecture"
+    ],
+    "platform": "x",
+    "author": "@droid_35719",
+    "summary": "Theo Luan details the architectural design behind Factory's Missions feature, focusing on making multi-day autonomous coding reliable through consistent agent trajectories."
+  },
+  {
+    "file": "2026-04-11_x-voxyz_ai.md",
+    "title": "telegram just opened bot-to-bot communication. bots can trigger each other in...",
+    "source": "https://x.com/voxyz_ai/status/2042925606824800558?s=12",
+    "date": "2026-04-11",
+    "tags": [
+      "Telegram bots",
+      "Bot-to-bot communication",
+      "Openclaw QA",
+      "Infinite loop prevention"
+    ],
+    "platform": "x",
+    "author": "@Voxyz_ai",
+    "summary": "Telegram enabled bot-to-bot communication in groups, facilitating interactions like QA testing while warning of potential infinite loops."
+  }
+]

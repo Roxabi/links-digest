@@ -40,11 +40,11 @@ digest-%:
 build:
 	@echo "Building gallery..."
 	@ls links/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
+	@echo "Generating manifest.json + index.json..."
+	@uv run python serve.py --build
 	@echo "Syncing to public/links/..."
 	@mkdir -p public/links && cp links/*.md public/links/ 2>/dev/null || true
-	@echo "Generating manifest.json..."
-	@cd links && ls -1 *.md 2>/dev/null | jq -Rs 'split("\n") | map(select(length > 0))' > manifest.json
-	@cp links/manifest.json public/links/
+	@cp links/manifest.json links/index.json public/links/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────

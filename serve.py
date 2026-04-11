@@ -15,6 +15,7 @@ import http.server
 import json
 import locale
 import os
+import re
 import threading
 import time
 from pathlib import Path
@@ -35,9 +36,8 @@ PORT = int(os.environ.get("LINKS_PORT", 8082))
 def gen_manifest() -> list[str]:
     """Generate manifest.json — plain list of filenames.
 
-    Must match the format produced by `make build` and consumed by
-    public/js/gallery.js (which does `for (const file of files)` and
-    fetches each MD to parse its own frontmatter client-side).
+    Kept for backwards-compatibility with existing tooling and as the
+    fallback path in gallery.js when index.json is unavailable.
     """
     entries = sorted(
         (Path(match).name for match in globmod.glob(str(DIR / "links" / "*.md"))),
@@ -48,6 +48,71 @@ def gen_manifest() -> list[str]:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + "\n")
     return entries
+
+
+# ── Index generation (lazy-load pivot) ────────────────────────────────────────
+
+_FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---", re.DOTALL)
+_FM_LINE_RE = re.compile(r"^(\w+):\s*(.*)$", re.MULTILINE)
+_INDEX_FIELDS = ("title", "source", "date", "tags", "platform", "author", "summary")
+
+
+def _parse_frontmatter(text: str) -> dict | None:
+    """Parse the frontmatter block of a links/*.md file.
+
+    The template writes every non-bare field via Jinja's `tojson` filter
+    (with ensure_ascii=False), so quoted strings and arrays are valid
+    JSON. Bare scalars (date, platform, `null`) are stored as-is.
+    """
+    m = _FRONTMATTER_RE.match(text)
+    if not m:
+        return None
+    result: dict = {}
+    for line_m in _FM_LINE_RE.finditer(m.group(1)):
+        key = line_m.group(1)
+        raw = line_m.group(2).strip()
+        if raw == "null" or raw == "":
+            result[key] = None
+        elif raw.startswith('"') or raw.startswith("["):
+            try:
+                result[key] = json.loads(raw)
+            except json.JSONDecodeError:
+                result[key] = raw
+        else:
+            result[key] = raw
+    return result
+
+
+def gen_index() -> int:
+    """Generate index.json — one row of frontmatter per link.
+
+    Shipped to the browser so gallery.js can render every card from a
+    single HTTP request instead of fetching N individual .md files.
+    Full markdown content stays in the per-file .md and is loaded
+    lazily on modal open.
+    """
+    entries: list[dict] = []
+    for match in sorted(
+        globmod.glob(str(DIR / "links" / "*.md")),
+        key=lambda p: locale.strxfrm(Path(p).name),
+    ):
+        path = Path(match)
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        fm = _parse_frontmatter(text)
+        if not fm:
+            continue
+        entry: dict = {"file": path.name}
+        for field in _INDEX_FIELDS:
+            entry[field] = fm.get(field)
+        entries.append(entry)
+
+    out = DIR / "links" / "index.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + "\n")
+    return len(entries)
 
 
 # ── File watcher ───────────────────────────────────────────────────────────────
@@ -82,8 +147,9 @@ def watcher_loop():
             prev = curr
 
             entries = gen_manifest()
+            gen_index()
             changed_list = ", ".join(sorted(delta))
-            print(f"[watcher] manifest updated — {len(entries)} links (changed: {changed_list})")
+            print(f"[watcher] index updated — {len(entries)} links (changed: {changed_list})")
 
             # Notify SSE clients
             msg = f"data: {json.dumps({'type': 'reload', 'changed': sorted(delta)})}\n\n"
@@ -195,9 +261,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # Initial manifest generation
+    import sys
+
+    # Initial manifest + index generation
     entries = gen_manifest()
-    print(f"manifest.json — {len(entries)} links")
+    count = gen_index()
+    print(f"manifest.json + index.json — {count} links")
+
+    # --build flag: generate manifest + index and exit (used by `make build`).
+    if "--build" in sys.argv:
+        sys.exit(0)
 
     # Start file watcher
     t = threading.Thread(target=watcher_loop, daemon=True)

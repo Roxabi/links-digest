@@ -150,47 +150,64 @@ function detectSection(tags) {
 // ── Load MD files ────────────────────────────────────────────────────────────
 
 async function loadLinks() {
-  // Fetch the directory listing via a manifest or API
-  // For static hosting, we use a pre-generated manifest.json
-  let files = [];
-
-  try {
-    const manifestRes = await fetch('links/manifest.json');
-    if (manifestRes.ok) {
-      files = await manifestRes.json();
-    }
-  } catch {
-    // Fallback: try to parse directory listing (won't work on CF Pages)
-    console.warn('No manifest.json found, gallery may be empty');
-  }
-
-  // Fetch and parse each MD file
+  // Primary path: a pre-built index.json ships every card's frontmatter
+  // in one HTTP request. Full MD content stays per-file and is fetched
+  // lazily when the modal opens (see openContentModal).
   cards = [];
-  for (const file of files) {
-    try {
-      const res = await fetch(`links/${file}`);
-      if (!res.ok) continue;
-      const text = await res.text();
-      const { data, content } = parseFrontmatter(text);
-
+  try {
+    const res = await fetch('links/index.json');
+    if (!res.ok) throw new Error('index.json ' + res.status);
+    const entries = await res.json();
+    for (const e of entries) {
       cards.push({
-        file,
-        title: data.title || file,
-        source: data.source || '#',
-        date: data.date || '2026-01-01',
-        tags: data.tags || [],
-        platform: data.platform || 'web',
-        author: data.author,
-        summary: data.summary || '',
-        content,
-        section: detectSection(data.tags),
+        file: e.file,
+        title: e.title || e.file,
+        source: e.source || '#',
+        date: e.date || '2026-01-01',
+        tags: e.tags || [],
+        platform: e.platform || 'web',
+        author: e.author,
+        summary: e.summary || '',
+        section: detectSection(e.tags),
+        // No `content` field — opened lazily from the .md on click.
       });
-    } catch (e) {
-      console.error(`Failed to load ${file}:`, e);
+    }
+  } catch (err) {
+    // Fallback: the old per-file loader. Keeps the gallery usable if
+    // index.json is missing (stale deploy, local dev mid-rebuild, etc.).
+    console.warn('index.json unavailable, falling back to per-file fetch:', err);
+    let files = [];
+    try {
+      const manifestRes = await fetch('links/manifest.json');
+      if (manifestRes.ok) files = await manifestRes.json();
+    } catch {
+      console.warn('No manifest.json either, gallery may be empty');
+    }
+    for (const file of files) {
+      try {
+        const res = await fetch(`links/${file}`);
+        if (!res.ok) continue;
+        const text = await res.text();
+        const { data } = parseFrontmatter(text);
+        cards.push({
+          file,
+          title: data.title || file,
+          source: data.source || '#',
+          date: data.date || '2026-01-01',
+          tags: data.tags || [],
+          platform: data.platform || 'web',
+          author: data.author,
+          summary: data.summary || '',
+          section: detectSection(data.tags),
+        });
+      } catch (e) {
+        console.error(`Failed to load ${file}:`, e);
+      }
     }
   }
 
-  // Sort by date descending by default
+  // Sort by date descending by default (initial default — overridden by
+  // localStorage-restored sortMode via render()).
   cards.sort((a, b) => b.date.localeCompare(a.date));
   filtered = [...cards];
 }
