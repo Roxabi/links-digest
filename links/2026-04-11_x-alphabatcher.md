@@ -2,10 +2,10 @@
 title: "Architectural principles for building your own AI agent:"
 source: "https://x.com/alphabatcher/status/2042606770816704643?s=12"
 date: 2026-04-11
-tags: []
+tags: ["AI agents", "agent architecture", "production infrastructure", "error recovery"]
 platform: x
 author: "@alphabatcher"
-summary: ""
+summary: "The post details architectural principles for building production-ready AI agents, covering tool execution, caching, and infrastructure."
 ---
 Architectural principles for building your own AI agent:
 

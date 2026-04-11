@@ -2,10 +2,10 @@
 title: "Cocoon-AI/architecture-diagram-generator"
 source: "https://github.com/Cocoon-AI/architecture-diagram-generator"
 date: 2026-04-11
-tags: []
+tags: ["architecture diagrams", "claude ai skill", "html generator", "system design tools"]
 platform: github
 author: null
-summary: "Generate beautiful dark-themed system architecture diagrams as standalone HTML/SVG files. Works as a Claude AI skill."
+summary: "A Claude AI skill that generates dark-themed system architecture diagrams as standalone HTML/SVG files from plain English descriptions."
 ---
 # Cocoon-AI/architecture-diagram-generator
 
