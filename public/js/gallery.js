@@ -82,21 +82,38 @@ function parseFrontmatter(text) {
   const [_, yaml, content] = match;
   const data = {};
 
+  // Decode a double-quoted YAML string by leveraging JSON.parse — which
+  // handles \uXXXX (incl. surrogate pairs like \ud83e\udea8), \", \\, \n,
+  // etc. Falls back to the raw capture if JSON.parse can't handle it.
+  // Needed because digest.py writes frontmatter via Jinja's `tojson`,
+  // which ASCII-escapes non-ASCII characters by default.
+  const decodeStr = raw => {
+    try { return JSON.parse('"' + raw + '"'); }
+    catch { return raw; }
+  };
+
   // Simple YAML parser for flat key: value + arrays
   for (const line of yaml.split('\n')) {
     // Match array with content: tags: ["a", "b"] or tags: [a, b]
     const arrMatch = line.match(/^(\w+):\s*\[(.+)\]$/);
     // Match empty array: tags: []
     const emptyArrMatch = line.match(/^(\w+):\s*\[\]$/);
-    const strMatch = line.match(/^(\w+):\s*"(.+)"$/);
+    const strMatch = line.match(/^(\w+):\s*"(.*)"$/);
     const plainMatch = line.match(/^(\w+):\s*(.+)$/);
 
     if (emptyArrMatch) {
       data[emptyArrMatch[1]] = [];
     } else if (arrMatch) {
-      data[arrMatch[1]] = arrMatch[2].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+      // Try JSON.parse on the full [...] — decodes escapes for free.
+      try {
+        data[arrMatch[1]] = JSON.parse('[' + arrMatch[2] + ']');
+      } catch {
+        data[arrMatch[1]] = arrMatch[2]
+          .split(',')
+          .map(s => decodeStr(s.trim().replace(/^["']|["']$/g, '')));
+      }
     } else if (strMatch) {
-      data[strMatch[1]] = strMatch[2];
+      data[strMatch[1]] = decodeStr(strMatch[2]);
     } else if (plainMatch) {
       let val = plainMatch[2];
       if (val === 'null') val = null;
