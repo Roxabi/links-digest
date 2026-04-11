@@ -43,3 +43,4 @@ keyring.key
 config.db
 
 .claude/dev-core.yml
+.claude/scheduled_tasks.lock
