@@ -17,10 +17,11 @@ CF_PROJECT   ?= links-digest
 CF_ACCOUNT   ?= b5e90be971920ce406f7b679c4f1cd33
 LINKS_PORT   ?= 8082
 
-SUPERVISOR_HUB  ?= /home/mickael/projects
+SUPERVISOR_HUB  ?= $(HOME)/projects
+HUB_SERVICES    := links-digest
 -include $(SUPERVISOR_HUB)/hub.mk
 
-.PHONY: digest digest-all build deploy open clean start stop reload status logs errlogs
+.PHONY: digest digest-all build deploy open clean links-digest register help
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
@@ -62,22 +63,19 @@ open:
 clean:
 	rm -rf links/*.md links/manifest.json public/links/*.md public/links/manifest.json .digest_state.json
 
-# ── Server ──────────────────────────────────────────────────────────────────────
+# ── Supervisor service (hub-dispatched) ─────────────────────────────────────────
+# Usage (from this dir or from ~/projects):
+#   make links-digest start|stop|reload|status|logs|errlogs
 
-start:
-	$(HUB_SVC) links-digest start
+links-digest:
+	@$(HUB_SVC) links-digest $(SVC_CMD)
 
-stop:
-	$(HUB_SVC) links-digest stop
+# ── Registration ────────────────────────────────────────────────────────────────
 
-reload:
-	$(HUB_SVC) links-digest reload
-
-status:
-	$(HUB_SVC) links-digest status
-
-logs:
-	$(HUB_SVC) links-digest logs
-
-errlogs:
-	$(HUB_SVC) links-digest errlogs
+register:
+	@echo "Registering links-digest with supervisor hub..."
+	@$(HUB_GEN_MK) links-digest "$(abspath .)" links-digest
+	$(call hub-link-conf,links-digest,supervisor/conf.d/links-digest.conf)
+	@mkdir -p "$(HOME)/.local/state/links-digest/logs"
+	$(hub_reread)
+	@echo "Done."
