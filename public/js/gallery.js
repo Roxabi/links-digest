@@ -506,11 +506,24 @@ function renderMarkdown(md) {
   // Escape HTML entities
   html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Code blocks (preserve content inside)
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>');
+  // Extract fenced code blocks FIRST and replace with opaque placeholders.
+  // Without this, later passes (headers, paragraphs, bold/italic) mutate
+  // the code content — injecting `</p><p>` and `<h2>` inside the block,
+  // which breaks the browser's whitespace preservation.
+  const codeBlocks = [];
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const idx = codeBlocks.length;
+    codeBlocks.push(`<pre><code class="language-${lang}">${code}</code></pre>`);
+    return `\x00CB${idx}\x00`;
+  });
 
-  // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Same for inline code — so * ** _ [ ] patterns inside backticks are left alone.
+  const inlineCodes = [];
+  html = html.replace(/`([^`]+)`/g, (_, code) => {
+    const idx = inlineCodes.length;
+    inlineCodes.push(`<code>${code}</code>`);
+    return `\x00IC${idx}\x00`;
+  });
 
   // Headers (must have space after #)
   html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
@@ -545,6 +558,12 @@ function renderMarkdown(md) {
   // Paragraphs - wrap non-block content
   html = html.replace(/\n\n+/g, '\n\n</p><p>\n\n');
   html = '<p>' + html + '</p>';
+
+  // Restore code block placeholders BEFORE final cleanup so the
+  // `<p>\s*<pre>` / `</pre>\s*</p>` cleanup rules below can strip the
+  // wrapping paragraph tags around restored blocks.
+  html = html.replace(/\x00CB(\d+)\x00/g, (_, i) => codeBlocks[+i]);
+  html = html.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCodes[+i]);
 
   // Clean up empty paragraphs and fix nesting
   html = html.replace(/<p>\s*<\/p>/g, '');
