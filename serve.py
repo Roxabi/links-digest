@@ -13,11 +13,17 @@ Usage:
 import glob as globmod
 import http.server
 import json
+import locale
 import os
-import re
 import threading
 import time
 from pathlib import Path
+
+# Match GNU `ls` default collation so our output is byte-identical to
+# `make build` (which uses `ls -1 *.md | jq ...`). Without this, Python's
+# codepoint sort places `_` before letters while `ls` collates it after,
+# causing spurious manifest diffs after every serve.py watcher tick.
+locale.setlocale(locale.LC_ALL, "")
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DIR = Path(os.environ.get("LINKS_DIR", SCRIPT_DIR))
@@ -26,61 +32,17 @@ PORT = int(os.environ.get("LINKS_PORT", 8082))
 # ── Manifest generation ───────────────────────────────────────────────────────
 
 
-def parse_md(filepath: Path) -> dict | None:
-    """Parse MD file and extract frontmatter."""
-    try:
-        text = filepath.read_text(encoding="utf-8", errors="ignore")
-    except OSError:
-        return None
+def gen_manifest() -> list[str]:
+    """Generate manifest.json — plain list of filenames.
 
-    # Parse frontmatter
-    match = re.match(r"^---\s*\n([\s\S]*?)\n---\s*\n", text)
-    if not match:
-        return None
-
-    yaml_block = match.group(1)
-    data = {}
-
-    # Simple YAML parser
-    for line in yaml_block.split("\n"):
-        arr_match = re.match(r"^(\w+):\s*\[(.+)\]$", line)
-        str_match = re.match(r"^(\w+):\s*\"(.+)\"$", line)
-        plain_match = re.match(r"^(\w+):\s*(.+)$", line)
-
-        if arr_match:
-            data[arr_match[1]] = [s.strip().strip("\"'") for s in arr_match[2].split(",")]
-        elif str_match:
-            data[str_match[1]] = str_match[2]
-        elif plain_match:
-            val = plain_match[2]
-            if val == "null":
-                val = None
-            elif val == "true":
-                val = True
-            elif val == "false":
-                val = False
-            data[plain_match[1]] = val
-
-    return {
-        "f": filepath.name,
-        "t": data.get("title", filepath.stem),
-        "s": data.get("source", ""),
-        "d": data.get("date", "2026-01-01"),
-        "tags": data.get("tags", []),
-        "p": data.get("platform", "web"),
-        "a": data.get("author"),
-        "sum": data.get("summary", ""),
-    }
-
-
-def gen_manifest() -> list[dict]:
-    """Generate manifest.json from MD files."""
-    entries = []
-    for match in sorted(globmod.glob(str(DIR / "links" / "*.md"))):
-        fp = Path(match)
-        entry = parse_md(fp)
-        if entry:
-            entries.append(entry)
+    Must match the format produced by `make build` and consumed by
+    public/js/gallery.js (which does `for (const file of files)` and
+    fetches each MD to parse its own frontmatter client-side).
+    """
+    entries = sorted(
+        (Path(match).name for match in globmod.glob(str(DIR / "links" / "*.md"))),
+        key=locale.strxfrm,
+    )
 
     out = DIR / "links" / "manifest.json"
     out.parent.mkdir(parents=True, exist_ok=True)
