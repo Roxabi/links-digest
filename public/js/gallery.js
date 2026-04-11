@@ -11,6 +11,66 @@ let cardMinWidth = 360;
 let jsZipLoaded = false;
 
 const STORE_KEY = 'links-digest-gallery';
+const SETTINGS_KEY = STORE_KEY + '-settings';
+
+// ── State persistence ────────────────────────────────────────────────────────
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.viewMode) viewMode = s.viewMode;
+    if (s.groupMode) groupMode = s.groupMode;
+    if (s.sortMode) sortMode = s.sortMode;
+    if (typeof s.cardMinWidth === 'number') cardMinWidth = s.cardMinWidth;
+    if (s.filters && typeof s.filters === 'object') {
+      for (const k of Object.keys(s.filters)) {
+        if (s.filters[k]) filters[k] = s.filters[k];
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load gallery state:', e);
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      viewMode, groupMode, sortMode, cardMinWidth,
+      filters: { ...filters },
+    }));
+  } catch {
+    // ignore quota / privacy-mode errors
+  }
+}
+
+function applyStateToUI() {
+  const mark = (containerId, value) => {
+    document.querySelectorAll(`#${containerId} .seg`).forEach(b => {
+      b.classList.toggle('on', b.dataset.v === value);
+    });
+  };
+  mark('viewSegs', viewMode);
+  mark('groupSegs', groupMode);
+  mark('sortSegs', sortMode);
+  const sizeLabel = document.getElementById('sizeLabel');
+  if (sizeLabel) sizeLabel.textContent = cardMinWidth;
+
+  // Filter buttons (may not exist yet — caller must invoke after buildFilterButtons)
+  for (const dim of Object.keys(FILTER_DIMS)) {
+    const el = document.getElementById(`${dim}Filter`);
+    if (!el) continue;
+    const val = filters[dim] || 'all';
+    el.querySelectorAll('.seg').forEach(b => {
+      b.classList.toggle('on', b.dataset.v === val);
+    });
+  }
+
+  // Hide size control in list view
+  const sizeCtrl = document.querySelector('.size-btn')?.closest('.ctrl');
+  if (sizeCtrl) sizeCtrl.style.display = viewMode === 'list' ? 'none' : 'flex';
+}
 
 // ── Gray-matter parsing (lightweight, no deps) ───────────────────────────────
 
@@ -174,6 +234,15 @@ const GROUP_TITLES = {
   other: '📎 Other',
 };
 
+const PLATFORM_LABELS = {
+  github: '🐙 GitHub',
+  x: '🐦 X',
+  web: '🌐 Web',
+  reddit: '💬 Reddit',
+  gist: '📄 Gist',
+  youtube: '📺 YouTube',
+};
+
 function groupCards(arr, dim) {
   const groups = {};
   for (const c of arr) {
@@ -182,6 +251,35 @@ function groupCards(arr, dim) {
     groups[key].push(c);
   }
   return groups;
+}
+
+function orderGroupKeys(groups, mode) {
+  const keys = Object.keys(groups);
+  if (mode === 'section') {
+    const order = ['knowledge', 'agents', 'devtools', 'voice', 'llm', 'other'];
+    return [
+      ...order.filter(k => keys.includes(k)),
+      ...keys.filter(k => !order.includes(k)).sort(),
+    ];
+  }
+  if (mode === 'date') {
+    return keys.sort((a, b) => b.localeCompare(a));
+  }
+  if (mode === 'platform') {
+    // By count desc, then alpha
+    return keys.sort((a, b) => {
+      const diff = groups[b].length - groups[a].length;
+      return diff !== 0 ? diff : a.localeCompare(b);
+    });
+  }
+  return keys.sort();
+}
+
+function groupTitle(key, mode) {
+  if (mode === 'section') return GROUP_TITLES[key] || key.toUpperCase();
+  if (mode === 'platform') return PLATFORM_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+  if (mode === 'date') return `📅 ${key}`;
+  return key;
 }
 
 // ── Rendering ────────────────────────────────────────────────────────────────
@@ -246,12 +344,12 @@ function render() {
     el.innerHTML = `<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(${cardMinWidth}px,1fr))">${sorted.map(mkCard).join('')}</div>`;
   } else {
     const groups = groupCards(sorted, groupMode);
-    const order = ['knowledge', 'agents', 'devtools', 'voice', 'llm', 'other'];
+    const keys = orderGroupKeys(groups, groupMode);
     let html = '';
-    for (const key of order) {
+    for (const key of keys) {
       const gCards = groups[key];
       if (!gCards?.length) continue;
-      const title = GROUP_TITLES[key] || key.toUpperCase();
+      const title = groupTitle(key, groupMode);
       html += `<div class="group-hdr">
         <span class="group-tag">${escHtml(title)}</span>
         <span class="group-cnt">${gCards.length}</span>
@@ -284,6 +382,7 @@ function resizeCards(d) {
   document.querySelectorAll('.card-grid').forEach(g => {
     g.style.gridTemplateColumns = `repeat(auto-fill,minmax(${cardMinWidth}px,1fr))`;
   });
+  saveState();
 }
 
 // ── Downloads ────────────────────────────────────────────────────────────────
@@ -508,6 +607,7 @@ function buildFilterButtons() {
     // Wire
     wireSegs(`${dim}Filter`, v => {
       filters[dim] = v === 'all' ? null : v;
+      saveState();
       render();
     });
   }
@@ -517,19 +617,22 @@ function buildFilterButtons() {
 
 async function init() {
   initTheme();
+  loadState();  // restore viewMode / groupMode / sortMode / cardMinWidth / filters
   await loadLinks();
   buildFilterButtons();
+  applyStateToUI();  // reflect restored state on the now-complete DOM
   render();
 
-  // Wire controls
-  wireSegs('sortSegs', v => { sortMode = v; render(); });
+  // Wire controls — change handlers save state then re-render
+  wireSegs('sortSegs', v => { sortMode = v; saveState(); render(); });
   wireSegs('viewSegs', v => {
     viewMode = v;
     const sizeCtrl = document.querySelector('.size-btn')?.closest('.ctrl');
     if (sizeCtrl) sizeCtrl.style.display = viewMode === 'list' ? 'none' : 'flex';
+    saveState();
     render();
   });
-  wireSegs('groupSegs', v => { groupMode = v; render(); });
+  wireSegs('groupSegs', v => { groupMode = v; saveState(); render(); });
 
   // Search
   document.getElementById('searchInput').addEventListener('input', render);
