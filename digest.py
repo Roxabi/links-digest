@@ -284,7 +284,10 @@ def enrich_content(data: dict, web_intel_root: Path) -> dict:
 def detect_platform(url: str) -> str:
     """Detect platform from URL."""
     url_lower = url.lower()
-    if "github.com" in url_lower:
+    # gist.github.com must be checked BEFORE github.com (substring match)
+    if "gist.github.com" in url_lower:
+        return "gist"
+    elif "github.com" in url_lower:
         return "github"
     elif "x.com" in url_lower or "twitter.com" in url_lower:
         return "x"
@@ -292,8 +295,6 @@ def detect_platform(url: str) -> str:
         return "youtube"
     elif "reddit.com" in url_lower:
         return "reddit"
-    elif "gist.github.com" in url_lower:
-        return "gist"
     else:
         return "web"
 
@@ -311,6 +312,10 @@ def generate_slug(url: str, date: str) -> str:
         match = re.search(r"github\.com/[^/]+/([^/]+)", url)
         if match:
             return match.group(1).lower().replace("-", "-")
+    elif platform == "gist":
+        match = re.search(r"gist\.github\.com/([^/]+)/", url)
+        if match:
+            return f"gist-{match.group(1).lower()}"
     elif platform == "x":
         # Extract author
         match = re.search(r"x\.com/([^/]+)/status/", url)
@@ -331,6 +336,17 @@ def generate_slug(url: str, date: str) -> str:
 def render_md(data: dict, template) -> str:
     """Render MD from template."""
     return template.render(**data)
+
+
+def synthesize_tweet_title(text: str, author: str | None) -> str:
+    """Build a meaningful title from a tweet body when none is provided."""
+    if text:
+        first = next((line.strip() for line in text.splitlines() if line.strip()), "")
+        if first:
+            if len(first) > 80:
+                first = first[:77].rstrip() + "..."
+            return first
+    return f"@{author} on X" if author else "X post"
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -410,6 +426,7 @@ def main():
 
         if scraped and scraped.get("success"):
             data = scraped.get("data", {})
+            content_type = scraped.get("content_type", "web")
             date = item["timestamp"][:10]
             slug = generate_slug(url, date)
 
@@ -417,18 +434,36 @@ def main():
             print(f"  Enriching {slug}...")
             enriched = enrich_content(data, web_intel)
 
+            # Per-content-type extraction.
+            # web-intel's `data.text` is a French LLM-prompt blob
+            # ("Auteur: ... Type: ... Titre: ... Contenu: ...") meant for the
+            # enricher. Render the clean field for the markdown body instead.
+            if content_type == "twitter":
+                content = data.get("raw_text") or ""
+                author = data.get("author") or data.get("username")
+                # Regular tweets have no title field — synthesize from body.
+                title = data.get("title") or synthesize_tweet_title(content, author)
+            elif content_type == "gist":
+                content = data.get("content") or ""
+                author = data.get("owner")
+                title = data.get("title") or "Untitled Gist"
+            else:
+                content = data.get("text") or ""
+                author = data.get("author") or data.get("username")
+                title = data.get("title") or "Untitled"
+
             md_data = {
-                "title": data.get("title") or "Untitled",
+                "title": title,
                 "source": url,
                 "date": date,
                 "tags": enriched.get("tags", []) if enriched.get("tags") else [],
                 "platform": detect_platform(url),
-                "author": data.get("author") or data.get("username"),
+                "author": author,
                 "summary": enriched.get("summary")
                 or data.get("description")
                 or data.get("excerpt")
                 or "",
-                "content": data.get("text"),  # scraper returns "text", not "content"
+                "content": content,
             }
 
             # Write MD
@@ -451,6 +486,9 @@ def main():
                 # Extract username
                 match = re.search(r"x\.com/([^/]+)/status/", url)
                 author = f"@{match.group(1)}" if match else None
+            elif platform == "gist":
+                match = re.search(r"gist\.github\.com/([^/]+)/", url)
+                author = match.group(1) if match else None
             else:
                 author = None
 
