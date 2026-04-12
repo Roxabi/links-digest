@@ -6,7 +6,7 @@ channel_id = "1482877201891463169"
 
 [output]
 # Relative to project root
-links_dir = "links"
+links_dir = "~/roxabi/links"
 
 [scan]
 # Default: last 24 hours (overridden by --hours, --days, --all)

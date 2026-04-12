@@ -25,7 +25,7 @@ from jinja2 import Environment, FileSystemLoader
 PROJECT_ROOT = Path(__file__).parent
 CONFIG_PATH = PROJECT_ROOT / "config.toml"
 TEMPLATE_DIR = PROJECT_ROOT / "templates"
-LINKS_DIR = PROJECT_ROOT / "links"
+LINKS_DIR = Path.home() / "roxabi" / "links"
 STATE_FILE = PROJECT_ROOT / ".digest_state.json"
 
 # ── Config ────────────────────────────────────────────────────────────────────

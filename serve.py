@@ -6,8 +6,8 @@
 - Pushes SSE events to connected browsers on change
 
 Usage:
-  LINKS_DIR=~/projects/links-digest python3 serve.py
-  LINKS_DIR=~/projects/links-digest LINKS_PORT=8082 python3 serve.py
+  LINKS_DIR=~/roxabi/links python3 serve.py
+  LINKS_DIR=~/roxabi/links LINKS_PORT=8082 python3 serve.py
 """
 
 import glob as globmod
@@ -27,7 +27,7 @@ from pathlib import Path
 locale.setlocale(locale.LC_ALL, "")
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DIR = Path(os.environ.get("LINKS_DIR", SCRIPT_DIR))
+DIR = Path(os.environ.get("LINKS_DIR", str(Path.home() / "roxabi" / "links")))
 PORT = int(os.environ.get("LINKS_PORT", 8082))
 
 # ── Manifest generation ───────────────────────────────────────────────────────
@@ -40,11 +40,11 @@ def gen_manifest() -> list[str]:
     fallback path in gallery.js when index.json is unavailable.
     """
     entries = sorted(
-        (Path(match).name for match in globmod.glob(str(DIR / "links" / "*.md"))),
+        (Path(match).name for match in globmod.glob(str(DIR / "*.md"))),
         key=locale.strxfrm,
     )
 
-    out = DIR / "links" / "manifest.json"
+    out = DIR / "manifest.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + "\n")
     return entries
@@ -93,7 +93,7 @@ def gen_index() -> int:
     """
     entries: list[dict] = []
     for match in sorted(
-        globmod.glob(str(DIR / "links" / "*.md")),
+        globmod.glob(str(DIR / "*.md")),
         key=lambda p: locale.strxfrm(Path(p).name),
     ):
         path = Path(match)
@@ -109,7 +109,7 @@ def gen_index() -> int:
             entry[field] = fm.get(field)
         entries.append(entry)
 
-    out = DIR / "links" / "index.json"
+    out = DIR / "index.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + "\n")
     return len(entries)
@@ -124,7 +124,7 @@ sse_lock = threading.Lock()
 def snapshot() -> dict:
     """Return {relative_path: (mtime, size)} for all .md files."""
     snap = {}
-    for match in globmod.glob(str(DIR / "links" / "*.md")):
+    for match in globmod.glob(str(DIR / "*.md")):
         fp = Path(match)
         try:
             st = fp.stat()
@@ -236,7 +236,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if self.path.startswith("/links/"):
             # Redirect to local links directory
             rel_path = self.path[7:]  # strip /links/
-            fp = DIR / "links" / rel_path
+            fp = DIR / rel_path
             if fp.exists():
                 body = fp.read_bytes()
                 ct = "text/markdown" if rel_path.endswith(".md") else "application/octet-stream"

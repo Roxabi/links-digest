@@ -37,21 +37,25 @@ digest-%:
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 
+LINKS_DIR ?= $(HOME)/roxabi/links
+
 build:
 	@echo "Building gallery..."
-	@ls links/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
+	@ls $(LINKS_DIR)/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
 	@echo "Generating manifest.json + index.json..."
-	@uv run python serve.py --build
-	@echo "Syncing to public/links/..."
-	@mkdir -p public/links && cp links/*.md public/links/ 2>/dev/null || true
-	@cp links/manifest.json links/index.json public/links/
+	@LINKS_DIR=$(LINKS_DIR) uv run python serve.py --build
+	@echo "Syncing to public/..."
+	@mkdir -p $(LINKS_DIR)/public
+	@cp $(LINKS_DIR)/*.md $(LINKS_DIR)/public/ 2>/dev/null || true
+	@cp $(LINKS_DIR)/manifest.json $(LINKS_DIR)/index.json $(LINKS_DIR)/public/
+	@cp -r public/index.html public/css public/js $(LINKS_DIR)/public/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
 
 deploy: build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
-	CLOUDFLARE_ACCOUNT_ID=$(CF_ACCOUNT) npx wrangler pages deploy public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
+	CLOUDFLARE_ACCOUNT_ID=$(CF_ACCOUNT) npx wrangler pages deploy $(LINKS_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
 # ── Dev ───────────────────────────────────────────────────────────────────────
 
@@ -61,7 +65,7 @@ open:
 # ── Clean ─────────────────────────────────────────────────────────────────────
 
 clean:
-	rm -rf links/*.md links/manifest.json public/links/*.md public/links/manifest.json .digest_state.json
+	rm -rf $(LINKS_DIR)/*.md $(LINKS_DIR)/manifest.json $(LINKS_DIR)/public/*.md $(LINKS_DIR)/public/manifest.json .digest_state.json
 
 # ── Supervisor service (hub-dispatched) ─────────────────────────────────────────
 # Usage (from this dir or from ~/projects):
