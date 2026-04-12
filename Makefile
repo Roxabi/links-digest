@@ -14,8 +14,11 @@
 
 PROJECT_NAME ?= links-digest
 CF_PROJECT   ?= links-digest
-CF_ACCOUNT   ?= b5e90be971920ce406f7b679c4f1cd33
 LINKS_PORT   ?= 8082
+
+-include .env
+export CLOUDFLARE_ACCOUNT_ID
+export CLOUDFLARE_API_TOKEN
 
 SUPERVISOR_HUB  ?= $(HOME)/projects
 HUB_SERVICES    := links
@@ -55,7 +58,7 @@ build:
 
 deploy: build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
-	CLOUDFLARE_ACCOUNT_ID=$(CF_ACCOUNT) npx wrangler pages deploy $(LINKS_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
+	npx wrangler pages deploy $(LINKS_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
 # ── Dev ───────────────────────────────────────────────────────────────────────
 
