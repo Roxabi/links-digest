@@ -209,15 +209,15 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 def find_web_intel() -> Path | None:
     """Find web-intel plugin root.
 
-    Prefers the git-tracked source under ~/projects/roxabi-plugins so local
-    fixes take effect immediately without waiting for a marketplace plugin
-    refresh. Falls back to the marketplace cache, then a legacy standalone
-    checkout.
+    Prefers the marketplace cache (stable, self-contained copy of
+    roxabi_sdk/ from the last `sync-plugins.sh --local`) over the live
+    git-tracked source, because the source requires the repo root on
+    sys.path to resolve `roxabi_sdk` and any local refactor can silently
+    break the digest. The live source is retained as a secondary so
+    local fixes still flow through when the marketplace cache is missing.
     """
     candidates = [
-        # Live source of truth — changes to enricher.py / fetchers apply here.
-        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
-        # Marketplace plugin cache (may lag behind git by days).
+        # Marketplace plugin cache — stable, ships roxabi_sdk/ inline.
         Path.home()
         / ".claude"
         / "plugins"
@@ -225,6 +225,8 @@ def find_web_intel() -> Path | None:
         / "roxabi-marketplace"
         / "web-intel"
         / "0.1.0",
+        # Live source — picks up enricher/fetcher fixes immediately.
+        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
         Path.home() / "projects" / "web-intel",
     ]
     for p in candidates:
