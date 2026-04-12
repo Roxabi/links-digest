@@ -3,6 +3,7 @@
     "aiohttp",
     "cryptography",
     "links-digest",
+    "roxabi-intel",
     "lyra",
     "pyromark",
     "sniffio",
