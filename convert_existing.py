@@ -4,8 +4,8 @@
 import re
 from pathlib import Path
 
-SOURCE_DIR = Path(__file__).parent / "links"
-DEST_DIR = Path(__file__).parent / "links"
+SOURCE_DIR = Path.home() / "roxabi" / "links"
+DEST_DIR = Path.home() / "roxabi" / "links"
 
 
 # Platform detection

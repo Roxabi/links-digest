@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Links Digest — Fetch Discord links → scrape → generate frontmatter MDs
+Roxabi Intel — Fetch Discord links → scrape → generate frontmatter MDs
 
 Usage:
     uv run python digest.py              # Scan last 24h (default)
@@ -25,7 +25,7 @@ from jinja2 import Environment, FileSystemLoader
 PROJECT_ROOT = Path(__file__).parent
 CONFIG_PATH = PROJECT_ROOT / "config.toml"
 TEMPLATE_DIR = PROJECT_ROOT / "templates"
-LINKS_DIR = PROJECT_ROOT / "links"
+INTEL_DIR = Path.home() / "roxabi" / "intel"
 STATE_FILE = PROJECT_ROOT / ".digest_state.json"
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -207,8 +207,17 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 
 
 def find_web_intel() -> Path | None:
-    """Find web-intel plugin root."""
+    """Find web-intel plugin root.
+
+    Prefers the git-tracked source under ~/projects/roxabi-plugins so local
+    fixes take effect immediately without waiting for a marketplace plugin
+    refresh. Falls back to the marketplace cache, then a legacy standalone
+    checkout.
+    """
     candidates = [
+        # Live source of truth — changes to enricher.py / fetchers apply here.
+        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
+        # Marketplace plugin cache (may lag behind git by days).
         Path.home()
         / ".claude"
         / "plugins"
@@ -253,8 +262,49 @@ def scrape_url(url: str, web_intel_root: Path) -> dict | None:
         return None
 
 
+# Signals that an enrichment result has bled in reasoning text or prompt
+# fragments — we discard the whole enrichment when these appear rather than
+# letting salvaged bullet-list garbage reach the MD frontmatter.
+_ENRICH_BLEED_TAG_CHARS = set("`()?*[]{}")
+_ENRICH_BLEED_RE = re.compile(
+    r"\b(draft|encapsulat|one sentence|keywords\?|refinement|let me|"
+    r"thinking|revised)\b",
+    re.IGNORECASE,
+)
+
+
+def validate_enrichment(enriched: dict) -> tuple[bool, str]:
+    """Return (ok, reason) — reject garbage enrichment output.
+
+    Defence-in-depth after the enricher's own validator. If this returns
+    False, the caller should treat the enrichment as empty and fall back
+    to the scraper-provided description.
+    """
+    tags = enriched.get("tags", []) or []
+    summary = (enriched.get("summary") or "").strip()
+
+    for t in tags:
+        if not isinstance(t, str) or not t.strip():
+            return False, f"non-string or empty tag: {t!r}"
+        if any(ch in t for ch in _ENRICH_BLEED_TAG_CHARS):
+            return False, f"tag has markdown bleed chars: {t!r}"
+        if _ENRICH_BLEED_RE.search(t):
+            return False, f"tag echoes prompt vocabulary: {t!r}"
+        if len(t) > 40 or len(t.split()) > 5:
+            return False, f"tag too long or phrase-like: {t!r}"
+
+    if summary:
+        if summary.startswith(("*", "-", "`", "#", ">")):
+            return False, f"summary starts with markdown: {summary[:40]!r}"
+        if _ENRICH_BLEED_RE.search(summary):
+            return False, f"summary echoes prompt vocabulary: {summary[:60]!r}"
+
+    return True, "ok"
+
+
 def enrich_content(data: dict, web_intel_root: Path) -> dict:
     """Enrich scraped content with LLM-extracted tags and summary."""
+    empty = {"tags": [], "summary": "", "key_points": []}
     try:
         # Pass scraped data to enricher via stdin
         input_json = json.dumps(data)
@@ -264,18 +314,23 @@ def enrich_content(data: dict, web_intel_root: Path) -> dict:
             input=input_json,
             capture_output=True,
             text=True,
-            timeout=30,
+            timeout=60,
         )
 
-        if result.returncode == 0:
-            return json.loads(result.stdout)
-        else:
+        if result.returncode != 0:
             print(f"  Enrichment failed: {result.stderr[:80]}")
-            return {"tags": [], "summary": "", "key_points": []}
+            return empty
 
+        enriched = json.loads(result.stdout)
     except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
         print(f"  Enrichment error: {e}")
-        return {"tags": [], "summary": "", "key_points": []}
+        return empty
+
+    ok, reason = validate_enrichment(enriched)
+    if not ok:
+        print(f"  Enrichment rejected by validator: {reason}")
+        return empty
+    return enriched
 
 
 # ── Platform detection ────────────────────────────────────────────────────────
@@ -308,10 +363,12 @@ def generate_slug(url: str, date: str) -> str:
     platform = detect_platform(url)
 
     if platform == "github":
-        # Extract repo name
-        match = re.search(r"github\.com/[^/]+/([^/]+)", url)
+        # Extract repo name. Strip query (?tab=readme-ov-file) / fragment
+        # suffixes before returning — a `?` in the filename is valid on
+        # Linux but breaks URL escaping in the gallery and looks broken.
+        match = re.search(r"github\.com/[^/]+/([^/?#]+)", url)
         if match:
-            return match.group(1).lower().replace("-", "-")
+            return match.group(1).lower()
     elif platform == "gist":
         match = re.search(r"gist\.github\.com/([^/]+)/", url)
         if match:
@@ -411,10 +468,18 @@ def main():
 
     # Setup Jinja
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    # Override `tojson` filter so frontmatter gets raw UTF-8 + raw
+    # apostrophes instead of \uXXXX escapes. Jinja's default `tojson`
+    # uses htmlsafe_json_dumps which escapes both non-ASCII *and*
+    # HTML-special chars ('<>&\'"') regardless of ensure_ascii — that's
+    # wrong for YAML frontmatter (never embedded in HTML attributes).
+    # YAML 1.2 accepts both escaped and raw forms; the gallery's
+    # JSON.parse fallback still decodes legacy escaped files cleanly.
+    env.filters["tojson"] = lambda obj: json.dumps(obj, ensure_ascii=False)
     template = env.get_template("link.md.j2")
 
     # Ensure output dir
-    LINKS_DIR.mkdir(parents=True, exist_ok=True)
+    INTEL_DIR.mkdir(parents=True, exist_ok=True)
 
     # Process URLs
     results = []
@@ -469,7 +534,7 @@ def main():
             # Write MD
             md_content = render_md(md_data, template)
             filename = f"{date}_{slug}.md"
-            filepath = LINKS_DIR / filename
+            filepath = INTEL_DIR / filename
 
             with open(filepath, "w") as f:
                 f.write(md_content)
@@ -494,7 +559,7 @@ def main():
 
             slug = generate_slug(url, date)
             filename = f"{date}_{slug}.md"
-            filepath = LINKS_DIR / filename
+            filepath = INTEL_DIR / filename
 
             md_data = {
                 "title": f"Link — {platform.title()}",
@@ -519,7 +584,7 @@ def main():
     state["last_scan"] = datetime.now(timezone.utc).isoformat()
     save_state(state)
 
-    print(f"\nDone! Generated {len(results)} MD files in {LINKS_DIR}")
+    print(f"\nDone! Generated {len(results)} MD files in {INTEL_DIR}")
 
 
 if __name__ == "__main__":

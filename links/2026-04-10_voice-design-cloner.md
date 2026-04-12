@@ -2,34 +2,17 @@
 title: "reinehonoka/Voice-Design-Cloner"
 source: "https://github.com/reinehonoka/Voice-Design-Cloner"
 date: 2026-04-10
-tags: ["* what are the relevant keywords?", "`ai voice` (or `text-to-speech`, `tts`)", "`voice cloning`", "`training data generation` (or `dataset creation`)", "`style-bert-vits2` (target model)"]
+tags: ["Python", "Text-to-Speech", "AI Voice", "Voice Cloning", "Qwen3-TTS"]
 platform: github
 author: null
-summary: "** One sentence encapsulating the main purpose.\n        *   *Draft 1:* A GUI tool to create training data for Style-Bert-VITS2 without recording by using Qwen3-TTS.\n        *   *Draft 2:* This Python-"
+summary: "Voice-Design-Cloner is a GUI tool that allows users to design original AI voices via text prompts and generate training datasets for models like Style-Bert-VITS2 without requiring manual recording."
 ---
-
-# reinehonoka/Voice-Design-Cloner
-
-**Source:** https://github.com/reinehonoka/Voice-Design-Cloner
-**Date:** 2026-04-10
-
-
----
-
-
-** One sentence encapsulating the main purpose.
-        *   *Draft 1:* A GUI tool to create training data for Style-Bert-VITS2 without recording by using Qwen3-TTS.
-        *   *Draft 2:* This Python-
-
-
-
-
 # reinehonoka/Voice-Design-Cloner
 
 **URL:** https://github.com/reinehonoka/Voice-Design-Cloner
 **Description:** 録音不要でオリジナルAI音声の教師データを作るGUIツール
 **Language:** Python
-**Stars:** 66 | **Forks:** 10
+**Stars:** 84 | **Forks:** 13
 **License:** MIT License
 **Last updated:** 2026-04-06
 

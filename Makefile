@@ -1,4 +1,4 @@
-# links-digest Makefile
+# roxabi-intel Makefile
 #
 # Usage:
 #   make digest          # Scan last 24h
@@ -12,16 +12,19 @@
 #   make stop            # Stop local server
 #   make status          # Check server status
 
-PROJECT_NAME ?= links-digest
+PROJECT_NAME ?= roxabi-intel
 CF_PROJECT   ?= links-digest
-CF_ACCOUNT   ?= b5e90be971920ce406f7b679c4f1cd33
-LINKS_PORT   ?= 8082
+INTEL_PORT   ?= 8082
+
+-include .env
+export CLOUDFLARE_ACCOUNT_ID
+export CLOUDFLARE_API_TOKEN
 
 SUPERVISOR_HUB  ?= $(HOME)/projects
-HUB_SERVICES    := links-digest
+HUB_SERVICES    := intel
 -include $(SUPERVISOR_HUB)/hub.mk
 
-.PHONY: digest digest-all build deploy open clean links-digest register help
+.PHONY: digest digest-all build deploy open clean intel register help
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
@@ -37,21 +40,25 @@ digest-%:
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 
+INTEL_DIR ?= $(HOME)/roxabi/intel
+
 build:
 	@echo "Building gallery..."
-	@ls links/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
-	@echo "Syncing to public/links/..."
-	@mkdir -p public/links && cp links/*.md public/links/ 2>/dev/null || true
-	@echo "Generating manifest.json..."
-	@cd links && ls -1 *.md 2>/dev/null | jq -Rs 'split("\n") | map(select(length > 0))' > manifest.json
-	@cp links/manifest.json public/links/
+	@ls $(INTEL_DIR)/*.md 2>/dev/null | wc -l | xargs -I {} echo "Found {} MD files"
+	@echo "Generating manifest.json + index.json..."
+	@INTEL_DIR=$(INTEL_DIR) uv run python serve.py --build
+	@echo "Syncing to public/..."
+	@mkdir -p $(INTEL_DIR)/public
+	@cp $(INTEL_DIR)/*.md $(INTEL_DIR)/public/ 2>/dev/null || true
+	@cp $(INTEL_DIR)/manifest.json $(INTEL_DIR)/index.json $(INTEL_DIR)/public/
+	@cp -r public/index.html public/css public/js public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og-image.png $(INTEL_DIR)/public/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
 
 deploy: build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
-	CLOUDFLARE_ACCOUNT_ID=$(CF_ACCOUNT) npx wrangler pages deploy public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
+	npx wrangler pages deploy $(INTEL_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
 # ── Dev ───────────────────────────────────────────────────────────────────────
 
@@ -61,21 +68,21 @@ open:
 # ── Clean ─────────────────────────────────────────────────────────────────────
 
 clean:
-	rm -rf links/*.md links/manifest.json public/links/*.md public/links/manifest.json .digest_state.json
+	rm -rf $(INTEL_DIR)/*.md $(INTEL_DIR)/manifest.json $(INTEL_DIR)/public/*.md $(INTEL_DIR)/public/manifest.json .digest_state.json
 
 # ── Supervisor service (hub-dispatched) ─────────────────────────────────────────
 # Usage (from this dir or from ~/projects):
-#   make links-digest start|stop|reload|status|logs|errlogs
+#   make intel start|stop|reload|status|logs|errlogs
 
-links-digest:
-	@$(HUB_SVC) links-digest $(SVC_CMD)
+intel:
+	@$(HUB_SVC) roxabi-intel $(SVC_CMD)
 
 # ── Registration ────────────────────────────────────────────────────────────────
 
 register:
-	@echo "Registering links-digest with supervisor hub..."
-	@$(HUB_GEN_MK) links-digest "$(abspath .)" links-digest
-	$(call hub-link-conf,links-digest,supervisor/conf.d/links-digest.conf)
-	@mkdir -p "$(HOME)/.local/state/links-digest/logs"
+	@echo "Registering roxabi-intel with supervisor hub..."
+	@$(HUB_GEN_MK) roxabi-intel "$(abspath .)" intel
+	$(call hub-link-conf,roxabi-intel,supervisor/conf.d/roxabi-intel.conf)
+	@mkdir -p "$(HOME)/.local/state/roxabi-intel/logs"
 	$(hub_reread)
 	@echo "Done."

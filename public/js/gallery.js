@@ -1,16 +1,16 @@
-/* links-digest gallery.js — Dynamic MD parsing + rendering */
+/* roxabi-intel gallery.js — Dynamic MD parsing + rendering */
 
 // ── State ────────────────────────────────────────────────────────────────────
 
 let cards = [];
 let filtered = [];
 let sortMode = 'date';
-let groupMode = 'section';
+let groupMode = 'date';
 let viewMode = 'card';
 let cardMinWidth = 360;
 let jsZipLoaded = false;
 
-const STORE_KEY = 'links-digest-gallery';
+const STORE_KEY = 'roxabi-intel-gallery';
 const SETTINGS_KEY = STORE_KEY + '-settings';
 
 // ── State persistence ────────────────────────────────────────────────────────
@@ -82,21 +82,38 @@ function parseFrontmatter(text) {
   const [_, yaml, content] = match;
   const data = {};
 
+  // Decode a double-quoted YAML string by leveraging JSON.parse — which
+  // handles \uXXXX (incl. surrogate pairs like \ud83e\udea8), \", \\, \n,
+  // etc. Falls back to the raw capture if JSON.parse can't handle it.
+  // Needed because digest.py writes frontmatter via Jinja's `tojson`,
+  // which ASCII-escapes non-ASCII characters by default.
+  const decodeStr = raw => {
+    try { return JSON.parse('"' + raw + '"'); }
+    catch { return raw; }
+  };
+
   // Simple YAML parser for flat key: value + arrays
   for (const line of yaml.split('\n')) {
     // Match array with content: tags: ["a", "b"] or tags: [a, b]
     const arrMatch = line.match(/^(\w+):\s*\[(.+)\]$/);
     // Match empty array: tags: []
     const emptyArrMatch = line.match(/^(\w+):\s*\[\]$/);
-    const strMatch = line.match(/^(\w+):\s*"(.+)"$/);
+    const strMatch = line.match(/^(\w+):\s*"(.*)"$/);
     const plainMatch = line.match(/^(\w+):\s*(.+)$/);
 
     if (emptyArrMatch) {
       data[emptyArrMatch[1]] = [];
     } else if (arrMatch) {
-      data[arrMatch[1]] = arrMatch[2].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+      // Try JSON.parse on the full [...] — decodes escapes for free.
+      try {
+        data[arrMatch[1]] = JSON.parse('[' + arrMatch[2] + ']');
+      } catch {
+        data[arrMatch[1]] = arrMatch[2]
+          .split(',')
+          .map(s => decodeStr(s.trim().replace(/^["']|["']$/g, '')));
+      }
     } else if (strMatch) {
-      data[strMatch[1]] = strMatch[2];
+      data[strMatch[1]] = decodeStr(strMatch[2]);
     } else if (plainMatch) {
       let val = plainMatch[2];
       if (val === 'null') val = null;
@@ -133,47 +150,64 @@ function detectSection(tags) {
 // ── Load MD files ────────────────────────────────────────────────────────────
 
 async function loadLinks() {
-  // Fetch the directory listing via a manifest or API
-  // For static hosting, we use a pre-generated manifest.json
-  let files = [];
-
-  try {
-    const manifestRes = await fetch('links/manifest.json');
-    if (manifestRes.ok) {
-      files = await manifestRes.json();
-    }
-  } catch {
-    // Fallback: try to parse directory listing (won't work on CF Pages)
-    console.warn('No manifest.json found, gallery may be empty');
-  }
-
-  // Fetch and parse each MD file
+  // Primary path: a pre-built index.json ships every card's frontmatter
+  // in one HTTP request. Full MD content stays per-file and is fetched
+  // lazily when the modal opens (see openContentModal).
   cards = [];
-  for (const file of files) {
-    try {
-      const res = await fetch(`links/${file}`);
-      if (!res.ok) continue;
-      const text = await res.text();
-      const { data, content } = parseFrontmatter(text);
-
+  try {
+    const res = await fetch('links/index.json');
+    if (!res.ok) throw new Error('index.json ' + res.status);
+    const entries = await res.json();
+    for (const e of entries) {
       cards.push({
-        file,
-        title: data.title || file,
-        source: data.source || '#',
-        date: data.date || '2026-01-01',
-        tags: data.tags || [],
-        platform: data.platform || 'web',
-        author: data.author,
-        summary: data.summary || '',
-        content,
-        section: detectSection(data.tags),
+        file: e.file,
+        title: e.title || e.file,
+        source: e.source || '#',
+        date: e.date || '2026-01-01',
+        tags: e.tags || [],
+        platform: e.platform || 'web',
+        author: e.author,
+        summary: e.summary || '',
+        section: detectSection(e.tags),
+        // No `content` field — opened lazily from the .md on click.
       });
-    } catch (e) {
-      console.error(`Failed to load ${file}:`, e);
+    }
+  } catch (err) {
+    // Fallback: the old per-file loader. Keeps the gallery usable if
+    // index.json is missing (stale deploy, local dev mid-rebuild, etc.).
+    console.warn('index.json unavailable, falling back to per-file fetch:', err);
+    let files = [];
+    try {
+      const manifestRes = await fetch('links/manifest.json');
+      if (manifestRes.ok) files = await manifestRes.json();
+    } catch {
+      console.warn('No manifest.json either, gallery may be empty');
+    }
+    for (const file of files) {
+      try {
+        const res = await fetch(`links/${file}`);
+        if (!res.ok) continue;
+        const text = await res.text();
+        const { data } = parseFrontmatter(text);
+        cards.push({
+          file,
+          title: data.title || file,
+          source: data.source || '#',
+          date: data.date || '2026-01-01',
+          tags: data.tags || [],
+          platform: data.platform || 'web',
+          author: data.author,
+          summary: data.summary || '',
+          section: detectSection(data.tags),
+        });
+      } catch (e) {
+        console.error(`Failed to load ${file}:`, e);
+      }
     }
   }
 
-  // Sort by date descending by default
+  // Sort by date descending by default (initial default — overridden by
+  // localStorage-restored sortMode via render()).
   cards.sort((a, b) => b.date.localeCompare(a.date));
   filtered = [...cards];
 }
@@ -367,7 +401,10 @@ function render() {
 function renderListView(arr) {
   const rows = arr.map(c => `<div class="list-row" data-file="${escHtml(c.file)}" data-title="${escHtml(c.title)}">
     <span class="list-date">${escHtml(c.date)}</span>
-    <span class="list-title">${escHtml(c.title)}</span>
+    <div class="list-main">
+      <span class="list-title">${escHtml(c.title)}</span>
+      <span class="list-summary">${escHtml(c.summary || '')}</span>
+    </div>
     <span class="list-source">${escHtml(c.platform)}</span>
     <span class="list-tags">${(c.tags || []).slice(0, 2).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}</span>
   </div>`).join('');
@@ -437,10 +474,10 @@ async function downloadAllAsZip() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'links-digest.zip';
+    a.download = 'roxabi-intel.zip';
     a.click();
     URL.revokeObjectURL(url);
-    showToast(`Downloaded links-digest.zip with ${cards.length} files`);
+    showToast(`Downloaded roxabi-intel.zip with ${cards.length} files`);
   } catch (e) {
     showToast('Download failed: ' + e.message, true);
   } finally {
@@ -497,81 +534,45 @@ function closeContentModalOutside(e) {
   if (e.target === document.getElementById('contentModal')) closeContentModal();
 }
 
-// ── Simple Markdown renderer ─────────────────────────────────────────────────
+// ── Markdown renderer (marked + DOMPurify) ───────────────────────────────────
+//
+// Swapped out the hand-rolled regex renderer (which kept breaking on every
+// new edge case — fenced code whitespace, nested lists, tables with pipes)
+// for the battle-tested `marked` library, sanitized through DOMPurify.
+//
+// Both libs are vendored under public/js/vendor/ (loaded by index.html
+// before this script) so the page stays CSP-clean and offline-capable.
+
+const MARKED_OPTIONS = {
+  gfm: true,       // GitHub-flavored markdown (tables, task lists, strikethrough)
+  breaks: false,   // don't turn single \n into <br> — preserve paragraph semantics
+};
+
+// Open all rendered <a> links in a new tab. DOMPurify hook — runs on every
+// sanitize() call, so we don't need to configure marked's renderer.
+if (typeof DOMPurify !== 'undefined' && DOMPurify.addHook) {
+  DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+    if (node.tagName === 'A') {
+      node.setAttribute('target', '_blank');
+      node.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+}
 
 function renderMarkdown(md) {
-  // Remove YAML frontmatter first
-  let html = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+  // Strip YAML frontmatter — marked doesn't know about it and would render
+  // it as a <hr> + paragraph.
+  const body = md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
 
-  // Escape HTML entities
-  html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
+    // Fallback for dev environments where vendored libs failed to load:
+    // escape + wrap in <pre> so at least the content is legible.
+    const esc = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return '<pre>' + esc + '</pre>';
+  }
 
-  // Extract fenced code blocks FIRST and replace with opaque placeholders.
-  // Without this, later passes (headers, paragraphs, bold/italic) mutate
-  // the code content — injecting `</p><p>` and `<h2>` inside the block,
-  // which breaks the browser's whitespace preservation.
-  const codeBlocks = [];
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const idx = codeBlocks.length;
-    codeBlocks.push(`<pre><code class="language-${lang}">${code}</code></pre>`);
-    return `\x00CB${idx}\x00`;
-  });
-
-  // Same for inline code — so * ** _ [ ] patterns inside backticks are left alone.
-  const inlineCodes = [];
-  html = html.replace(/`([^`]+)`/g, (_, code) => {
-    const idx = inlineCodes.length;
-    inlineCodes.push(`<code>${code}</code>`);
-    return `\x00IC${idx}\x00`;
-  });
-
-  // Headers (must have space after #)
-  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
-  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-  // Bold and italic
-  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-  // Unordered lists
-  html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-
-  // Horizontal rule (only standalone ---)
-  html = html.replace(/^---$/gm, '<hr>');
-
-  // Tables
-  html = html.replace(/^\|(.+)\|$/gm, (m, row) => {
-    const cells = row.split('|').map(c => c.trim());
-    if (cells.every(c => c.match(/^-+$/))) return '<!-- skip -->';
-    return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
-  });
-  html = html.replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>');
-  html = html.replace(/<!-- skip -->\n/g, '');
-
-  // Paragraphs - wrap non-block content
-  html = html.replace(/\n\n+/g, '\n\n</p><p>\n\n');
-  html = '<p>' + html + '</p>';
-
-  // Restore code block placeholders BEFORE final cleanup so the
-  // `<p>\s*<pre>` / `</pre>\s*</p>` cleanup rules below can strip the
-  // wrapping paragraph tags around restored blocks.
-  html = html.replace(/\x00CB(\d+)\x00/g, (_, i) => codeBlocks[+i]);
-  html = html.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCodes[+i]);
-
-  // Clean up empty paragraphs and fix nesting
-  html = html.replace(/<p>\s*<\/p>/g, '');
-  html = html.replace(/<p>\s*<(h[1-6]|ul|ol|pre|table|hr)/g, '<$1');
-  html = html.replace(/<\/(h[1-6]|ul|ol|pre|table)>\s*<\/p>/g, '</$1>');
-  html = html.replace(/<p>\s*<hr\s*\/?>\s*<\/p>/g, '<hr>');
-
-  return html;
+  const rawHtml = marked.parse(body, MARKED_OPTIONS);
+  return DOMPurify.sanitize(rawHtml);
 }
 
 // ── Theme ────────────────────────────────────────────────────────────────────

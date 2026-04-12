@@ -1,4 +1,4 @@
-/* links-digest gallery.css */
+/* roxabi-intel gallery.css */
 
 :root {
   --bg: #0c0c0c;
@@ -214,11 +214,13 @@ body {
 
 /* List view */
 .list-view { display: flex; flex-direction: column; gap: 0; }
-.list-row { display: grid; grid-template-columns: 100px 1fr auto auto; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--card); cursor: pointer; transition: background .1s; }
+.list-row { display: grid; grid-template-columns: 100px minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--card); cursor: pointer; transition: background .1s; }
 .list-row:hover { background: var(--surface); }
 .list-row:last-child { border-bottom: none; border-radius: 0 0 8px 8px; }
-.list-date { font-family: var(--mono); font-size: .68rem; color: var(--text-xdim); }
+.list-date { font-family: var(--mono); font-size: .68rem; color: var(--text-xdim); align-self: start; padding-top: 2px; }
+.list-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow: hidden; }
 .list-title { font-size: .82rem; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list-summary { font-size: .72rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .list-source { font-size: .6rem; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; font-family: var(--mono); }
 .list-tags { display: flex; gap: 4px; flex-wrap: nowrap; overflow: hidden; max-width: 200px; }
 .list-tags .tag { font-size: .58rem; padding: 2px 5px; }
@@ -272,4 +274,8 @@ body {
   .search-input { width: 120px; }
   .content-modal { padding: 20px 12px; }
   .modal-body { max-height: 60vh; }
+  /* Drop summary on narrow screens; title reclaims the main column */
+  .list-row { grid-template-columns: 80px 1fr auto auto; }
+  .list-summary { display: none; }
+  .list-title { max-width: none; }
 }

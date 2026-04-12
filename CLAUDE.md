@@ -1,9 +1,9 @@
 @.claude/stack.yml
 @~/.claude/shared/global-patterns.md
 
-# links-digest
+# roxabi-intel
 
-Brief project description here.
+Discord links digest with frontmatter MDs and dynamic gallery.
 
 ## Overview
 
@@ -11,7 +11,7 @@ Add project overview here.
 
 ## TL;DR
 
-- **Project:** links-digest
+- **Project:** roxabi-intel
 - **Before work:** Use `/dev #N` as the single entry point — it determines tier (S / F-lite / F-full) and drives the full lifecycle
 - **Always** `AskUserQuestion` for choices — never plain-text questions
 - **Never** use `--force`/`--hard`/`--amend`

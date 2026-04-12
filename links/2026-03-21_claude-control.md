@@ -1,22 +1,15 @@
 ---
-title: "sverrirsig/claude-control"
-source: "https://github.com/sverrirsig/claude-control"
+title: "https://github.com/sverrigsig/claude-control"
+source: "https://github.com/sverrigsig/claude-control"
 date: 2026-03-21
 tags: []
 platform: github
-author: null
-summary: "macOS desktop dashboard for monitoring and managing multiple Claude Code sessions"
+author: "sverrigsig"
+summary: ""
 ---
+I need your permission to fetch the GitHub page. Would you like me to:
 
-# sverrirsig/claude-control
+1. **Use WebFetch** to scrape and analyze the repository page
+2. **Use GitHub CLI** (`gh`) to fetch metadata about the repo
 
-**Source:** https://github.com/sverrirsig/claude-control
-**Date:** 2026-03-21
-
-
----
-
-
-macOS desktop dashboard for monitoring and managing multiple Claude Code sessions
-
-
+Either option will let me extract the project details and provide you with a summary. Which would you prefer?
