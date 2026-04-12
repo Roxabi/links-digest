@@ -1,4 +1,4 @@
-/* links-digest gallery.js — Dynamic MD parsing + rendering */
+/* roxabi-intel gallery.js — Dynamic MD parsing + rendering */
 
 // ── State ────────────────────────────────────────────────────────────────────
 
@@ -10,7 +10,7 @@ let viewMode = 'card';
 let cardMinWidth = 360;
 let jsZipLoaded = false;
 
-const STORE_KEY = 'links-digest-gallery';
+const STORE_KEY = 'roxabi-intel-gallery';
 const SETTINGS_KEY = STORE_KEY + '-settings';
 
 // ── State persistence ────────────────────────────────────────────────────────
@@ -474,10 +474,10 @@ async function downloadAllAsZip() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'links-digest.zip';
+    a.download = 'roxabi-intel.zip';
     a.click();
     URL.revokeObjectURL(url);
-    showToast(`Downloaded links-digest.zip with ${cards.length} files`);
+    showToast(`Downloaded roxabi-intel.zip with ${cards.length} files`);
   } catch (e) {
     showToast('Download failed: ' + e.message, true);
   } finally {

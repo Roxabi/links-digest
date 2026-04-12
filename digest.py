@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Links Digest — Fetch Discord links → scrape → generate frontmatter MDs
+Roxabi Intel — Fetch Discord links → scrape → generate frontmatter MDs
 
 Usage:
     uv run python digest.py              # Scan last 24h (default)
@@ -25,7 +25,7 @@ from jinja2 import Environment, FileSystemLoader
 PROJECT_ROOT = Path(__file__).parent
 CONFIG_PATH = PROJECT_ROOT / "config.toml"
 TEMPLATE_DIR = PROJECT_ROOT / "templates"
-LINKS_DIR = Path.home() / "roxabi" / "links"
+INTEL_DIR = Path.home() / "roxabi" / "intel"
 STATE_FILE = PROJECT_ROOT / ".digest_state.json"
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -479,7 +479,7 @@ def main():
     template = env.get_template("link.md.j2")
 
     # Ensure output dir
-    LINKS_DIR.mkdir(parents=True, exist_ok=True)
+    INTEL_DIR.mkdir(parents=True, exist_ok=True)
 
     # Process URLs
     results = []
@@ -534,7 +534,7 @@ def main():
             # Write MD
             md_content = render_md(md_data, template)
             filename = f"{date}_{slug}.md"
-            filepath = LINKS_DIR / filename
+            filepath = INTEL_DIR / filename
 
             with open(filepath, "w") as f:
                 f.write(md_content)
@@ -559,7 +559,7 @@ def main():
 
             slug = generate_slug(url, date)
             filename = f"{date}_{slug}.md"
-            filepath = LINKS_DIR / filename
+            filepath = INTEL_DIR / filename
 
             md_data = {
                 "title": f"Link — {platform.title()}",
@@ -584,7 +584,7 @@ def main():
     state["last_scan"] = datetime.now(timezone.utc).isoformat()
     save_state(state)
 
-    print(f"\nDone! Generated {len(results)} MD files in {LINKS_DIR}")
+    print(f"\nDone! Generated {len(results)} MD files in {INTEL_DIR}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 [project]
-name = "links-digest"
+name = "roxabi-intel"
 version = "0.1.0"
 description = "Discord links digest with frontmatter MDs and dynamic gallery"
 readme = "README.md"

@@ -1,11 +1,11 @@
-# links-digest
+# roxabi-intel
 
 Discord links digest with frontmatter MDs and dynamic gallery.
 
 ## Structure
 
 ```
-links-digest/
+roxabi-intel/
 ├── digest.py           # Fetch Discord + scrape URLs → MDs
 ├── config.toml         # Channel ID, time window
 ├── templates/

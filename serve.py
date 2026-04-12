@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""serve.py — serve links-digest with live-reload.
+"""serve.py — serve roxabi-intel with live-reload.
 
 - Regenerates manifest.json on startup and whenever MD files change
 - Watches for MD file changes every 2s
 - Pushes SSE events to connected browsers on change
 
 Usage:
-  LINKS_DIR=~/roxabi/links python3 serve.py
-  LINKS_DIR=~/roxabi/links LINKS_PORT=8082 python3 serve.py
+  INTEL_DIR=~/roxabi/intel python3 serve.py
+  INTEL_DIR=~/roxabi/intel INTEL_PORT=8082 python3 serve.py
 """
 
 import glob as globmod
@@ -27,8 +27,8 @@ from pathlib import Path
 locale.setlocale(locale.LC_ALL, "")
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DIR = Path(os.environ.get("LINKS_DIR", str(Path.home() / "roxabi" / "links")))
-PORT = int(os.environ.get("LINKS_PORT", 8082))
+DIR = Path(os.environ.get("INTEL_DIR", str(Path.home() / "roxabi" / "intel")))
+PORT = int(os.environ.get("INTEL_PORT", 8082))
 
 # ── Manifest generation ───────────────────────────────────────────────────────
 
@@ -278,7 +278,7 @@ if __name__ == "__main__":
 
     # Start HTTP server
     server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
-    print(f"Serving links-digest at http://localhost:{PORT}")
+    print(f"Serving roxabi-intel at http://localhost:{PORT}")
     print("Watching for changes every 2s...")
     try:
         server.serve_forever()
