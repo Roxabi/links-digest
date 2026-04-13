@@ -40,7 +40,7 @@ digest-%:
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 
-INTEL_DIR ?= $(HOME)/roxabi/intel
+INTEL_DIR ?= $(HOME)/.roxabi/intel
 
 build:
 	@echo "Building gallery..."
