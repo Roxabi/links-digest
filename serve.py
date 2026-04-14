@@ -54,7 +54,16 @@ def gen_manifest() -> list[str]:
 
 _FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---", re.DOTALL)
 _FM_LINE_RE = re.compile(r"^(\w+):\s*(.*)$", re.MULTILINE)
-_INDEX_FIELDS = ("title", "source", "date", "tags", "platform", "author", "summary")
+_INDEX_FIELDS = (
+    "title",
+    "source",
+    "date",
+    "tags",
+    "platform",
+    "author",
+    "summary",
+    "key_points",
+)
 
 
 def _parse_frontmatter(text: str) -> dict | None:
