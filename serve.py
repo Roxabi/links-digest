@@ -6,8 +6,8 @@
 - Pushes SSE events to connected browsers on change
 
 Usage:
-  INTEL_DIR=~/roxabi/intel python3 serve.py
-  INTEL_DIR=~/roxabi/intel INTEL_PORT=8082 python3 serve.py
+  INTEL_DIR=~/.roxabi/intel python3 serve.py
+  INTEL_DIR=~/.roxabi/intel INTEL_PORT=8082 python3 serve.py
 """
 
 import glob as globmod
@@ -27,7 +27,7 @@ from pathlib import Path
 locale.setlocale(locale.LC_ALL, "")
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DIR = Path(os.environ.get("INTEL_DIR", str(Path.home() / "roxabi" / "intel")))
+DIR = Path(os.environ.get("INTEL_DIR", str(Path.home() / ".roxabi" / "intel")))
 PORT = int(os.environ.get("INTEL_PORT", 8082))
 
 # ── Manifest generation ───────────────────────────────────────────────────────
