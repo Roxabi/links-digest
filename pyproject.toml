@@ -15,7 +15,7 @@ dependencies = [
 lyra = { git = "https://github.com/Roxabi/lyra.git", branch = "staging" }
 
 [project.optional-dependencies]
-dev = ["ruff>=0.4"]
+dev = ["ruff>=0.15.10"]
 
 [build-system]
 requires = ["hatchling"]
