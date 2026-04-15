@@ -56,7 +56,7 @@ build:
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
 
-deploy: build
+deploy: digest build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
 	npx wrangler pages deploy $(INTEL_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
