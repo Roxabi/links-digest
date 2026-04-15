@@ -870,10 +870,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "discord-py", specifier = ">=2.4" },
-    { name = "jinja2", specifier = ">=3.1" },
+    { name = "discord-py", specifier = ">=2.7.1" },
+    { name = "jinja2", specifier = ">=3.1.6" },
     { name = "lyra", git = "https://github.com/Roxabi/lyra.git?branch=staging" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.10" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
 ]
 provides-extras = ["dev"]
