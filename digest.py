@@ -641,6 +641,16 @@ def main():
     results = []
     for i, item in enumerate(urls, 1):
         url = item["url"]
+        date = item["timestamp"][:10]
+        slug = generate_slug(url, date)
+        filename = f"{date}_{slug}.md"
+        filepath = INTEL_DIR / filename
+
+        # Skip if already processed
+        if filepath.exists():
+            print(f"[{i}/{len(urls)}] Skipping {filename} (already exists)")
+            continue
+
         print(f"[{i}/{len(urls)}] Scraping {url}...")
 
         scraped = scrape_url(url, web_intel)
@@ -648,8 +658,6 @@ def main():
         if scraped and scraped.get("success"):
             data = scraped.get("data", {})
             content_type = scraped.get("content_type", "web")
-            date = item["timestamp"][:10]
-            slug = generate_slug(url, date)
 
             # Enrich with LLM
             print(f"  Enriching {slug} with {args.model}...")
@@ -691,8 +699,6 @@ def main():
 
             # Write MD
             md_content = render_md(md_data, template)
-            filename = f"{date}_{slug}.md"
-            filepath = INTEL_DIR / filename
 
             with open(filepath, "w") as f:
                 f.write(md_content)
@@ -702,7 +708,6 @@ def main():
 
         else:
             # Create placeholder for failed scrapes (e.g., X posts)
-            date = item["timestamp"][:10]
             platform = detect_platform(url)
 
             if platform == "x":
@@ -714,10 +719,6 @@ def main():
                 author = match.group(1) if match else None
             else:
                 author = None
-
-            slug = generate_slug(url, date)
-            filename = f"{date}_{slug}.md"
-            filepath = INTEL_DIR / filename
 
             md_data = {
                 "title": f"Link — {platform.title()}",
