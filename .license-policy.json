@@ -4,6 +4,7 @@
     "cryptography",
     "roxabi-intel",
     "lyra",
+    "links-digest",
     "pyromark",
     "sniffio",
     "typing_extensions",
