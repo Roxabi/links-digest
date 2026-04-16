@@ -209,15 +209,15 @@ def extract_urls(messages: list[dict]) -> list[dict]:
 def find_web_intel() -> Path | None:
     """Find web-intel plugin root.
 
-    Prefers the git-tracked source under ~/projects/roxabi-plugins so local
-    fixes take effect immediately without waiting for a marketplace plugin
-    refresh. Falls back to the marketplace cache, then a legacy standalone
-    checkout.
+    Prefers the marketplace cache (stable, self-contained copy of
+    roxabi_sdk/ from the last `sync-plugins.sh --local`) over the live
+    git-tracked source, because the source requires the repo root on
+    sys.path to resolve `roxabi_sdk` and any local refactor can silently
+    break the digest. The live source is retained as a secondary so
+    local fixes still flow through when the marketplace cache is missing.
     """
     candidates = [
-        # Live source of truth — changes to enricher.py / fetchers apply here.
-        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
-        # Marketplace plugin cache (may lag behind git by days).
+        # Marketplace plugin cache — stable, ships roxabi_sdk/ inline.
         Path.home()
         / ".claude"
         / "plugins"
@@ -225,6 +225,8 @@ def find_web_intel() -> Path | None:
         / "roxabi-marketplace"
         / "web-intel"
         / "0.1.0",
+        # Live source — picks up enricher/fetcher fixes immediately.
+        Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
         Path.home() / "projects" / "web-intel",
     ]
     for p in candidates:
@@ -302,19 +304,19 @@ def validate_enrichment(enriched: dict) -> tuple[bool, str]:
     return True, "ok"
 
 
-def enrich_content(data: dict, web_intel_root: Path) -> dict:
+def enrich_content(data: dict, web_intel_root: Path, model: str = "glm-fast") -> dict:
     """Enrich scraped content with LLM-extracted tags and summary."""
-    empty = {"tags": [], "summary": "", "key_points": []}
+    empty = {"title": "", "tags": [], "summary": "", "key_points": [], "reply": ""}
     try:
         # Pass scraped data to enricher via stdin
         input_json = json.dumps(data)
         result = subprocess.run(
-            ["uv", "run", "python", "scripts/enricher.py"],
+            ["uv", "run", "python", "scripts/enricher.py", "--model", model],
             cwd=web_intel_root,
             input=input_json,
             capture_output=True,
             text=True,
-            timeout=60,
+            timeout=120,
         )
 
         if result.returncode != 0:
@@ -415,11 +417,165 @@ def parse_args():
     group.add_argument("--hours", type=int, help="Scan last N hours")
     group.add_argument("--days", type=int, help="Scan last N days")
     group.add_argument("--all", action="store_true", help="Scan entire channel history")
+    group.add_argument(
+        "--fill-missing",
+        action="store_true",
+        help="Re-enrich existing .md files missing reply/key_points (no Discord fetch)",
+    )
+    parser.add_argument(
+        "--model",
+        choices=("glm-fast", "claude"),
+        default="glm-fast",
+        help="Enricher model profile (default: glm-fast)",
+    )
     return parser.parse_args()
+
+
+def _parse_md_frontmatter(text: str) -> tuple[dict, str]:
+    """Return (frontmatter_dict, body). Empty dict if no frontmatter."""
+    if not text.startswith("---\n"):
+        return {}, text
+    end = text.find("\n---\n", 4)
+    if end == -1:
+        return {}, text
+    raw = text[4:end]
+    body = text[end + 5 :]
+    fm: dict = {}
+    # Minimal parse — each line is "key: json-or-bare-scalar".
+    # Sufficient because our own template writes via tojson filter.
+    for line in raw.splitlines():
+        if ":" not in line:
+            continue
+        key, _, val = line.partition(":")
+        key = key.strip()
+        val = val.strip()
+        if not key:
+            continue
+        try:
+            fm[key] = json.loads(val) if val else ""
+        except json.JSONDecodeError:
+            fm[key] = val
+    return fm, body
+
+
+def _extract_source_content(body: str) -> str:
+    """Pull raw scraped content out of a .md body.
+
+    New template wraps source in `<details><summary>View source content</summary>...</details>`.
+    Old template dumped content directly. Handle both.
+    """
+    m = re.search(
+        r"<details>\s*<summary>View source content</summary>\s*(.*?)\s*</details>",
+        body,
+        re.DOTALL,
+    )
+    if m:
+        return m.group(1).strip()
+    return body.strip()
+
+
+def fill_missing(web_intel_root: Path, model: str) -> None:
+    """Backfill .md files in INTEL_DIR that lack reply/key_points."""
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    env.filters["tojson"] = lambda obj: json.dumps(obj, ensure_ascii=False)
+    template = env.get_template("link.md.j2")
+
+    md_files = sorted(INTEL_DIR.glob("*.md"))
+    if not md_files:
+        print(f"No .md files in {INTEL_DIR}")
+        return
+
+    print(f"Scanning {len(md_files)} .md files for missing reply/key_points...")
+    processed = skipped = failed = 0
+
+    for path in md_files:
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError as exc:
+            print(f"  {path.name}: read failed ({exc})")
+            failed += 1
+            continue
+
+        fm, body = _parse_md_frontmatter(text)
+        if not fm:
+            print(f"  {path.name}: no frontmatter, skipping")
+            skipped += 1
+            continue
+
+        has_reply = bool(fm.get("reply"))
+        has_points = bool(fm.get("key_points"))
+        if has_reply and has_points:
+            skipped += 1
+            continue
+
+        content = _extract_source_content(body)
+        scrape_data: dict = {}
+        if not content:
+            # Placeholder entry — no scraped content was ever saved.
+            # Re-scrape from the source URL.
+            source = fm.get("source", "")
+            if not source:
+                print(f"  {path.name}: no source URL, skipping")
+                skipped += 1
+                continue
+            print(f"  {path.name}: empty content, re-scraping {source}")
+            scraped = scrape_url(source, web_intel_root)
+            if not scraped or not scraped.get("success"):
+                print(f"  {path.name}: re-scrape failed, skipping")
+                failed += 1
+                continue
+            scrape_data = scraped.get("data", {}) or {}
+            content = scrape_data.get("text") or scrape_data.get("content") or ""
+            if not content:
+                print(f"  {path.name}: re-scrape returned empty, skipping")
+                failed += 1
+                continue
+
+        print(f"  {path.name}: enriching with {model}...")
+        enriched = enrich_content(
+            {
+                "text": content,
+                "title": fm.get("title") or scrape_data.get("title", ""),
+                "platform": fm.get("platform") or scrape_data.get("platform", "web"),
+            },
+            web_intel_root,
+            model=model,
+        )
+
+        md_data = {
+            "title": enriched.get("title")
+            or fm.get("title")
+            or scrape_data.get("title")
+            or "Untitled",
+            "source": fm.get("source", ""),
+            "date": fm.get("date", ""),
+            "tags": enriched.get("tags") or fm.get("tags", []),
+            "platform": fm.get("platform", "web"),
+            "author": fm.get("author") or scrape_data.get("author"),
+            "summary": enriched.get("summary") or fm.get("summary", ""),
+            "key_points": enriched.get("key_points", []) or fm.get("key_points", []),
+            "reply": enriched.get("reply", "") or fm.get("reply", ""),
+            "content": content,
+        }
+        path.write_text(render_md(md_data, template))
+        processed += 1
+
+    print(
+        f"\nDone! processed={processed} skipped={skipped} failed={failed} ({len(md_files)} total)"
+    )
 
 
 def main():
     args = parse_args()
+
+    # Fill-missing short-circuits — no Discord fetch, just re-enrich existing MDs.
+    if args.fill_missing:
+        web_intel = find_web_intel()
+        if not web_intel:
+            print("ERROR: web-intel plugin not found")
+            sys.exit(1)
+        fill_missing(web_intel, args.model)
+        return
 
     # Load config
     config = load_config()
@@ -485,6 +641,16 @@ def main():
     results = []
     for i, item in enumerate(urls, 1):
         url = item["url"]
+        date = item["timestamp"][:10]
+        slug = generate_slug(url, date)
+        filename = f"{date}_{slug}.md"
+        filepath = INTEL_DIR / filename
+
+        # Skip if already processed
+        if filepath.exists():
+            print(f"[{i}/{len(urls)}] Skipping {filename} (already exists)")
+            continue
+
         print(f"[{i}/{len(urls)}] Scraping {url}...")
 
         scraped = scrape_url(url, web_intel)
@@ -492,12 +658,10 @@ def main():
         if scraped and scraped.get("success"):
             data = scraped.get("data", {})
             content_type = scraped.get("content_type", "web")
-            date = item["timestamp"][:10]
-            slug = generate_slug(url, date)
 
             # Enrich with LLM
-            print(f"  Enriching {slug}...")
-            enriched = enrich_content(data, web_intel)
+            print(f"  Enriching {slug} with {args.model}...")
+            enriched = enrich_content(data, web_intel, model=args.model)
 
             # Per-content-type extraction.
             # web-intel's `data.text` is a French LLM-prompt blob
@@ -518,7 +682,7 @@ def main():
                 title = data.get("title") or "Untitled"
 
             md_data = {
-                "title": title,
+                "title": enriched.get("title") or title,
                 "source": url,
                 "date": date,
                 "tags": enriched.get("tags", []) if enriched.get("tags") else [],
@@ -528,13 +692,13 @@ def main():
                 or data.get("description")
                 or data.get("excerpt")
                 or "",
+                "key_points": enriched.get("key_points", []) or [],
+                "reply": enriched.get("reply", "") or "",
                 "content": content,
             }
 
             # Write MD
             md_content = render_md(md_data, template)
-            filename = f"{date}_{slug}.md"
-            filepath = INTEL_DIR / filename
 
             with open(filepath, "w") as f:
                 f.write(md_content)
@@ -544,7 +708,6 @@ def main():
 
         else:
             # Create placeholder for failed scrapes (e.g., X posts)
-            date = item["timestamp"][:10]
             platform = detect_platform(url)
 
             if platform == "x":
@@ -557,10 +720,6 @@ def main():
             else:
                 author = None
 
-            slug = generate_slug(url, date)
-            filename = f"{date}_{slug}.md"
-            filepath = INTEL_DIR / filename
-
             md_data = {
                 "title": f"Link — {platform.title()}",
                 "source": url,
@@ -569,6 +728,8 @@ def main():
                 "platform": platform,
                 "author": author,
                 "summary": f"Content from {url}. See source for details.",
+                "key_points": [],
+                "reply": "",
                 "content": None,
             }
 

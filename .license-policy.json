@@ -2,6 +2,7 @@
   "allowlist": [
     "aiohttp",
     "cryptography",
+    "links-digest",
     "roxabi-intel",
     "lyra",
     "links-digest",

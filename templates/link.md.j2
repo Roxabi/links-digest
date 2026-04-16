@@ -6,18 +6,29 @@ tags: {{ tags | tojson }}
 platform: {{ platform }}
 author: {{ author | tojson }}
 summary: {{ (summary or "") | tojson }}
+key_points: {{ (key_points or []) | tojson }}
+reply: {{ (reply or "") | tojson }}
 ---
 
-{%- if content %}
-{{ content }}
-{%- else %}
-# {{ title }}
-
-**Source:** {{ source }}
-**Date:** {{ date }}
-{% if author %}**Author:** {{ author }}
-{% endif %}
-{% if summary %}
+{% if reply -%}
+{{ reply }}
+{%- elif summary %}
 {{ summary }}
-{% endif %}
+{%- endif %}
+{%- if key_points %}
+
+## Key points
+
+{% for point in key_points -%}
+- {{ point }}
+{% endfor %}
+{%- endif %}
+{%- if content %}
+
+<details>
+<summary>View source content</summary>
+
+{{ content }}
+
+</details>
 {%- endif %}

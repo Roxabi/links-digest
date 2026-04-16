@@ -48,15 +48,15 @@ build:
 	@echo "Generating manifest.json + index.json..."
 	@INTEL_DIR=$(INTEL_DIR) uv run python serve.py --build
 	@echo "Syncing to public/..."
-	@mkdir -p $(INTEL_DIR)/public
-	@cp $(INTEL_DIR)/*.md $(INTEL_DIR)/public/ 2>/dev/null || true
-	@cp $(INTEL_DIR)/manifest.json $(INTEL_DIR)/index.json $(INTEL_DIR)/public/
+	@mkdir -p $(INTEL_DIR)/public/links
+	@cp $(INTEL_DIR)/*.md $(INTEL_DIR)/public/links/ 2>/dev/null || true
+	@cp $(INTEL_DIR)/manifest.json $(INTEL_DIR)/index.json $(INTEL_DIR)/public/links/
 	@cp -r public/index.html public/css public/js public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og-image.png $(INTEL_DIR)/public/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
 
-deploy: build
+deploy: digest build
 	@echo "Deploying to Cloudflare Pages: $(CF_PROJECT)..."
 	npx wrangler pages deploy $(INTEL_DIR)/public --project-name=$(CF_PROJECT) --branch=main --commit-dirty=true
 
