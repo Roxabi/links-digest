@@ -6,7 +6,7 @@ channel_id = "1482877201891463169"
 
 [output]
 # Relative to project root
-intel_dir = "~/roxabi/intel"
+intel_dir = "~/.roxabi/intel"
 
 [scan]
 # Default: last 24 hours (overridden by --hours, --days, --all)
