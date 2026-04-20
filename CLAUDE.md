@@ -7,7 +7,7 @@ Discord links digest with frontmatter MDs and dynamic gallery.
 
 ## Overview
 
-Add project overview here.
+Discord links digest: fetches pages from links shared in a Discord channel, converts each into a frontmatter markdown file, and renders a dynamic gallery. Runs as the `roxabi-intel` supervisor service (manage via `make intel`). Deploys to Cloudflare Pages.
 
 ## TL;DR
 
