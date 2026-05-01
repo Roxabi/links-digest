@@ -34,6 +34,9 @@ Thumbs.db
 # Digest state (local scan tracking)
 .digest_state.json
 
+# Wrangler cache
+.wrangler/
+
 # Generated content (synced from links/ during build)
 public/links/
 

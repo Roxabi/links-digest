@@ -29,7 +29,11 @@ HUB_SERVICES    := intel
 # ── Digest ────────────────────────────────────────────────────────────────────
 
 digest:
+ifdef D
+	uv run python digest.py --days $(D)
+else
 	uv run python digest.py --hours $(or $(H),24)
+endif
 
 digest-all:
 	uv run python digest.py --all

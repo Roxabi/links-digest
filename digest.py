@@ -230,7 +230,7 @@ def find_web_intel() -> Path | None:
         Path.home() / "projects" / "web-intel",
     ]
     for p in candidates:
-        if (p / "scripts" / "scraper.py").exists():
+        if (p / "scripts" / "scraper.py").exists() and (p / "scripts" / "enricher.py").exists():
             return p
     return None
 
