@@ -47,3 +47,5 @@ config.db
 
 .claude/dev-core.yml
 .claude/scheduled_tasks.lock
+# CocoIndex Code (ccc)
+/.cocoindex_code/
