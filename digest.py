@@ -458,20 +458,26 @@ def _parse_md_frontmatter(text: str) -> tuple[dict, str]:
     return fm, body
 
 
+_PLACEHOLDER_RE = re.compile(r"^Content from \S+\. See source for details\.\s*$")
+
+
 def _extract_source_content(body: str) -> str:
     """Pull raw scraped content out of a .md body.
 
     New template wraps source in `<details><summary>View source content</summary>...</details>`.
-    Old template dumped content directly. Handle both.
+    Old template dumped content directly. Handle both. Treat placeholder
+    text written by the failed-scrape branch as empty so fill_missing
+    re-scrapes from the source URL.
     """
     m = re.search(
         r"<details>\s*<summary>View source content</summary>\s*(.*?)\s*</details>",
         body,
         re.DOTALL,
     )
-    if m:
-        return m.group(1).strip()
-    return body.strip()
+    raw = (m.group(1) if m else body).strip()
+    if _PLACEHOLDER_RE.match(raw):
+        return ""
+    return raw
 
 
 def fill_missing(web_intel_root: Path, model: str) -> None:
@@ -502,13 +508,16 @@ def fill_missing(web_intel_root: Path, model: str) -> None:
             skipped += 1
             continue
 
+        content = _extract_source_content(body)
         has_reply = bool(fm.get("reply"))
         has_points = bool(fm.get("key_points"))
-        if has_reply and has_points:
+        # Force re-process when source was a failed-scrape placeholder
+        # (content extractor returns "" for those) — the existing
+        # reply/key_points are LLM hallucinations of the placeholder text.
+        if has_reply and has_points and content:
             skipped += 1
             continue
 
-        content = _extract_source_content(body)
         scrape_data: dict = {}
         if not content:
             # Placeholder entry — no scraped content was ever saved.
