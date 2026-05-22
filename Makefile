@@ -8,9 +8,6 @@
 #   make build           # Build index + validate
 #   make deploy          # Deploy to Cloudflare Pages
 #   make open            # Open gallery in browser
-#   make start           # Start local server on port 8082
-#   make stop            # Stop local server
-#   make status          # Check server status
 
 PROJECT_NAME ?= roxabi-intel
 CF_PROJECT   ?= links-digest
@@ -20,11 +17,7 @@ INTEL_PORT   ?= 8082
 export CLOUDFLARE_ACCOUNT_ID
 export CLOUDFLARE_API_TOKEN
 
-SUPERVISOR_HUB  ?= $(HOME)/projects
-HUB_SERVICES    := intel
--include $(SUPERVISOR_HUB)/hub.mk
-
-.PHONY: digest digest-all build deploy open clean intel register help
+.PHONY: digest digest-all build deploy open clean help
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
@@ -74,19 +67,3 @@ open:
 clean:
 	rm -rf $(INTEL_DIR)/*.md $(INTEL_DIR)/manifest.json $(INTEL_DIR)/public/*.md $(INTEL_DIR)/public/manifest.json .digest_state.json
 
-# ── Supervisor service (hub-dispatched) ─────────────────────────────────────────
-# Usage (from this dir or from ~/projects):
-#   make intel start|stop|reload|status|logs|errlogs
-
-intel:
-	@$(HUB_SVC) roxabi-intel $(SVC_CMD)
-
-# ── Registration ────────────────────────────────────────────────────────────────
-
-register:
-	@echo "Registering roxabi-intel with supervisor hub..."
-	@$(HUB_GEN_MK) roxabi-intel "$(abspath .)" intel
-	$(call hub-link-conf,roxabi-intel,supervisor/conf.d/roxabi-intel.conf)
-	@mkdir -p "$(HOME)/.local/state/roxabi-intel/logs"
-	$(hub_reread)
-	@echo "Done."
