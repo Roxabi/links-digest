@@ -48,7 +48,7 @@ build:
 	@mkdir -p $(INTEL_DIR)/public/links
 	@cp $(INTEL_DIR)/*.md $(INTEL_DIR)/public/links/ 2>/dev/null || true
 	@cp $(INTEL_DIR)/manifest.json $(INTEL_DIR)/index.json $(INTEL_DIR)/public/links/
-	@cp -r public/index.html public/css public/js public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og-image.png $(INTEL_DIR)/public/
+	@cp -r public/index.html public/mentions-legales.html public/css public/js public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og-image.png $(INTEL_DIR)/public/
 	@echo "Done."
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
