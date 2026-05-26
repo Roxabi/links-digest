@@ -37,7 +37,8 @@ Thumbs.db
 # Wrangler cache
 .wrangler/
 
-# Generated content (synced from links/ during build)
+# Generated content (canonical store in ~/.roxabi/intel/, synced via Syncthing)
+links/
 public/links/
 
 # Credentials (never commit)
