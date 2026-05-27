@@ -1,0 +1,18 @@
+{
+  "name": "roxabi-intel",
+  "version": "1.0.0",
+  "description": "Roxabi Intel — URL scraper and content analysis engine for Claude Code. Multi-platform extraction with visual critique and video frame analysis.",
+  "owner": {
+    "name": "Roxabi",
+    "url": "https://github.com/Roxabi"
+  },
+  "plugins": [
+    {
+      "name": "web-intel",
+      "description": "Multi-platform URL scraper (Twitter/X, GitHub, YouTube, Reddit, webpages) with 8 analysis skills: scrape, summarize, analyze-url, explain, roast, benchmark, adapt, video-analyze.",
+      "source": "./plugins/web-intel",
+      "category": "analysis",
+      "version": "1.0.0"
+    }
+  ]
+}
