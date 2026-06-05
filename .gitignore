@@ -50,3 +50,7 @@ config.db
 .claude/scheduled_tasks.lock
 # CocoIndex Code (ccc)
 /.cocoindex_code/
+
+# Generated data files
+links.db
+
