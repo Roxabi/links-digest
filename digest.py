@@ -228,6 +228,7 @@ def find_web_intel() -> Path | None:
         # Live source — picks up enricher/fetcher fixes immediately.
         Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
         Path.home() / "projects" / "web-intel",
+        Path.home() / "projects" / "roxabi-intel" / "plugins" / "web-intel",
     ]
     for p in candidates:
         if (p / "scripts" / "scraper.py").exists() and (p / "scripts" / "enricher.py").exists():
@@ -238,16 +239,19 @@ def find_web_intel() -> Path | None:
 def scrape_url(url: str, web_intel_root: Path) -> dict | None:
     """Scrape URL using web-intel scraper."""
     try:
+        env = dict(__import__("os").environ)
+        env.pop("VIRTUAL_ENV", None)
+        env["SSL_CERT_FILE"] = "/etc/ssl/certs/ca-certificates.crt"
+        env["PYTHONPATH"] = (
+            str(Path.home() / "projects" / "roxabi-plugins") + ":" + env.get("PYTHONPATH", "")
+        )
         result = subprocess.run(
             ["uv", "run", "python", "scripts/scraper.py", url],
             cwd=web_intel_root,
             capture_output=True,
             text=True,
             timeout=60,
-            env={
-                **dict(__import__("os").environ),
-                "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
-            },
+            env=env,
         )
 
         if result.returncode != 0:

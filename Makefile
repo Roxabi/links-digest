@@ -10,7 +10,7 @@
 #   make open            # Open gallery in browser
 
 PROJECT_NAME ?= roxabi-intel
-CF_PROJECT   ?= links-digest
+CF_PROJECT   ?= intel
 INTEL_PORT   ?= 8082
 
 -include .env
