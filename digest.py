@@ -228,9 +228,10 @@ def find_web_intel() -> Path | None:
         # Live source — picks up enricher/fetcher fixes immediately.
         Path.home() / "projects" / "roxabi-plugins" / "plugins" / "web-intel",
         Path.home() / "projects" / "web-intel",
+        Path.home() / "projects" / "roxabi-intel" / "plugins" / "web-intel",
     ]
     for p in candidates:
-        if (p / "scripts" / "scraper.py").exists():
+        if (p / "scripts" / "scraper.py").exists() and (p / "scripts" / "enricher.py").exists():
             return p
     return None
 
@@ -238,16 +239,19 @@ def find_web_intel() -> Path | None:
 def scrape_url(url: str, web_intel_root: Path) -> dict | None:
     """Scrape URL using web-intel scraper."""
     try:
+        env = dict(__import__("os").environ)
+        env.pop("VIRTUAL_ENV", None)
+        env["SSL_CERT_FILE"] = "/etc/ssl/certs/ca-certificates.crt"
+        env["PYTHONPATH"] = (
+            str(Path.home() / "projects" / "roxabi-plugins") + ":" + env.get("PYTHONPATH", "")
+        )
         result = subprocess.run(
             ["uv", "run", "python", "scripts/scraper.py", url],
             cwd=web_intel_root,
             capture_output=True,
             text=True,
             timeout=60,
-            env={
-                **dict(__import__("os").environ),
-                "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
-            },
+            env=env,
         )
 
         if result.returncode != 0:
@@ -458,20 +462,26 @@ def _parse_md_frontmatter(text: str) -> tuple[dict, str]:
     return fm, body
 
 
+_PLACEHOLDER_RE = re.compile(r"^Content from \S+\. See source for details\.\s*$")
+
+
 def _extract_source_content(body: str) -> str:
     """Pull raw scraped content out of a .md body.
 
     New template wraps source in `<details><summary>View source content</summary>...</details>`.
-    Old template dumped content directly. Handle both.
+    Old template dumped content directly. Handle both. Treat placeholder
+    text written by the failed-scrape branch as empty so fill_missing
+    re-scrapes from the source URL.
     """
     m = re.search(
         r"<details>\s*<summary>View source content</summary>\s*(.*?)\s*</details>",
         body,
         re.DOTALL,
     )
-    if m:
-        return m.group(1).strip()
-    return body.strip()
+    raw = (m.group(1) if m else body).strip()
+    if _PLACEHOLDER_RE.match(raw):
+        return ""
+    return raw
 
 
 def fill_missing(web_intel_root: Path, model: str) -> None:
@@ -502,13 +512,16 @@ def fill_missing(web_intel_root: Path, model: str) -> None:
             skipped += 1
             continue
 
+        content = _extract_source_content(body)
         has_reply = bool(fm.get("reply"))
         has_points = bool(fm.get("key_points"))
-        if has_reply and has_points:
+        # Force re-process when source was a failed-scrape placeholder
+        # (content extractor returns "" for those) — the existing
+        # reply/key_points are LLM hallucinations of the placeholder text.
+        if has_reply and has_points and content:
             skipped += 1
             continue
 
-        content = _extract_source_content(body)
         scrape_data: dict = {}
         if not content:
             # Placeholder entry — no scraped content was ever saved.

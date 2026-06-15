@@ -1,6 +1,7 @@
 [project]
+license = { text = "AGPL-3.0-or-later" }
 name = "roxabi-intel"
-version = "0.1.0"
+version = "0.1.2"
 description = "Discord links digest with frontmatter MDs and dynamic gallery"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
@@ -30,6 +31,11 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+per-file-ignores = { "plugins/web-intel/**/*.py" = ["E402", "E501"] }
+
+[tool.pyright]
+exclude = ["plugins/web-intel/", ".venv/", ".git/", "__pycache__/", ".ruff_cache/"]
+ignore = ["plugins/web-intel/"]
 
 [dependency-groups]
 dev = [

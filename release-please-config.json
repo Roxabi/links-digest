@@ -1,6 +1,11 @@
 {
   "release-type": "python",
+  "target-branch": "main",
   "packages": {
-    ".": {}
+    ".": {
+      "component": "roxabi-intel",
+      "package-name": "roxabi-intel",
+      "tag-separator": "/"
+    }
   }
 }

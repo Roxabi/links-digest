@@ -34,7 +34,11 @@ Thumbs.db
 # Digest state (local scan tracking)
 .digest_state.json
 
-# Generated content (synced from links/ during build)
+# Wrangler cache
+.wrangler/
+
+# Generated content (canonical store in ~/.roxabi/intel/, synced via Syncthing)
+links/
 public/links/
 
 # Credentials (never commit)
@@ -44,3 +48,9 @@ config.db
 
 .claude/dev-core.yml
 .claude/scheduled_tasks.lock
+# CocoIndex Code (ccc)
+/.cocoindex_code/
+
+# Generated data files
+links.db
+

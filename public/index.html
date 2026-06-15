@@ -27,6 +27,16 @@
 <!-- Fonts & CSS -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/gallery.css">
+<style>
+.site-footer{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--text-dim);z-index:100}
+.footer-brand{display:flex;align-items:center;gap:6px}
+.footer-brand svg{color:var(--accent);flex-shrink:0}
+.site-footer a{color:var(--accent);text-decoration:none;transition:opacity .15s}
+.site-footer a:hover{opacity:.8}
+.footer-sep{color:var(--text-dim)}
+@media(max-width:480px){.site-footer{flex-direction:column;gap:6px;text-align:center}}
+body{padding-bottom:60px}
+</style>
 </head>
 <body>
 <div class="layout">
@@ -106,6 +116,21 @@
       <a id="modalSource" href="" target="_blank" rel="noopener">View Source →</a>
       <a id="modalDl" href="" download>Download .md ↓</a>
     </div>
+  </div>
+</div>
+
+<div class="site-footer">
+  <div class="footer-brand">
+    <svg width="16" height="14" viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="120,14 182,82 156,142 120,158 84,142 58,82" fill="none" stroke="currentColor" stroke-width="8" stroke-opacity="0.5"/>
+      <circle cx="120" cy="95" r="20" fill="currentColor" opacity="0.3"/>
+    </svg>
+    Made with love by Roxabi
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/Roxabi/roxabi-intel" target="_blank" rel="noopener">GitHub</a>
+    <span class="footer-sep">·</span>
+    <a href="mentions-legales.html">Mentions légales</a>
   </div>
 </div>
 
