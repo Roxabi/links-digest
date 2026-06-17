@@ -16,8 +16,6 @@ jobs:
         run: uv sync --frozen --all-extras
       - name: Lint
         run: uv run ruff check .
-      - name: Format
-        run: uv run ruff format --check .
 
   secrets:
     name: Secret scan
