@@ -5,7 +5,8 @@
 #   make digest H=72     # Scan last 72 hours
 #   make digest D=7      # Scan last 7 days
 #   make digest-all      # Scan entire history
-#   make build           # Build index + validate
+#   make build           # Build gallery manifest + index.json
+#   make index-semantic  # CocoIndex semantic search over ~/.roxabi/intel/*.md
 #   make deploy          # Deploy to Cloudflare Pages
 #   make open            # Open gallery in browser
 
@@ -17,7 +18,7 @@ INTEL_PORT   ?= 8082
 export CLOUDFLARE_ACCOUNT_ID
 export CLOUDFLARE_API_TOKEN
 
-.PHONY: digest digest-all build deploy open clean help
+.PHONY: digest digest-all build index-semantic deploy open clean help
 
 # ── Digest ────────────────────────────────────────────────────────────────────
 
@@ -50,6 +51,17 @@ build:
 	@cp $(INTEL_DIR)/manifest.json $(INTEL_DIR)/index.json $(INTEL_DIR)/public/links/
 	@cp -r public/index.html public/mentions-legales.html public/css public/js public/favicon.svg public/favicon-32.png public/apple-touch-icon.png public/og-image.png $(INTEL_DIR)/public/
 	@echo "Done."
+
+# ── Semantic index (CocoIndex) ────────────────────────────────────────────────
+
+index-semantic:
+	@echo "Indexing links for semantic search (CocoIndex)..."
+	@if [ ! -f $(INTEL_DIR)/.cocoindex_code/settings.yml ]; then \
+		echo "Initializing CocoIndex in $(INTEL_DIR)..."; \
+		cd $(INTEL_DIR) && ccc init; \
+	fi
+	@cd $(INTEL_DIR) && ccc index
+	@echo "Semantic index ready — search: cd ~/.roxabi/intel && ccc search 'your query'"
 
 # ── Deploy ────────────────────────────────────────────────────────────────────
 
