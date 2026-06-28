@@ -849,7 +849,7 @@ wheels = [
 
 [[package]]
 name = "roxabi-intel"
-version = "0.1.2"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "discord-py" },
