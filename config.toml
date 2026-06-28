@@ -2,6 +2,8 @@
 
 [discord]
 channel_id = "1482877201891463169"
+# Only process links posted by this Discord user (snowflake ID)
+author_id = "389408866774810625"
 # Bot token stored in Lyra CredentialStore under "discord_bot_token"
 
 [output]

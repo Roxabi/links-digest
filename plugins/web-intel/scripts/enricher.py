@@ -14,9 +14,9 @@ Output schema:
     - reply: str         — prose paragraph (2-5 sentences) for human reader
 
 Model profiles:
-    - glm-fast (default) — kimi-k2.6 (Fireworks) via llmcli proxy; batch use.
-                           Profile name kept for back-compat after retiring the
-                           old LiteLLM :4000 + glm-5-fast endpoint.
+    - grok (default)     — Grok via llmcli OpenAI-compat proxy (xAI OAuth forwarder).
+                           Override model id with LLMCLI_GROK_MODEL (default: grok-4.3).
+    - glm-fast           — deprecated alias for grok (back-compat)
     - claude             — claude-cli subprocess; real-time chat use
 
 CLI:
@@ -81,12 +81,14 @@ def _get_llmcli_token() -> str:
 # host with LLMCLI_URL (e.g. http://localhost:18091 when running on M₁ itself).
 LLMCLI_URL = os.environ.get("LLMCLI_URL", "http://roxabituwer:18091")
 LLMCLI_TOKEN = _get_llmcli_token()
-KIMI_MODEL_ID = "kimi-k2.6"
+GROK_MODEL_ID = os.environ.get("LLMCLI_GROK_MODEL", "grok-4.3")
 MAX_TOKENS = 4000
 
 # Model profile aliases for the --model flag.
-MODEL_PROFILES = ("glm-fast", "claude")
-DEFAULT_PROFILE = "glm-fast"
+MODEL_PROFILES = ("grok", "claude")
+DEFAULT_PROFILE = "grok"
+# Back-compat: glm-fast was the old default before kimi/gemini were retired.
+_LLMCLI_PROFILES = frozenset({"grok", "glm-fast"})
 
 ENRICHMENT_PROMPT = """Extract metadata from the web content below and write a
 helpful summary for a human reader.
@@ -128,18 +130,19 @@ Content: {content}
 JSON:"""
 
 
-def _call_glm_fast(prompt: str) -> str:
-    """Call kimi-k2.6 via llmcli proxy (OpenAI-compatible API).
-
-    Profile name kept as `glm-fast` for back-compat; the underlying model and
-    transport changed when LiteLLM :4000 was retired in favour of llmcli :18091.
-    """
+def _call_grok(prompt: str) -> str:
+    """Call Grok via llmcli proxy (OpenAI-compatible API, xAI OAuth forwarder)."""
     import httpx
+
+    if not LLMCLI_TOKEN:
+        raise RuntimeError(
+            "LLMCLI_API_KEY not set — check ~/.roxabi/llmcli/env/proxy.env or ~/.claude/.env"
+        )
 
     url = f"{LLMCLI_URL}/v1/chat/completions"
 
     payload = {
-        "model": KIMI_MODEL_ID,
+        "model": GROK_MODEL_ID,
         "max_tokens": MAX_TOKENS,
         "messages": [{"role": "user", "content": prompt}],
     }
@@ -161,7 +164,7 @@ def _call_glm_fast(prompt: str) -> str:
                     return content
             raise RuntimeError("No content in response")
     except Exception as e:
-        raise RuntimeError(f"LLM call failed (glm-fast → kimi-k2.6): {e}")
+        raise RuntimeError(f"LLM call failed (grok → {GROK_MODEL_ID}): {e}")
 
 
 def _call_claude_cli(prompt: str) -> str:
@@ -190,9 +193,11 @@ def call_llm(prompt: str, model: str = DEFAULT_PROFILE) -> str:
     """Dispatch to the selected model backend."""
     if model == "claude":
         return _call_claude_cli(prompt)
-    if model == "glm-fast":
-        return _call_glm_fast(prompt)
-    raise ValueError(f"Unknown model profile: {model!r} (expected one of {MODEL_PROFILES})")
+    if model in _LLMCLI_PROFILES:
+        return _call_grok(prompt)
+    raise ValueError(
+        f"Unknown model profile: {model!r} (expected one of {MODEL_PROFILES} or glm-fast)"
+    )
 
 
 def parse_llm_response(text: str) -> dict[str, Any]:
@@ -398,7 +403,7 @@ def enrich_content(
             - title: str
             - text or content: str
             - platform: str (optional)
-        model: Model profile ("glm-fast" or "claude").
+        model: Model profile ("grok" or "claude").
 
     Returns:
         Dict with:
@@ -412,7 +417,7 @@ def enrich_content(
     platform = scraped_data.get("platform", scraped_data.get("content_type", "web"))
     content = scraped_data.get("text") or scraped_data.get("content") or ""
 
-    # Truncate content if too long (GLM5 has context limits)
+    # Truncate content if too long for the enrichment prompt.
     max_content = 4000
     if len(content) > max_content:
         content = content[:max_content] + "\n... (truncated)"
@@ -470,7 +475,7 @@ def main():
         "--model",
         choices=MODEL_PROFILES,
         default=DEFAULT_PROFILE,
-        help="Model profile (glm-fast = Fireworks batch, claude = claude-cli chat)",
+        help=f"Model profile (grok = llmcli/{GROK_MODEL_ID}, claude = claude-cli chat)",
     )
     parser.add_argument(
         "url",
