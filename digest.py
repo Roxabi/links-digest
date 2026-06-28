@@ -104,7 +104,11 @@ def get_discord_token() -> str:
 
 
 def fetch_discord_messages(
-    channel_id: str, token: str, after: datetime | None = None, limit: int = 1000
+    channel_id: str,
+    token: str,
+    after: datetime | None = None,
+    limit: int = 1000,
+    author_id: str | None = None,
 ) -> list[dict]:
     """Fetch messages from Discord channel using bot API."""
     import discord
@@ -132,6 +136,8 @@ def fetch_discord_messages(
             return
 
         print(f"Fetching messages from #{channel.name}...")
+        if author_id:
+            print(f"Filtering to author_id={author_id}")
 
         # Convert after to snowflake if provided
         after_snowflake = None
@@ -143,6 +149,8 @@ def fetch_discord_messages(
             after_snowflake = discord.Object(after_id)
 
         async for msg in channel.history(limit=limit, after=after_snowflake):
+            if author_id and str(msg.author.id) != author_id:
+                continue
             if msg.content:  # Skip empty messages
                 messages.append(
                     {
@@ -308,7 +316,7 @@ def validate_enrichment(enriched: dict) -> tuple[bool, str]:
     return True, "ok"
 
 
-def enrich_content(data: dict, web_intel_root: Path, model: str = "glm-fast") -> dict:
+def enrich_content(data: dict, web_intel_root: Path, model: str = "grok") -> dict:
     """Enrich scraped content with LLM-extracted tags and summary."""
     empty = {"title": "", "tags": [], "summary": "", "key_points": [], "reply": ""}
     try:
@@ -428,9 +436,9 @@ def parse_args():
     )
     parser.add_argument(
         "--model",
-        choices=("glm-fast", "claude"),
-        default="glm-fast",
-        help="Enricher model profile (default: glm-fast)",
+        choices=("grok", "claude"),
+        default="grok",
+        help="Enricher model profile (default: grok via llmcli)",
     )
     return parser.parse_args()
 
@@ -593,6 +601,7 @@ def main():
     # Load config
     config = load_config()
     channel_id = config["discord"]["channel_id"]
+    author_id = config["discord"].get("author_id") or None
 
     # Determine time window
     if args.all:
@@ -613,7 +622,7 @@ def main():
     token = get_discord_token()
 
     # Fetch messages
-    messages = fetch_discord_messages(channel_id, token, after=after)
+    messages = fetch_discord_messages(channel_id, token, after=after, author_id=author_id)
 
     if not messages:
         print("No messages found")
