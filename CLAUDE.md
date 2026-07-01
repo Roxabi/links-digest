@@ -11,7 +11,3 @@ Discord links digest: fetches pages from links shared in a Discord channel, conv
 ## TL;DR
 
 - **Project:** roxabi-intel
-
-## Gotchas
-
-<!-- Add project-specific gotchas here -->
