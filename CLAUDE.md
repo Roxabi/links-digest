@@ -11,9 +11,6 @@ Discord links digest: fetches pages from links shared in a Discord channel, conv
 ## TL;DR
 
 - **Project:** roxabi-intel
-- **Before work:** Use `/dev #N` as the single entry point — it determines tier and drives the full lifecycle
-- **Never** use `--force`/`--hard`/`--amend`
-- **Always** use appropriate skill even without slash command
 
 ## Gotchas
 
