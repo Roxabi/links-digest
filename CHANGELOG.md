@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/Roxabi/roxabi-intel/compare/roxabi-intel/v0.2.0...roxabi-intel/v0.3.0) (2026-07-02)
+
+
+### Features
+
+* **digest:** filter own Discord posts and enrich via Grok llmcli ([6a07323](https://github.com/Roxabi/roxabi-intel/commit/6a073239134dde1c7e8b5790bb082aa94e09c738))
+* **digest:** filter own Discord posts and enrich via Grok llmcli ([24139c5](https://github.com/Roxabi/roxabi-intel/commit/24139c548821b43c12ee20dfeb315f1bb9ebb33c))
+* **make:** add index-semantic target for CocoIndex search ([3408402](https://github.com/Roxabi/roxabi-intel/commit/34084023919a428ff071ce392de23787d3fe2db1))
+* **make:** add index-semantic target for CocoIndex search ([91d8f5c](https://github.com/Roxabi/roxabi-intel/commit/91d8f5cfa4c425d78c721aa84da896352773a8d9))
+
+
+### Documentation
+
+* **claude:** dedup dev-workflow rules to ssot operator shard ([5a9ad53](https://github.com/Roxabi/roxabi-intel/commit/5a9ad5332dad47028f7fbc549a60120591c18915))
+* **claude:** drop dead global-patterns import ([b17ab86](https://github.com/Roxabi/roxabi-intel/commit/b17ab8688ae4df55cd851b820838218c1f376f24))
+* **claude:** drop empty gotchas placeholder ([3cc8582](https://github.com/Roxabi/roxabi-intel/commit/3cc8582c6f322c24ca9120cfeac510c4cae43664))
+
 ## [0.2.0](https://github.com/Roxabi/roxabi-intel/compare/roxabi-intel/v0.1.1...roxabi-intel/v0.2.0) (2026-06-15)
 
 

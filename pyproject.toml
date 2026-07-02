@@ -1,7 +1,7 @@
 [project]
 license = { text = "AGPL-3.0-or-later" }
 name = "roxabi-intel"
-version = "0.2.0"
+version = "0.3.0"
 description = "Discord links digest with frontmatter MDs and dynamic gallery"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
