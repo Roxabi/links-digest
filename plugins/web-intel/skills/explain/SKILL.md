@@ -20,10 +20,10 @@ Sits between `summarize` (shallow TL;DR) and `analyze-url` (fixed tech/business 
 /explain https://example.com --digest
 /explain https://example.com --steelman
 /explain https://a.com --compare https://b.com
-/explain https://example.com                    # → DP(B) for prompt
+/explain https://example.com                    # → ask user for prompt
 ```
 
-¬ URL → DP(B) for URL.
+¬ URL → ask user for URL.
 
 ## Flags
 
@@ -84,7 +84,7 @@ Read scraped content. Resolve the prompt:
 ```
 flag ∃      → use preset prompt  (table above)
 free-form ∃ → use as-is, verbatim
-neither     → DP(B) for prompt
+neither     → ask user for prompt
 ```
 
 **Reasoning rules:**

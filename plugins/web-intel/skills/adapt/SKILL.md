@@ -19,7 +19,7 @@ Scrape URL → extract what works → suggest adaptations for your project.
 /adapt https://example.com
 ```
 
-¬U → → DP(B)to get one.
+¬U → ask user to get one.
 
 ## Step 1 — Locate Plugin
 
@@ -76,6 +76,6 @@ Sort into priority matrix:
 
 ## Step 5 — Present
 
-Output structured markdown. → DP(A) **Implement a specific adaptation** | **Deep-dive a pattern** | **Adapt from another URL**
+Output structured markdown. → present choice **Implement a specific adaptation** | **Deep-dive a pattern** | **Adapt from another URL**
 
 $ARGUMENTS

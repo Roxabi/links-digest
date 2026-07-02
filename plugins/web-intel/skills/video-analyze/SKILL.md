@@ -17,7 +17,7 @@ Download video → scene-detect frames → two-pass VLM (classify → deep-OCR) 
 /video-analyze https://youtube.com/watch?v=... --no-derivatives
 ```
 
-¬ URL → DP(B) for URL.
+¬ URL → ask user for URL.
 
 ## Flags
 

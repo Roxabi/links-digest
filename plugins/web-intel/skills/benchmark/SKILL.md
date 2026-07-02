@@ -23,7 +23,7 @@ Scrape U → screenshot → analyze repo → compare → report.
 /benchmark https://example.com --focus ui   → UI/design focus
 ```
 
-¬U → → DP(B) Parse `--focus <area>` if provided.
+¬U → ask user Parse `--focus <area>` if provided.
 
 ## Step 1 — Locate Plugin
 
@@ -105,7 +105,7 @@ Build comparison matrix based on F:
 
 Output structured markdown: Target Overview → Comparison Matrix → Overall Score (weighted %) → Gap Analysis → Priority-ordered Recommendations.
 
-→ DP(A) **Create issues for gaps** | **Deep-dive a dimension** | **Benchmark another URL** | **Done**
+→ present choice **Create issues for gaps** | **Deep-dive a dimension** | **Benchmark another URL** | **Done**
 
 ## Safety Rules
 
