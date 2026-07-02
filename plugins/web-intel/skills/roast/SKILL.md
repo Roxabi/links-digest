@@ -22,7 +22,7 @@ Scrape + screenshot U → deliver brutally honest, constructive critique.
 /roast https://example.com
 ```
 
-¬U → → DP(B)to get one.
+¬U → ask user to get one.
 
 ## Step 1 — Locate Plugin
 

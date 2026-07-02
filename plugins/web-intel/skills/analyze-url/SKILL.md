@@ -16,7 +16,7 @@ Scrape URL → deep technical and strategic analysis.
 /analyze-url https://example.com
 ```
 
-¬U → → DP(B)to get one.
+¬U → ask user to get one.
 
 ## Step 1 — Locate Plugin
 
