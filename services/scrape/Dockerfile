@@ -13,7 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
     WEB_INTEL_SCRIPTS_PATH=/app/web-intel/scripts \
-    PYTHONPATH=/app/service
+    # /app/web-intel hosts vendored roxabi_sdk (fetchers PLUGIN_ROOT path)
+    PYTHONPATH=/app/service:/app/web-intel
 
 # Non-root uid matches factory Quadlet UserNS keep-id 1500
 RUN groupadd -g 1500 scrape && useradd -u 1500 -g 1500 -m -s /bin/bash scrape \
